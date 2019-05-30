@@ -1,0 +1,6 @@
+Cliente(_Cedula_, NombreCompleto, Telefono)
+Sucursal(_Codigo_, Nombre)
+Vehiculo(_Matricula_, Tipo, Descripcion, PrecioAlquilerDiario, SucursalCodigo)
+Alquiler(_Id_, FechaAlquiler, CantidadDias, CostoSeguro, Total, DepositoEnGarantia, ClienteCedula, SucursalRetiraCodigo, VehiculoMatricula)
+Devoluciones(_AlquilerId_, _SucursalId_, FechaDevolucion, MultaAtraso)
+Empleado(_NombreUser_, Password, SucursalCodigo)

@@ -1,0 +1,51 @@
+use Master;
+
+if exists(Select * from sysdatabases where name = 'biosRent')
+	Drop Database biosRent;
+
+create database biosRent;
+
+Create Table Cliente(		
+  CI int Primary Key,
+  NombreCompleto varchar(50),
+  Telefono varchar
+);
+
+Create Table Sucursal(
+	Codigo int Primary Key,
+  Nombre varchar(30) not null 
+);
+
+Create Table Empleado(
+  NombreUser varchar(25) Primary Key,
+  Pass varchar(15) not null,
+  CodigoSucursal int Foreign Key references Sucursal(Codigo) not null
+);
+
+Create Table Vehiculo(
+  Matricula varchar(7) primary key check Matricula like '[a-zA-Z][a-zA-Z][a-zA-Z][0-9][0-9][0-9]',
+  Tipo varchar(9) check Upper(Tipo) in('AUTO', 'CAMIONETA', 'OTRO'),
+  Descripcion varchar(100),
+  PrecioAlquilerDiario decimal(15,2) not null default 0,
+  SucursalCodigo foreign key references Sucursal(Codigo)
+); 
+
+Create Table Alquiler(
+	Id int AUTO_INCREMENT Primary Key not null,
+  FechaAlquiler DateTime not null,
+  CantidadDias int not null,
+  CostoSeguro decimal(15,2) not null Default 0,
+  Total decimal(15,2) not null Default 0,
+  DepositoEnGarantia decimal(15,2) not null Default 0,
+  ClienteCedula int not null Foreign Key References Cliente(CI),
+  SucursalRetiraCodigo int not null Foreign Key References Sucursal(Codigo),
+  VehiculoMatricula varchar(7) not null Foreign Key References Vehiculo(Matricula)
+);
+
+create table Devoluciones(
+	AlquilerId int foreign key references Alquiler(Id) not null,
+  SucursalCodigo int foreign key references Sucursal(Codigo),
+  FechaDevolucion DateTime not null,
+  MultaAtraso decimal(15,2),
+  primary key (AlquilerId,SucursalCodigo)
+);

@@ -9,6 +9,6 @@ package MVC.modelo.persistencia;
  *
  * @author Nicolas
  */
-public class PersistenciaEmpleado {
+class PersistenciaEmpleado implements IPersistenciaEmpleado{
     
 }

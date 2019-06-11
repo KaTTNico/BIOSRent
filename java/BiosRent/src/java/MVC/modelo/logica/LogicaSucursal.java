@@ -9,6 +9,6 @@ package MVC.modelo.logica;
  *
  * @author Nicolas
  */
-public class LogicaSucursal {
+class LogicaSucursal implements ILogicaSucursal{
     
 }

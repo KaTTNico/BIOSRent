@@ -9,6 +9,6 @@ package MVC.modelo.logica;
  *
  * @author Nicolas
  */
-public class LogicaVehiculo {
+class LogicaVehiculo implements ILogicaVehiculo{
     
 }

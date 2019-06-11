@@ -107,4 +107,63 @@ Insert into Vehiculo values('SEG1024','OTRO','Jac Camion', 75.00,8);
 Insert into Vehiculo values('SPL1582','CAMIONETA','Toyota Hilux', 150.00,9);
 Insert into Vehiculo values('SWP1451','AUTO','BMW Z4', 200.00,3);
 
+#Empelado SP
+Delimiter //
+Create procedure BuscarEmpleado(pNomUser varchar(25))
+Begin	
+	Select * from Empleado where NombreUser = pNomUser;
+End//
+Delimiter ;
+
+Delimiter //
+Create procedure LogueoEmpleado(pNomUser varchar(25),pPassUser varchar(15))
+Begin	
+	Select * from empleado where NombreUser = pNomUser and Pass = pPassUser;    
+End//
+Delimiter ;
+
+#Cliente SP 
+Delimiter //
+create procedure BuscarCliente(pCI int)
+begin 
+	Select * from Cliente where CI = pCI;
+End//
+delimiter ;
+
+Delimiter //
+Create procedure AgregarCliente(pCI int, pNomCompleto varchar(50), pTelefono varchar(9), out pMsjError varchar(100))
+cuerpo:Begin
+	if(exists(Select * from Cliente where CI = pCI)) THEN 
+		set pMsjError="Error ya existe el cliente";
+		Leave cuerpo;
+    End if;
+    Insert into Cliente values(pCI,pNomCompleto, pTelefono);
+End//
+Delimiter ;
+
+Delimiter //
+Create procedure ModificarCliente(pCI int, pNomCompleto varchar(50), pTelefono varchar(9), out pMsjError varchar(100))
+cuerpo:Begin
+	if(not exists(select * from Cliente where CI = pCI)) then
+		set pMsjError= "Error no existe el cliente";
+        Leave cuerpo;
+	End if;
+    update cliente set NombreCompleto = pNomCompleto, Telefono = pTelefono;
+End //
+Delimiter ;
+
+Delimiter //
+Create procedure EliminarCliente(pCI int, out pMsjError varchar(100))
+cuerpo:begin
+	if(not exists(select * from Cliente where CI = pCI)) then 
+		set pMsjError= "Error no existe el cliente";
+        Leave cuerpo;
+	End if;
+    if(exists(Select * from Alquiler where ClienteCedula = pCI)) then 
+		Set pMsjError = "Error, no se puede eliminar un cliente con alquileres registrados";
+		Leave cuerpo;
+	End if;
+	delete from Cliente where CI = pCI;
+end//
+Delimiter ;
 

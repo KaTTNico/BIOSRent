@@ -14,4 +14,7 @@ public class FabricaPersistencia {
         return PersistenciaCliente.getInstancia();
                 
     }
+    public static IPersistenciaEmpleado getPersistenciaEmpleado(){
+        return PersistenciaEmpleado.getInstancia();
+    }
 }

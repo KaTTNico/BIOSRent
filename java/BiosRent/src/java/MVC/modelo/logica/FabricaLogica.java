@@ -10,5 +10,10 @@ package MVC.modelo.logica;
  * @author Nicolas
  */
 public class FabricaLogica {
-    
+    public static ILogicaCliente getLogicaCliente(){
+        return LogicaCliente.getInstancia();
+    }
+    public static ILogicaEmpleado getLogicaEmpleado(){
+        return LogicaEmpleado.getInstancia();
+    }
 }

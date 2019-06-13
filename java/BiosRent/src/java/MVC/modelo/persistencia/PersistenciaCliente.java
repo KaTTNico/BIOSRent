@@ -54,7 +54,7 @@ class PersistenciaCliente implements IPersistenciaCliente {
             }
             return unCliente;
         } catch (Exception ex) {
-            throw new ExcepcionPersistencia("No se pudo buscar el empleado.", ex);
+            throw new ExcepcionPersistencia("No se pudo buscar el cliente.", ex);
         } finally {
             Utilidades.CloseResources(rs, cs, conexion);
         }

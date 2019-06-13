@@ -10,5 +10,8 @@ package MVC.modelo.persistencia;
  * @author Nicolas
  */
 public class FabricaPersistencia {
-    
+    public static IPersistenciaCliente getPersistenciaCliente(){
+        return PersistenciaCliente.getInstancia();
+                
+    }
 }

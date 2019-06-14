@@ -67,8 +67,8 @@ class LogicaCliente implements ILogicaCliente {
 
         }
         try {
-            if (parseInt(unCliente.getTelefono()) < 1 && parseInt(unCliente.getTelefono()) > 99999999) {
-                throw new ExcepcionLogica("El telefono no puede ser negativo o mayor a 99999999");
+            if (!(unCliente.getTelefono().matches("^09[0-9]{7}||2[0-9]{7}$"))) {            
+                throw new ExcepcionLogica("El telefono ingresado no es válido");
             }
         } catch (Exception e) {
             throw new ExcepcionLogica("Error en el telefono");

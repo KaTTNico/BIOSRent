@@ -5,10 +5,15 @@
  */
 package MVC.modelo.entidades.beans.datatypes;
 
+import java.util.Date;
+
 /**
  *
  * @author Nicolas
  */
 public class Devolucion {
-    
+    Alquiler alquiler;
+    Sucursal sucursal;
+    Date fechaDevolucion;
+    Double multa;
 }

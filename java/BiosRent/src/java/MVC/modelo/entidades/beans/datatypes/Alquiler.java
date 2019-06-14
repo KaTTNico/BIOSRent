@@ -5,10 +5,20 @@
  */
 package MVC.modelo.entidades.beans.datatypes;
 
+import java.util.Date;
+
 /**
  *
  * @author Nicolas
  */
 public class Alquiler {
-    
+    int id;
+    Date fechaAlquiler;
+    int cantidadDias;
+    Double costoSeguro;
+    Double costoTotal;
+    Double depositoEnGarantia;
+    Cliente clientel;
+    Sucursal sucursal;
+    Vehiculo vehiculo;
 }

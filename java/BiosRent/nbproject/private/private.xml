@@ -3,10 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/excepciones/ExcepcionPersistencia.java</file>
             <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/excepciones/ExcepcionPersonalizada.java</file>
             <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/excepciones/ExcepcionPresentacion.java</file>
             <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/excepciones/ExcepcionLogica.java</file>
+=======
+            <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/datatypes/Alquiler.java</file>
+            <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/datatypes/Devolucion.java</file>
+>>>>>>> adelanto entidades (alquiler y devolucion).
         </group>
     </open-files>
 </project-private>

@@ -10,8 +10,11 @@ import MVC.modelo.entidades.beans.excepciones.ExcepcionPersistencia;
 import MVC.modelo.entidades.beans.excepciones.ExcepcionPersonalizada;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -142,4 +145,47 @@ class PersistenciaCliente implements IPersistenciaCliente {
             Utilidades.CloseResources(cs,conexion);
         }
     }
+
+    @Override
+    public List<Cliente> ListaDeClientes(String pCriterio) throws ExcepcionPersonalizada {
+        Connection conexion = null;
+        PreparedStatement ps= null;
+        ResultSet rs=null;
+        
+        try{
+            conexion = Utilidades.getConnection();
+            ps=conexion.prepareStatement("Select * From Cliente where Cedula = ? or NombreCompleto LIKE ?;");
+            ps.setString(1, pCriterio);
+            ps.setString(2, "%"+ pCriterio + "%");
+            rs= ps.executeQuery();
+            
+            List<Cliente> listaCliente = new ArrayList();
+            Cliente unCliente;
+            
+            int ci;
+            String NombreCompleto;
+            String Telefono;
+            
+            while(rs.next()){
+                ci = rs.getInt("Cedula");
+                NombreCompleto = rs.getString("NombreCompleto");
+                Telefono = rs.getString("Telefono");
+                
+                unCliente = new Cliente(ci,NombreCompleto,Telefono);
+                listaCliente.add(unCliente);
+                        
+            }
+                return  listaCliente;
+            
+        }catch(Exception ex){
+            throw new ExcepcionPersistencia("Error, ocurrió un error al intentar buscar los clientes");
+            
+        }finally{
+            Utilidades.CloseResources(rs,ps,conexion);
+        }
+            
+            
+        
+    }
+      
 }

@@ -7,6 +7,7 @@ package MVC.modelo.logica;
 
 import MVC.modelo.entidades.beans.datatypes.Cliente;
 import MVC.modelo.entidades.beans.excepciones.ExcepcionPersonalizada;
+import java.util.List;
 
 /**
  *
@@ -23,4 +24,6 @@ public interface ILogicaCliente {
     void eliminar(int pCI) throws ExcepcionPersonalizada;
     
     void validar(Cliente unCliente) throws ExcepcionPersonalizada;
+    
+    List<Cliente> ListarClientes(String pCriterio) throws ExcepcionPersonalizada;
 }

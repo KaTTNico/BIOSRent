@@ -11,6 +11,7 @@ import MVC.modelo.entidades.beans.excepciones.ExcepcionPersonalizada;
 import MVC.modelo.persistencia.FabricaPersistencia;
 import MVC.modelo.persistencia.IPersistenciaCliente;
 import static java.lang.Integer.parseInt;
+import java.util.List;
 
 /**
  *
@@ -75,6 +76,14 @@ class LogicaCliente implements ILogicaCliente {
 
         }
 
+    }
+
+    @Override
+    public List<Cliente> ListarClientes(String pCriterio) throws ExcepcionPersonalizada {
+        if(pCriterio == null || pCriterio.length() ==0){
+           // return listar();
+        }
+       return  persistencia.ListaDeClientes(pCriterio);
     }
 
 }

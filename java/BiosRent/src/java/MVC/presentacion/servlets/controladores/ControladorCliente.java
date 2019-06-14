@@ -42,16 +42,96 @@ public class ControladorCliente extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String accion = request.getParameter("accion");
+        if (accion == null) {
+            accion = "index";
+        }
+        switch (accion) {
+            case "index":
+                index_get(request, response);
+
+                break;
+            case "ver":
+                ver_get(request, response);
+
+                break;
+                
+            case "agregar":
+                agregar_get(request, response);
+
+                break;
+            case "modificar":
+                modificar_get(request, response);
+
+                break;
+            case "eliminar":
+                eliminar_get(request, response);
+
+                break;
+        }
 
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String accion = request.getParameter("accion");
+        switch (accion) {
+            case "agregar":
+                agregar_post(request, response);
+
+                break;
+            case "modificar":
+                modificar_post(request, response);
+
+                break;
+            case "eliminar":
+                eliminar_post(request, response);
+                break;
+        }
 
     }
 
     public void index_get(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+    }
+
+    public void ver_get(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int ci;
+        try {
+            ci = Integer.parseInt(request.getParameter("cedula"));
+        } catch (NumberFormatException ex) {
+            request.setAttribute("mensaje", "La cédula no es válida.");
+            request.getRequestDispatcher("WEB-INF/vistas/cliente/ver.jsp");
+            return;
+        }
+        String nombreCliente = request.getParameter("NombreCliente");
+        String Tel = request.getParameter("Telefono");
+
+        if (!(Tel.matches("^09[0-9]{7}||2[0-9]{7}$"))) {
+            request.setAttribute("mensaje", "Error, el formato del telefono no es correcto");
+            request.getRequestDispatcher("WEB-INF/vistas/cliente/ver.jsp").forward(request, response);
+            return;
+        }
+
+        try {
+            Cliente unCliente = FabricaLogica.getLogicaCliente().buscar(ci);
+            if (unCliente != null) {
+                request.setAttribute("cliente", unCliente);
+                request.setAttribute("mensaje", "Cliente encontrado");
+            } else {
+                request.setAttribute("mensaje", "Error, no se encontro un cliente con la cédula ingresada");
+                request.setAttribute("ocultarform", true);
+            }
+
+        } catch (ExcepcionPersonalizada ex) {
+            request.setAttribute("mensaje", "Error " + ex.getMessage());
+
+        } catch (Exception ex) {
+            request.setAttribute("mensaje", "Error, se produjo un error al buscar un cliente");
+
+        }
+        request.getRequestDispatcher("WEB-INF/vistas/cliente/ver.jsp").forward(request, response);
 
     }
 
@@ -218,13 +298,13 @@ public class ControladorCliente extends HttpServlet {
             FabricaLogica.getLogicaCliente().eliminar(ci);
             request.getSession().setAttribute("mensaje", "Eliminación realizada con éxito");
             response.sendRedirect("ControladorCliente");
-        }catch(ExcepcionPersonalizada ex){
+        } catch (ExcepcionPersonalizada ex) {
             request.setAttribute("mensaje", "Error " + ex.getMessage());
             request.getRequestDispatcher("WEB-INF/vistas/cliente/eliminar.jsp").forward(request, response);
         } catch (Exception ex) {
             request.setAttribute("mensaje", "Error, se produjo un error al eliminar un cliente");
             request.getRequestDispatcher("WEB-INF/vistas/cliente/eliminar.jsp").forward(request, response);
-                    
+
         }
     }
 }

@@ -3,15 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/excepciones/ExcepcionPersonalizada.java</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/excepciones/ExcepcionPresentacion.java</file>
-=======
             <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/excepciones/ExcepcionPersistencia.java</file>
+            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/logica/ILogicaSucursal.java</file>
             <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/excepciones/ExcepcionPersonalizada.java</file>
+            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/logica/ILogicaCliente.java</file>
+            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/logica/ILogicaVehiculo.java</file>
+            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/logica/ILogicaEmpleado.java</file>
             <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/excepciones/ExcepcionPresentacion.java</file>
             <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/excepciones/ExcepcionLogica.java</file>
->>>>>>> 140cf87321be85f0913441dc2376005178ddcb6c
+            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/datatypes/Sucursal.java</file>
         </group>
     </open-files>
 </project-private>

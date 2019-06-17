@@ -3,13 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/presentacion/servlets/controladores/ControladorEmpleado.java</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/persistencia/IPersistenciaCliente.java</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/persistencia/PersistenciaCliente.java</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/presentacion/servlets/controladores/ControladorCliente.java</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/logica/LogicaCliente.java</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/logica/ILogicaCliente.java</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/excepciones/ExcepcionPersonalizada.java</file>
+            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/excepciones/ExcepcionPresentacion.java</file>
         </group>
     </open-files>
 </project-private>

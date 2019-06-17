@@ -25,3 +25,4 @@ public class ExcepcionPersistencia extends ExcepcionPersonalizada implements Ser
         super(mensaje, excepcionInterna);
     }
 }
+

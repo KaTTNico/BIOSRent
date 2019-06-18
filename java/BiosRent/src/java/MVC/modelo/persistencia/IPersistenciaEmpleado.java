@@ -14,5 +14,5 @@ import MVC.modelo.entidades.beans.excepciones.ExcepcionPersonalizada;
  */
 public interface IPersistenciaEmpleado {
     Empleado buscar(String pNomUser) throws ExcepcionPersonalizada;
-    Empleado logueo(String pNomUser, String pPassUser) throws ExcepcionPersonalizada;
+  
 }

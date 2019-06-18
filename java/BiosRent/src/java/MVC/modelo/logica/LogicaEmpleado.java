@@ -15,13 +15,14 @@ import MVC.modelo.persistencia.IPersistenciaEmpleado;
  *
  * @author Nicolas
  */
-class LogicaEmpleado implements ILogicaEmpleado{
-    
-    private static LogicaEmpleado instancia =null;
-    public static LogicaEmpleado getInstancia(){
-        if(instancia ==null){
+class LogicaEmpleado implements ILogicaEmpleado {
+
+    private static LogicaEmpleado instancia = null;
+
+    public static LogicaEmpleado getInstancia() {
+        if (instancia == null) {
             instancia = new LogicaEmpleado();
-            
+
         }
         return instancia;
     }
@@ -32,17 +33,17 @@ class LogicaEmpleado implements ILogicaEmpleado{
 
     @Override
     public Empleado buscar(String pNomUser) throws ExcepcionPersonalizada {
-       return persistencia.buscar(pNomUser);
-               
+        return persistencia.buscar(pNomUser);
+
     }
 
     @Override
     public Empleado logueo(String pNomUser, String pPassUser) throws ExcepcionPersonalizada {
-         return persistencia.logueo(pNomUser, pPassUser);
+        Empleado unEmp = persistencia.buscar(pNomUser);
+        if (unEmp != null && !unEmp.getPassUser().equals(pPassUser)) {
+            unEmp =null;
+        }
+        return unEmp;
     }
 
-    
-        
-    
-    
 }

@@ -11,7 +11,9 @@ import MVC.modelo.entidades.beans.excepciones.ExcepcionPersonalizada;
 import com.sun.webkit.LoadListenerClient;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -32,66 +34,48 @@ class PersistenciaEmpleado implements IPersistenciaEmpleado {
 
     public PersistenciaEmpleado() {
     }
+    
+    protected Empleado crearEmp(ResultSet datos) throws SQLException{
+        Empleado unEmp = new Empleado();
+        unEmp.setNombreUser(datos.getString("NombreUser"));
+        unEmp.setPassUser(datos.getString("Pass"));
+       // unEmp.setSucursalEmp(PersistenciaSucursal.getInstancia().buscar(datos.getInt("CodigoSucursal")));
+          return unEmp;      
+                
+    }
+    
 
     @Override
     public Empleado buscar(String pNomUser) throws ExcepcionPersonalizada {
         Connection conexion = null;
-        CallableStatement cs = null;
+        PreparedStatement ps = null;
         ResultSet rs = null;
+        Empleado unEmp = null;
 
         try {
             conexion = Utilidades.getConnection();
-            cs = conexion.prepareCall("{CALL BuscarEmpleado(?)}");
-            cs.setString(1, pNomUser);
-            rs = cs.executeQuery();
+            ps = conexion.prepareStatement("Select * From Empleado where NombreUser = ?;");
+            ps.setString(1, pNomUser);
+            rs = ps.executeQuery();
 
-            Empleado unEmp = null;
-            String PassUser;
-            int codigoSucursal;
+            
+            
 
             if (rs.next()) {
-                PassUser = rs.getString("Pass");
-                codigoSucursal = rs.getInt("CodigoSucursal");
-              //  unEmp= new Empleado(pNomUser,PassUser,PersistenciaSucursal.getInstancia().buscar(codigoSucursal));
+                
+              unEmp = crearEmp(rs);
             }
-            return unEmp;
+            
         } catch (Exception ex) {
             throw new ExcepcionPersonalizada("No se pudo bucar el empleado", ex);
         } finally {
-            Utilidades.CloseResources(rs, cs, conexion);
+            Utilidades.CloseResources(rs, ps, conexion);
 
         }
+        return unEmp;
 
     }
 
-    @Override
-    public Empleado logueo(String pNomUser, String pPassUser) throws ExcepcionPersonalizada {
-        Connection conexion = null;
-        CallableStatement cs = null;
-        ResultSet rs = null;
-
-        try {
-            conexion = Utilidades.getConnection();
-            cs = conexion.prepareCall("{CALL LogueoEmpleado(?,?)");
-            rs = cs.executeQuery();
-
-            Empleado unEmp = null;
-            String PassUser;
-            int codigoSucursal;
-
-            if (rs.next()) {
-                PassUser = rs.getString("Pass");
-                codigoSucursal = rs.getInt("CodigoSucursal");
-              //  unEmp= new Empleado(pNomUser,PassUser,PersistenciaSucursal.getInstancia().buscar(codigoSucursal));
-            }
-            return unEmp;
-        } catch (Exception ex) {
-            throw new ExcepcionPersonalizada("No se pudo bucar el empleado", ex);
-        } finally {
-            Utilidades.CloseResources(rs, cs, conexion);
-
-        }
-
-    }
+   
 
 }

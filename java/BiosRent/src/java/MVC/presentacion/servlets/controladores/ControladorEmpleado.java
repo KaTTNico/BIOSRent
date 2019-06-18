@@ -5,8 +5,13 @@
  */
 package MVC.presentacion.servlets.controladores;
 
+import MVC.modelo.entidades.beans.datatypes.Alquiler;
+import MVC.modelo.entidades.beans.datatypes.Empleado;
+import MVC.modelo.entidades.beans.excepciones.ExcepcionPersonalizada;
+import MVC.modelo.logica.FabricaLogica;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -42,6 +47,13 @@ public class ControladorEmpleado extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String accion = request.getParameter("accion");
+                if(accion ==null) accion = "logIn";
+                switch(accion){
+                    case "logIn":
+                        logIn_get(request,response);
+                        break;
+                }
         
       
     }
@@ -50,6 +62,57 @@ public class ControladorEmpleado extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String accion = request.getParameter("accion");
+        switch(accion){
+            case "logIn":
+                logIn_post(request,response);
+                break;
+            case "logOut":
+                logOut_post(request,response);
+                break;
+        }
+        
+    }
+
+    private void logIn_get(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        if(request.getSession().getAttribute("empleadoLogueado")== null){
+            request.getRequestDispatcher("WEB-INF/vistas/empleado/login.jsp").forward(request, response);
+            
+        }else{
+            response.sendRedirect("vehiculo?accion=ver");
+        }
+    }
+
+    private void logIn_post(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        try {
+            String nomUser = request.getParameter("NombreUser");
+            String passUser = request.getParameter("Pass");
+            Empleado unEmp = FabricaLogica.getLogicaEmpleado().logueo(nomUser, passUser);
+            if(unEmp !=null){
+                request.getSession().setAttribute("empleadoLogueado",unEmp);
+                
+                Alquiler unAlquiler = new Alquiler();
+              //  unAlquiler.setEmpleado(unEmp);
+                request.getSession().setAttribute("alquiler", unAlquiler);
+                response.sendRedirect("vehiculo?accion=ver");
+                        
+            }else{
+                request.setAttribute("mensaje", "Las credenciales ingresadas no son correctas");
+                request.getRequestDispatcher("WEB-INF/vistas/empleado/login.jsp").forward(request, response);
+            }
+        }catch(ExcepcionPersonalizada ex){
+            request.setAttribute("mensaje", ex.getMessage());
+            request.getRequestDispatcher("WEB-INF/vistas/empleado/login.jsp").forward(request, response);
+        }catch (Exception e) {
+            request.setAttribute("mensaje", "No se pudo loguear el empleado");
+            request.getRequestDispatcher("WEB-INF/vistas/empleado/login.jsp").forward(request, response);
+        }
+    }
+
+    private void logOut_post(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getSession().removeAttribute("empleadoLogueado");
+        request.getSession().removeAttribute("alquiler");
+        response.sendRedirect("empleado?accion=logIn");
         
     }
 

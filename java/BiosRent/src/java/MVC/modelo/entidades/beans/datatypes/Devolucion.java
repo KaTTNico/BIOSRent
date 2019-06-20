@@ -12,6 +12,7 @@ import java.util.Date;
  * @author Nicolas
  */
 public class Devolucion {
+<<<<<<< HEAD
     private Alquiler alquiler;
     private Sucursal sucursal;
     private Date fechaDevolucion;
@@ -50,4 +51,10 @@ public class Devolucion {
     }
     
     
+=======
+    Alquiler alquiler;
+    Sucursal sucursal;
+    Date fechaDevolucion;
+    Double multa;
+>>>>>>> 367372665cff9efa56442e4dbeed6aec28231860
 }

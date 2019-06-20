@@ -5,10 +5,22 @@
  */
 package MVC.modelo.entidades.beans.excepciones;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Nicolas
  */
-public class ExcepcionLogica {
+public class ExcepcionLogica extends ExcepcionPersonalizada implements Serializable {
+
+    public ExcepcionLogica() {
+    }
+   
+    public ExcepcionLogica(String mensaje){
+        super(mensaje);
+    }
+    public ExcepcionLogica(String mensaje, Exception excepcionInterna){
+        super(mensaje,excepcionInterna);
+    }
     
 }

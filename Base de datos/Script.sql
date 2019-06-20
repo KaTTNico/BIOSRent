@@ -33,6 +33,7 @@ CREATE  TABLE Vehiculo (
     Descripcion VARCHAR(100),
     PrecioAlquilerDiario DECIMAL(15 , 2 ) NOT NULL DEFAULT 0,
     SucursalCodigo INT,
+    Activo bit NOT NULL default 1,
     PRIMARY KEY (Matricula),
     FOREIGN KEY (SucursalCodigo) REFERENCES Sucursal (Codigo)
 );
@@ -100,12 +101,12 @@ Insert into Empleado values('Maria','asdfg1234',6);
 Insert into Empleado values('Federico','kilop55',14);
 
 #Vehiculo test values
-Insert into Vehiculo values('SAE4337','AUTO','Renault Twingo', 50.00,1);
-Insert into Vehiculo values('RAS1452','AUTO','Fiat Argos', 65.00,6);
-Insert into Vehiculo values('SCO9735','CAMIONETA','Citroen Berlingo', 70.00,7);
-Insert into Vehiculo values('SEG1024','OTRO','Jac Camion', 75.00,8);
-Insert into Vehiculo values('SPL1582','CAMIONETA','Toyota Hilux', 150.00,9);
-Insert into Vehiculo values('SWP1451','AUTO','BMW Z4', 200.00,3);
+Insert into Vehiculo values('SAE4337','AUTO','Renault Twingo', 50.00,1, 1);
+Insert into Vehiculo values('RAS1452','AUTO','Fiat Argos', 65.00,6, 1);
+Insert into Vehiculo values('SCO9735','CAMIONETA','Citroen Berlingo', 70.00,7, 1);
+Insert into Vehiculo values('SEG1024','OTRO','Jac Camion', 75.00,8, 1);
+Insert into Vehiculo values('SPL1582','CAMIONETA','Toyota Hilux', 150.00,9, 1);
+Insert into Vehiculo values('SWP1451','AUTO','BMW Z4', 200.00,3, 1);
 
 #Empelado SP
 Delimiter //
@@ -148,7 +149,7 @@ cuerpo:Begin
 		set pMsjError= "Error no existe el cliente";
         Leave cuerpo;
 	End if;
-    update cliente set NombreCompleto = pNomCompleto, Telefono = pTelefono;
+    update cliente set NombreCompleto = pNomCompleto, Telefono = pTelefono where CI = pCI;
 End //
 Delimiter ;
 
@@ -166,4 +167,95 @@ cuerpo:begin
 	delete from Cliente where CI = pCI;
 end//
 Delimiter ;
+
+#SPs Sucursal
+Delimiter //
+create procedure BuscarSucursal(pCodigo int)
+begin 
+	Select * from Sucursal where Codigo = pCodigo;
+End//
+delimiter ;
+
+Delimiter //
+create procedure ListarSucursal()
+begin 
+	Select * from Sucursal;
+End//
+delimiter ;
+
+#SPs Vehiculo
+Delimiter //
+create procedure BuscarVehiculo(pMatricula varchar(7))
+begin 
+	Select * from Vehiculo where Matricula = pMatricula and Activo = 1;
+End//
+delimiter ;
+
+Delimiter //
+create procedure BuscarVehiculoTodos(pMatricula varchar(7))
+begin 
+	Select * from Vehiculo where Matricula = pMatricula;
+End//
+delimiter ;
+
+Delimiter //
+create procedure ListarVehiculo()
+begin 
+	Select * from Vehiculo where Activo = 1;
+End//
+delimiter ;
+
+Delimiter //
+Create procedure AgregarVehiculo(pMatricula varchar(7), pTipo varchar(9), pDescripcion varchar(100), pPrecioAlquilerDiario DECIMAL(15,2), pSucursalCodigo int, out pMsjError varchar(100))
+cuerpo:Begin
+	if(exists(select * from Vehiculo where Matricula = pMatricula and Activo = 1)) then
+		set pMsjError= "Error ya existe el vehiculo";
+        Leave cuerpo;
+	End if;
+    
+    if(not exists(select * from Sucursal where Codigo = pSucursalCodigo)) then
+		set pMsjError= "Error no existe la sucursal";
+        Leave cuerpo;
+	End if;
+    
+    #Si estaba en baja logica
+    if(exists(select * from Vehiculo where Matricula = pMatricula and Activo = 0)) then
+        Update Vehiculo set Tipo = pTipo, Descripcion = pDescripcion, PrecioAlquilerDiario = pPrecioAlquilerDiario, SucursalCodigo = pSucursalCodigo, Activo = 1 where Matricula = pMatricula;
+        Leave cuerpo;
+	End if;
+    
+    Insert into Vehiculo(Matricula, Tipo, Descripcion, PrecioAlquilerDiario, SucursalCodigo) values(pMatricula, pTipo, pDescripcion, pPrecioAlquilerDiario, pSucursalCodigo);
+End//
+Delimiter ;
+
+Delimiter //
+Create procedure ModificarVehiculo(pMatricula varchar(7), pTipo varchar(9), pDescripcion varchar(100), pPrecioAlquilerDiario DECIMAL(15,2), pSucursalCodigo int, out pMsjError varchar(100))
+cuerpo:Begin
+	if(not exists(select * from Vehiculo where Matricula = pMatricula and Activo = 1)) then
+		set pMsjError= "Error no existe el vehiculo";
+        Leave cuerpo;
+	End if;
+    update Vehiculo set Tipo = pTipo, Descripcion = pDescripcion, PrecioAlquilerDiario = pPrecioAlquilerDiario, SucursalCodigo = pSucursalCodigo where Matricula = pMatricula;
+End //
+Delimiter ;
+
+Delimiter //
+Create procedure EliminarVehiculo(pMatricula varchar(7), out pMsjError varchar(100))
+cuerpo:begin
+	if(not exists(select * from Vehiculo where Matricula = pMatricula and Activo = 1)) then 
+		set pMsjError= "Error no existe el vehiculo";
+        Leave cuerpo;
+	End if;
+    
+    #Si tiene que hacerce baja logica
+    if(exists(select * from Alquiler where VehiculoMatricula = pMatricula)) Then
+		update Vehiculo set Activo = 0 where Matricula = pMatricula;
+        Leave cuerpo;
+    End if;
+    
+	delete from Vehiculo where Matricula = pMatricula;
+end//
+Delimiter ;
+
+
 

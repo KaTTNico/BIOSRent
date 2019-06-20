@@ -12,7 +12,6 @@ import java.util.Date;
  * @author Nicolas
  */
 public class Alquiler {
-<<<<<<< HEAD
     private int id;
     private Date fechaAlquiler;
     private int cantidadDias;
@@ -94,17 +93,4 @@ public class Alquiler {
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
-    
-    
-=======
-    int id;
-    Date fechaAlquiler;
-    int cantidadDias;
-    Double costoSeguro;
-    Double costoTotal;
-    Double depositoEnGarantia;
-    Cliente clientel;
-    Sucursal sucursal;
-    Vehiculo vehiculo;
->>>>>>> 367372665cff9efa56442e4dbeed6aec28231860
 }

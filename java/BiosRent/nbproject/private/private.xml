@@ -2,20 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/excepciones/ExcepcionPersistencia.java</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/excepciones/ExcepcionPersonalizada.java</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/excepciones/ExcepcionPresentacion.java</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/excepciones/ExcepcionLogica.java</file>
-=======
+            <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/src/java/MVC/modelo/logica/FabricaLogica.java</file>
             <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/datatypes/Alquiler.java</file>
+            <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/src/java/MVC/modelo/logica/ILogicaAlquiler.java</file>
             <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/datatypes/Devolucion.java</file>
->>>>>>> adelanto entidades (alquiler y devolucion).
+            <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/excepciones/ExcepcionLogica.java</file>
+            <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/src/java/MVC/modelo/logica/LogicaAlquiler.java</file>
         </group>
-=======
-        <group/>
->>>>>>> commit inutil
     </open-files>
 </project-private>

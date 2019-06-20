@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/excepciones/ExcepcionPersistencia.java</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/excepciones/ExcepcionPersonalizada.java</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/excepciones/ExcepcionPresentacion.java</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/entidades/beans/excepciones/ExcepcionLogica.java</file>
+            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/tags/paginaMaestra.tag</file>
+            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/css/estilos.css</file>
+            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/tags/mensaje.tag</file>
         </group>
     </open-files>
 </project-private>

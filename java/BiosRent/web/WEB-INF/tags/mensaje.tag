@@ -4,10 +4,10 @@
     Author     : Nicolas
 --%>
 
-<%@tag description="put the tag description here" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@tag description="Mensaje" pageEncoding="UTF-8"%>
 
-<%-- The list of normal or fragment attributes can be specified here: --%>
-<%@attribute name="message"%>
-
-<%-- any content can be specified here e.g.: --%>
-<h2>${message}</h2>
+<c:if test="${!empty mensaje}">
+    <p class="<c:if test="${fn:contains(mensaje,'ERROR')}">error</c:if>">${mensaje}</p>
+</c:if>

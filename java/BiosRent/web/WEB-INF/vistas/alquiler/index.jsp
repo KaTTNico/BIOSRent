@@ -5,13 +5,15 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
+<t:paginaMaestra title="Menu alquiler">
+    <jsp:body>
+        <ul>
+            <li><a href="agregar">Agregar</a></li>
+            <li><a href="devolver">Devolver</a></li>
+            <li><a href="ver">Ver</a></li>
+        </ul>
+    </jsp:body>
+</t:paginaMaestra>

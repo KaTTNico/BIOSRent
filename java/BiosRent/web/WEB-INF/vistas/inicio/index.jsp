@@ -5,13 +5,16 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
+<t:paginaMaestra title="Menú Principal">
+    <jsp:body>
+        <ul>
+            <li><a href="alquiler">Alquiler</a></li>
+            <li><a href="cliente">Cliente</a></li>
+            <li><a href="empleado">Empleado</a></li>
+            <li><a href="vehiculo">Vehiculo</a></li>
+        </ul>
+    </jsp:body>
+</t:paginaMaestra>

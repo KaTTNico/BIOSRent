@@ -34,7 +34,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ControladorInicio</servlet-name>
-        <url-pattern>/ControladorInicio</url-pattern>
+        <url-pattern>/inicio</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ControladorVehiculo</servlet-name>
@@ -45,4 +45,7 @@
             30
         </session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>inicio</welcome-file>
+    </welcome-file-list>
 </web-app>

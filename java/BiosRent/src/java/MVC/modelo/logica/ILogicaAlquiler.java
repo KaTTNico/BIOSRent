@@ -5,15 +5,22 @@
  */
 package MVC.modelo.logica;
 
+import java.util.List;
 import MVC.modelo.entidades.beans.datatypes.*;
 import MVC.modelo.entidades.beans.excepciones.ExcepcionPersonalizada;
+import java.util.ArrayList;
+
 /**
  *
  * @author Nicolas
  */
 public interface ILogicaAlquiler {
+
     void validar(Alquiler alquiler) throws ExcepcionPersonalizada;
+
     void alta(Alquiler alquiler) throws ExcepcionPersonalizada;
-    void eliminar(int id) throws ExcepcionPersonalizada;
-    void modificar(Alquiler alquiler) throws ExcepcionPersonalizada;
+
+    void ver(int id) throws ExcepcionPersonalizada;
+
+    ArrayList<Vehiculo> listarVehiculosDisponibles() throws ExcepcionPersonalizada;
 }

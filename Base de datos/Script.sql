@@ -206,24 +206,6 @@ End//
 delimiter ;
 
 Delimiter //
-create procedure ListarVehiculoDisponible()
-begin 
-	Select 
-    Vehiculo.Matricula,
-    Vehiculo.Tipo,
-    Vehiculo.Descripcion,
-    Vehiculo.PrecioAlquilerDiario,
-    Vehiculo.SucursalCodigo,
-    Vehiculo.Activo 
-    from Vehiculo 
-    left join Alquiler on Alquiler.VehiculoMatricula = Vehiculo.Matricula 
-    where 
-    Vehiculo.Activo = 1 and 
-    Alquiler.Id IS NULL OR (now() not between Alquiler.FechaAlquiler and DATE_ADD(Alquiler.FechaAlquiler, interval Alquiler.CantidadDias day));
-End//
-delimiter ;
-
-Delimiter //
 Create procedure AgregarVehiculo(pMatricula varchar(7), pTipo varchar(9), pDescripcion varchar(100), pPrecioAlquilerDiario DECIMAL(15,2), pSucursalCodigo int, out pMsjError varchar(100))
 cuerpo:Begin
 	if(exists(select * from Vehiculo where Matricula = pMatricula and Activo = 1)) then
@@ -275,5 +257,120 @@ cuerpo:begin
 end//
 Delimiter ;
 
+Delimiter //
+create procedure ListarVehiculoDisponible()
+begin 
+	Select 
+    Vehiculo.Matricula,
+    Vehiculo.Tipo,
+    Vehiculo.Descripcion,
+    Vehiculo.PrecioAlquilerDiario,
+    Vehiculo.SucursalCodigo,
+    Vehiculo.Activo 
+    
+    from Vehiculo 
+    
+    left join Alquiler on Alquiler.VehiculoMatricula = Vehiculo.Matricula 
+    
+    where 
+    Vehiculo.Activo = 1 and 
+    Alquiler.Id IS NULL OR (now() > DATE_ADD(Alquiler.FechaAlquiler, interval Alquiler.CantidadDias day));
+End//
+delimiter ;
 
+Delimiter //
+Create procedure AgregarAlquiler(
+fechaAlquiler date, 
+cantidadDias int, 
+costoSeguro decimal(15,2),
+total decimal(15,2),
+depositoEnGarantia decimal(15,2),
+clienteCedula int,
+sucursalRetiraCodigo int,
+matricula varchar(7))
+cuerpo:begin
+	if(not exists(select * from Vehiculo where Matricula = matricula and Activo = 1)) then
+		set pMsjError= "Error, el vehiculo no existe.";
+        Leave cuerpo;
+	end if;
+    
+    if(not exists(select * from Sucursal where Codigo = sucursalRetiraCodigo)) then
+		set pMsjError= "Error no existe la sucursal.";
+        Leave cuerpo;
+	end if;
+    
+    if(not exists(select * from Cliente where CI = clienteCedula)) then
+		set pMsjError= "Error, el cliente no existe.";
+        Leave cuerpo;
+	end if;
+	
+    if(exists (Select 
+    Cliente.* from Cliente join Alquiler on Alquiler.ClienteCedula = Cliente.CI 
+    where 
+    Cliente.CI = clienteCedula and
+    (fechaAlquiler >= DATE_ADD(Alquiler.FechaAlquiler, interval Alquiler.CantidadDias day))))then
+		set pMsjError= "Error, el cliente tiene un alquiler vigente.";
+		Leave cuerpo;
+    end if;
+    
+    if(not exists (Select 
+    Vehiculo.* from Vehiculo left join Alquiler on Alquiler.VehiculoMatricula = Vehiculo.Matricula 
+    where 
+    Vehiculo.Activo = 1 and 
+    Vehiculo.Matricula = matricula and
+    Alquiler.Id IS NULL OR (fechaAlquiler > DATE_ADD(Alquiler.FechaAlquiler, interval Alquiler.CantidadDias day))))then
+		set pMsjError= "Error, el vehiculo no esta disponible.";
+		Leave cuerpo;
+    end if;
+    
+    insert into Alquiler(FechaAlquiler,CantidadDias,CostoSeguro,Total,DepositoEnGarantia,ClienteCedula,SucursalRetiraCodigo,SucursalRetiraCodigo) 
+    values(fechaAlquiler,cantidadDias,costoSeguro,total,depositoEnGarantia,clienteCedula,sucursalRetiraCodigo,matricula);
+End//
+Delimiter ;
 
+Delimiter //
+Create procedure ObtenerAlquilerPendiente(clienteCedula int)
+begin
+	select 
+    Alquiler.Id,
+    Alquiler.FechaAlquiler,
+    Alquiler.CantidadDias,
+    Alquiler.CostoSeguro,
+    Alquiler.Total,
+    Alquiler.DepositoEnGarantia,
+    Alquiler.ClienteCedula,
+    Alquiler.SucursalRetiraCodigo,
+    Alquiler.VehiculoMatricula 
+    from Alquiler 
+    left join Devolucion on Alquiler.Id = Devolucion.AlquilerId 
+    where Alquiler.ClienteCedula = clienteCedula and Devolucion.AlquilerId is null
+    order by Alquiler.FechaAlquiler desc limit 1;
+End//
+Delimiter ;
+
+Delimiter //
+Create procedure AgregarDevolucion(
+alquilerId int,
+sucursalCodigo int, 
+fechaDevolucion date, 
+multaAtraso decimal(15,2))
+cuerpo:begin
+	if(not exists(select * from Alquiler where Id = alquilerId))then
+		set pMsjError= "Error, este alquiler no existe.";
+        Leave cuerpo;		
+    end if;
+    
+	if(exists(select * from Devolucion where AlquilerId=alquilerId))then
+		set pMsjError= "Error, este alquiler ya tiene una devolucion asociada.";
+        Leave cuerpo;
+    end if;
+
+	if(not exists(select * from Sucursal where Codigo = sucursalCodigo)) then
+		set pMsjError= "Error, la sucursal no existe.";
+        Leave cuerpo;
+	end if;
+    
+    insert into Devolucion(SucursalCodigo,FechaDevolucion,MultaAtraso) 
+    values(sucursalCodigo,fechaDevolucion,multaAtraso);
+End//
+Delimiter ;

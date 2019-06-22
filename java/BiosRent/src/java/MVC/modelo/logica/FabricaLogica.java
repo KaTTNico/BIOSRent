@@ -10,5 +10,7 @@ package MVC.modelo.logica;
  * @author Nicolas
  */
 public class FabricaLogica {
-    
+    public static ILogicaAlquiler getLogicaAlquiler(){
+        return LogicaAlquiler.getInstancia();
+    }
 }

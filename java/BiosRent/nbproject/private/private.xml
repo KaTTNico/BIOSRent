@@ -3,9 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/tags/paginaMaestra.tag</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/css/estilos.css</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/tags/mensaje.tag</file>
+            <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/web/WEB-INF/vistas/inicio/index.jsp</file>
+            <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/src/java/MVC/presentacion/servlets/controladores/ControladorInicio.java</file>
         </group>
     </open-files>
 </project-private>

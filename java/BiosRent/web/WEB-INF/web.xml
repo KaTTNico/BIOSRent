@@ -22,27 +22,30 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ControladorAlquiler</servlet-name>
-        <url-pattern>/ControladorAlquiler</url-pattern>
+        <url-pattern>/alquiler</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ControladorCliente</servlet-name>
-        <url-pattern>/ControladorCliente</url-pattern>
+        <url-pattern>/cliente</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ControladorEmpleado</servlet-name>
-        <url-pattern>/ControladorEmpleado</url-pattern>
+        <url-pattern>/empleado</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ControladorInicio</servlet-name>
-        <url-pattern>/ControladorInicio</url-pattern>
+        <url-pattern>/inicio</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ControladorVehiculo</servlet-name>
-        <url-pattern>/ControladorVehiculo</url-pattern>
+        <url-pattern>/vehiculo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>inicio</welcome-file>
+    </welcome-file-list>
 </web-app>

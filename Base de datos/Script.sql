@@ -206,6 +206,24 @@ End//
 delimiter ;
 
 Delimiter //
+create procedure ListarVehiculoDisponible()
+begin 
+	Select 
+    Vehiculo.Matricula,
+    Vehiculo.Tipo,
+    Vehiculo.Descripcion,
+    Vehiculo.PrecioAlquilerDiario,
+    Vehiculo.SucursalCodigo,
+    Vehiculo.Activo 
+    from Vehiculo 
+    left join Alquiler on Alquiler.VehiculoMatricula = Vehiculo.Matricula 
+    where 
+    Vehiculo.Activo = 1 and 
+    Alquiler.Id IS NULL OR (now() not between Alquiler.FechaAlquiler and DATE_ADD(Alquiler.FechaAlquiler, interval Alquiler.CantidadDias day));
+End//
+delimiter ;
+
+Delimiter //
 Create procedure AgregarVehiculo(pMatricula varchar(7), pTipo varchar(9), pDescripcion varchar(100), pPrecioAlquilerDiario DECIMAL(15,2), pSucursalCodigo int, out pMsjError varchar(100))
 cuerpo:Begin
 	if(exists(select * from Vehiculo where Matricula = pMatricula and Activo = 1)) then

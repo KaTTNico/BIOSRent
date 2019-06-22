@@ -5,8 +5,8 @@
         <group>
             <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/src/java/MVC/modelo/persistencia/IPersistenciaAlquiler.java</file>
             <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/src/java/MVC/presentacion/servlets/controladores/ControladorAlquiler.java</file>
-            <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/src/java/MVC/modelo/persistencia/PersistenciaAlquiler.java</file>
             <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/web/WEB-INF/vistas/inicio/index.jsp</file>
+            <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/web/WEB-INF/vistas/alquiler/devolver.jsp</file>
             <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/web/WEB-INF/vistas/alquiler/agregar.jsp</file>
             <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/web/WEB-INF/web.xml</file>
             <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/src/java/MVC/modelo/persistencia/Utilidades.java</file>

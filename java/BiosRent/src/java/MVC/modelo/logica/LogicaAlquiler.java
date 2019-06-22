@@ -8,6 +8,10 @@ package MVC.modelo.logica;
 import MVC.modelo.entidades.beans.datatypes.*;
 import MVC.modelo.entidades.beans.excepciones.ExcepcionLogica;
 import MVC.modelo.entidades.beans.excepciones.ExcepcionPersonalizada;
+import MVC.modelo.persistencia.FabricaPersistencia;
+import MVC.modelo.persistencia.IPersistenciaAlquiler;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -25,7 +29,8 @@ class LogicaAlquiler implements ILogicaAlquiler {
         return instancia;
     }
 
-    //private IPersistenciaEmpleado persistencia = FabricaPersistencia.getPersistenciaEmpleado();
+    private IPersistenciaAlquiler persistencia = FabricaPersistencia.getPersistenciaAlquiler();
+
     private LogicaAlquiler() {
 
     }
@@ -63,12 +68,12 @@ class LogicaAlquiler implements ILogicaAlquiler {
     }
 
     @Override
-    public void eliminar(int id) throws ExcepcionPersonalizada {
+    public void ver(int id) throws ExcepcionPersonalizada {
 
     }
 
     @Override
-    public void modificar(Alquiler alquiler) throws ExcepcionPersonalizada {
-
+    public ArrayList<Vehiculo> listarVehiculosDisponibles() throws ExcepcionPersonalizada {
+        return persistencia.listarVehiculosDisponibles();
     }
 }

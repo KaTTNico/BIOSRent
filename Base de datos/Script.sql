@@ -258,7 +258,7 @@ end//
 Delimiter ;
 
 Delimiter //
-create procedure ListarVehiculoDisponible()
+create procedure ListarVehiculosDisponibles()
 begin 
 	Select 
     Vehiculo.Matricula,

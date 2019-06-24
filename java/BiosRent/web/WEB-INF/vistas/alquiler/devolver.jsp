@@ -5,13 +5,19 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
+<t:paginaMaestra title="Menú Principal">
+    <jsp:body>
+        <ul>
+            <form method="get">
+                <div>
+                    <label for="cedula">Cedula cliente:</label>
+                    <input type="text" name="cedula" id="cedula"/>
+                </div>
+
+                <input type="submit" name="accion" value="" />
+            </form>
+        </ul>
+    </jsp:body>
+</t:paginaMaestra>

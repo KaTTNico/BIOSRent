@@ -4,14 +4,34 @@
     Author     : Nicolas
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
+<t:paginaMaestra title="Alquiler">
+    <jsp:body>
+        <fmt:setLocale value="en-US" />
+        <table class="listado">
+            <tr>
+                <th>Matricula</th><th>Tipo</th><th>Descripcion</th><th>PrecioAlquilerDiario</th><th>Sucursal</th>
+            </tr>
+
+            <c:forEach items="${vehiculos}" var="vehiculo">
+                <tr>
+                    <td class="texto-centro">${vehiculo.matricula}</td>
+                    <td>${vehiculo.tipo}</td>
+                    <td>${vehiculo.descripcion}</td>
+                    <td class="texto-derecha">
+                        <fmt:formatNumber type="number" pattern="0.00" value="${vehiculo.precioAlquilerDiario}" />
+                    </td>
+                    <td>
+                        <a href="alquiler?accion=alquilar&matricula=${vehiculo.matricula}"><img src="imagenes/iconos/glyphicons-191-plus-sign.png" alt="Alquilar" title="Alquilar..." ></a>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
+        <p><a href="inicio">Volver...</a></p>
+        <t:mensaje />
+    </jsp:body>
+</t:paginaMaestra>

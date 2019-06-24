@@ -30,9 +30,16 @@ public class ControladorInicio extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+<<<<<<< HEAD
 
         
     
+=======
+    private void index_get(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher("WEB-INF/vistas/inicio/index.jsp").forward(request, response);
+    }
+>>>>>>> bcab0398e825bf7dd60379433b9948a286b2bca5
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -46,6 +53,7 @@ public class ControladorInicio extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String accion = request.getParameter("accion");
+<<<<<<< HEAD
                 if(accion ==null) accion = "logIn";
                 switch(accion){
                     case "logIn":
@@ -114,4 +122,17 @@ public class ControladorInicio extends HttpServlet {
         
     }
     
+=======
+
+        if (accion == null) {
+            accion = "index";
+        }
+
+        switch (accion) {
+            case "index":
+                index_get(request, response);
+                break;
+        }
+    }
+>>>>>>> bcab0398e825bf7dd60379433b9948a286b2bca5
 }

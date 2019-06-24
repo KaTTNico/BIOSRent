@@ -45,13 +45,9 @@
             30
         </session-timeout>
     </session-config>
-<<<<<<< HEAD
-  
-  
-     
-=======
+
     <welcome-file-list>
         <welcome-file>inicio</welcome-file>
     </welcome-file-list>
->>>>>>> bcab0398e825bf7dd60379433b9948a286b2bca5
+
 </web-app>

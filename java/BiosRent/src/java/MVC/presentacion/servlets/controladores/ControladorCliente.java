@@ -10,6 +10,7 @@ import MVC.modelo.entidades.beans.excepciones.ExcepcionPersonalizada;
 import MVC.modelo.logica.FabricaLogica;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -55,7 +56,7 @@ public class ControladorCliente extends HttpServlet {
                 ver_get(request, response);
 
                 break;
-                
+
             case "agregar":
                 agregar_get(request, response);
 
@@ -93,8 +94,32 @@ public class ControladorCliente extends HttpServlet {
     }
 
     public void index_get(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+        try {
+            List<Cliente> listClientes = FabricaLogica.getLogicaCliente().ListarClientes(request.getParameter("buscar"));
+            request.setAttribute("clientes", listClientes);
+            request.setAttribute("mensaje", "Cantidad de clientes:" + listClientes.size());
+
+        } catch (ExcepcionPersonalizada ex) {
+            request.setAttribute("mensaje", ex.getMessage());
+        } catch (Exception e) {
+            request.setAttribute("mensaje", "No se pudo listar los clientes");
+        }
+
+        String msjSession = (String) request.getSession().getAttribute("mensaje");
+
+        if (msjSession != null) {
+            String msj = (String)request.getAttribute("mensaje");
+            if(msj == null){
+                request.setAttribute("mesaje", msjSession);
+                
+            }else{
+                request.setAttribute("mensaje", msjSession + "<br /> <br />"+ msj);
+            }
+             request.getSession().removeAttribute("mensaje");
+        }
+       request.getRequestDispatcher("WEB-INF/vistas/cliente/index.jsp").forward(request, response);
     }
+   
 
     public void ver_get(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int ci;

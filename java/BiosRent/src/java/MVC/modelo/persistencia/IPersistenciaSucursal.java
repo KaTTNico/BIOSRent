@@ -5,10 +5,15 @@
  */
 package MVC.modelo.persistencia;
 
+import MVC.modelo.entidades.beans.datatypes.Sucursal;
+import MVC.modelo.entidades.beans.excepciones.ExcepcionPersonalizada;
+import java.util.ArrayList;
+
 /**
  *
  * @author Nicolas
  */
 public interface IPersistenciaSucursal {
-    
+    Sucursal BuscarSucursal(int parameterCodigo) throws ExcepcionPersonalizada;
+    ArrayList<Sucursal> ListarSucursal() throws ExcepcionPersonalizada;
 }

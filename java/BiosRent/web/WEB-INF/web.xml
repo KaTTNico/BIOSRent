@@ -49,7 +49,7 @@
         <servlet-name>ControladorCliente</servlet-name>
         <servlet-name>ControladorAlquiler</servlet-name>
         <servlet-name>ControladorVehiculo</servlet-name>
-        <servlet-name>ControladorEmpleado</servlet-name>
+        
     </filter-mapping>
     <session-config>
         <session-timeout>

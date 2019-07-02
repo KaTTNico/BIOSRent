@@ -32,15 +32,10 @@ CREATE  TABLE Vehiculo (
     Tipo VARCHAR(9),
     Descripcion VARCHAR(100),
     PrecioAlquilerDiario DECIMAL(15 , 2 ) NOT NULL DEFAULT 0,
+    SucursalCodigo INT,
     Activo bit NOT NULL default 1,
     PRIMARY KEY (Matricula),
     FOREIGN KEY (SucursalCodigo) REFERENCES Sucursal (Codigo)
-);
-
-CREATE TABLE VehiculoSucursal (
-	MatriculaVehiculo VARCHAR(7) NOT NULL FOREIGN KEY REFERENCES Vehiculo(Matricula),
-	CodigoSucursal INT NOT NULL FOREIGN KEY REFERENCES Sucursal(Codigo),
-	PRIMARY KEY (MatriculaVehiculo, CodigoSucursal)
 );
 
 CREATE TABLE Alquiler (

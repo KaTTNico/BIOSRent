@@ -92,7 +92,7 @@ public class ControladorEmpleado extends HttpServlet {
                 request.getSession().setAttribute("empleadoLogueado",unEmp);
                 
                 Alquiler unAlquiler = new Alquiler();
-              //  unAlquiler.setEmpleado(unEmp);
+                //unAlquiler.setEmpleado(unEmp);
                 request.getSession().setAttribute("alquiler", unAlquiler);
                 response.sendRedirect("vehiculo?accion=ver");
                         

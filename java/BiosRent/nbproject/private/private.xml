@@ -3,14 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/persistencia/Utilidades.java</file>
+            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/persistencia/PersistenciaEmpleado.java</file>
             <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/presentacion/servlets/controladores/ControladorEmpleado.java</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/vistas/cliente/registroCliente.jsp</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/filtros/FiltroAutentificacion.java</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/vistas/cliente/index.jsp</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/presentacion/servlets/controladores/ControladorCliente.java</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/vistas/empleado/login.jsp</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/vistas/cliente/eliminar.jsp</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/persistencia/IPersistenciaSucursal.java</file>
+            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/persistencia/IPersistenciaEmpleado.java</file>
+            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/logica/LogicaCliente.java</file>
+            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/logica/LogicaEmpleado.java</file>
         </group>
     </open-files>
 </project-private>

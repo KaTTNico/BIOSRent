@@ -35,11 +35,11 @@ class PersistenciaEmpleado implements IPersistenciaEmpleado {
     public PersistenciaEmpleado() {
     }
     
-    protected Empleado crearEmp(ResultSet datos) throws SQLException{
+    protected Empleado crearEmp(ResultSet datos) throws SQLException, ExcepcionPersonalizada{
         Empleado unEmp = new Empleado();
         unEmp.setNombreUser(datos.getString("NombreUser"));
         unEmp.setPassUser(datos.getString("Pass"));
-       // unEmp.setSucursalEmp(PersistenciaSucursal.getInstancia().buscar(datos.getInt("CodigoSucursal")));
+        unEmp.setSucursalEmp(PersistenciaSucursal.getInstancia().BuscarSucursal(datos.getInt("CodigoSucursal")));
           return unEmp;      
                 
     }

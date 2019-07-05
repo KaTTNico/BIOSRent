@@ -42,7 +42,7 @@ class PersistenciaCliente implements IPersistenciaCliente {
         ResultSet rs = null;
         
         try {
-            conexion = Utilidades.getConnection();
+            conexion = Utilidades.getConexion();
             cs = conexion.prepareCall("{CALL BuscarCliente(?)}");
             cs.setInt(1, pCI);
             rs = cs.executeQuery();
@@ -70,7 +70,7 @@ class PersistenciaCliente implements IPersistenciaCliente {
         CallableStatement cs = null;
         
         try {
-            conexion = Utilidades.getConnection();
+            conexion = Utilidades.getConexion();
             cs = conexion.prepareCall("{CALL AgregarCliente(?,?,?)}");
             cs.setInt(1, unCliente.getCI());
             cs.setString(2, unCliente.getNombreCompleto());
@@ -102,7 +102,7 @@ class PersistenciaCliente implements IPersistenciaCliente {
         Connection conexion = null;
         CallableStatement cs = null;
         try {
-            conexion = Utilidades.getConnection();
+            conexion = Utilidades.getConexion();
             cs = conexion.prepareCall("{CALL ModificarCliente(?,?,?)}");
             cs.setInt(1, unCliente.getCI());
             cs.setString(2, unCliente.getNombreCompleto());
@@ -128,7 +128,7 @@ class PersistenciaCliente implements IPersistenciaCliente {
         Connection conexion = null;
         CallableStatement cs =null;
         try {
-            conexion = Utilidades.getConnection();
+            conexion = Utilidades.getConexion();
             cs = conexion.prepareCall("{CALL EliminarCliente(?)}");
             cs.setInt(1, pCI);
             int filas = cs.executeUpdate();
@@ -153,7 +153,7 @@ class PersistenciaCliente implements IPersistenciaCliente {
         ResultSet rs=null;
         
         try{
-            conexion = Utilidades.getConnection();
+            conexion = Utilidades.getConexion();
             ps=conexion.prepareStatement("Select * From Cliente where Cedula = ? or NombreCompleto LIKE ?;");
             ps.setString(1, pCriterio);
             ps.setString(2, "%"+ pCriterio + "%");

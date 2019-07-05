@@ -41,7 +41,7 @@ class PersistenciaAlquiler implements IPersistenciaAlquiler {
         ResultSet resultadoConsulta = null;
 
         try {
-            conexion = Utilidades.getConnection();
+            conexion = Utilidades.getConexion();
             consulta = conexion.prepareStatement("SELECT * FROM Empleados WHERE Cedula = ? OR Nombre LIKE ?;");
             resultadoConsulta = consulta.executeQuery();
             ArrayList<Vehiculo> vehiculos = new ArrayList();

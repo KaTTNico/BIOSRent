@@ -36,7 +36,7 @@ public class Utilidades {
             java.util.logging.Logger.getLogger(Utilidades.class.getName()).log(Level.SEVERE, "No se pudo instanciar el driver JDBC.", ex);
 
         }
-        URL_CONEXION = "jdbc:mysql://localhost:3306/biosRent";
+        URL_CONEXION = "jdbc:mysql://localhost:3306/biosRent?useSSL=false";
         //Juan
         NOMBRE_USUARIO_BASE_DATOS = "root";
         CONTRASENA_BASE_DATOS = "password";

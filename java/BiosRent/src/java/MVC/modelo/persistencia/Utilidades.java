@@ -30,11 +30,15 @@ public class Utilidades {
     //private static final String CONTRASENA_BASE_DATOS = "password";
     static {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
 
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Utilidades.class.getName()).log(Level.SEVERE, "No se pudo instanciar el driver JDBC.", ex);
 
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Utilidades.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Utilidades.class.getName()).log(Level.SEVERE, null, ex);
         }
         URL_CONEXION = "jdbc:mysql://localhost:3306/biosRent?useSSL=false";
         //Juan

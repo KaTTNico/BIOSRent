@@ -9,7 +9,7 @@
 
 <t:paginaMaestra title="Agregar un cliente">
     <jsp:body>
-        <t:editorCliente btntext="agregar" foco="CI" />
+        <t:editorCliente btntext="Agregar" foco="CI" />
         <t:mensaje/>
     </jsp:body>
 </t:paginaMaestra>

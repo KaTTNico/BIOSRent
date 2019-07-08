@@ -81,9 +81,14 @@ class LogicaCliente implements ILogicaCliente {
     @Override
     public List<Cliente> ListarClientes(String pCriterio) throws ExcepcionPersonalizada {
         if(pCriterio == null || pCriterio.length() ==0){
-           // return listar();
+            return ListaCompleta();
         }
        return  persistencia.ListaDeClientes(pCriterio);
+    }
+
+    @Override
+    public List<Cliente> ListaCompleta() throws ExcepcionPersonalizada {
+        return persistencia.ListaCompleta();
     }
 
 }

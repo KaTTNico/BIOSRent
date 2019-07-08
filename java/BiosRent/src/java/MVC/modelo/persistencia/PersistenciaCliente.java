@@ -154,7 +154,7 @@ class PersistenciaCliente implements IPersistenciaCliente {
         
         try{
             conexion = Utilidades.getConexion();
-            ps=conexion.prepareStatement("Select * From Cliente where Cedula = ? or NombreCompleto LIKE ?;");
+            ps=conexion.prepareStatement("Select * From Cliente where CI = ? or NombreCompleto LIKE ?;");
             ps.setString(1, pCriterio);
             ps.setString(2, "%"+ pCriterio + "%");
             rs= ps.executeQuery();
@@ -167,7 +167,47 @@ class PersistenciaCliente implements IPersistenciaCliente {
             String Telefono;
             
             while(rs.next()){
-                ci = rs.getInt("Cedula");
+                ci = rs.getInt("CI");
+                NombreCompleto = rs.getString("NombreCompleto");
+                Telefono = rs.getString("Telefono");
+                
+                unCliente = new Cliente(ci,NombreCompleto,Telefono);
+                listaCliente.add(unCliente);
+                        
+            }
+                return  listaCliente;
+            
+        }catch(Exception ex){
+            throw new ExcepcionPersistencia("Error, ocurrió un error al intentar buscar los clientes");
+            
+        }finally{
+            Utilidades.CloseResources(rs,ps,conexion);
+        }
+            
+            
+        
+    }
+    public List<Cliente> ListaCompleta() throws ExcepcionPersonalizada {
+        Connection conexion = null;
+        PreparedStatement ps= null;
+        ResultSet rs=null;
+        
+        try{
+            conexion = Utilidades.getConexion();
+            ps=conexion.prepareStatement("Select * From Cliente");
+           
+           
+            rs= ps.executeQuery();
+            
+            List<Cliente> listaCliente = new ArrayList();
+            Cliente unCliente;
+            
+            int ci;
+            String NombreCompleto;
+            String Telefono;
+            
+            while(rs.next()){
+                ci = rs.getInt("CI");
                 NombreCompleto = rs.getString("NombreCompleto");
                 Telefono = rs.getString("Telefono");
                 

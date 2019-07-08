@@ -22,11 +22,13 @@
                 <th>Cédula</th><th>Nombre</th><th>Teléfono</th><th></th>
             </tr>
 
-            <c:forEach items="${cliente}" var ="cliente">
+            <c:forEach items="${clientes}" var ="cliente">
                 <tr>
+                    
                     <td>${cliente.CI}</td>
-                    <td>${cliente.NombreCompleto}</td>
-                    <td>${cliente.Telefono}</td>
+                    <td>${cliente.telefono}</td>
+                    <td>${cliente.nombreCompleto}</td>
+                   
                     <td>
                         <a href="cliente?accion=ver&cedula=${cliente.CI}"><img src="imagenes/iconos/glyphicons-52-eye-open.png" alt="Ver" title="Ver.."></a>&nbsp;&nbsp;
                         <a href="cliente?accion=modificar&cedula=${cliente.CI}"><img src="imagenes/iconos/glyphicons-31-pencil.png" alt="Modificar" title="Modificar.."></a>&nbsp;&nbsp;

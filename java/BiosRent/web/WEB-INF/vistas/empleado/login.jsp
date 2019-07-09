@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,6 +13,27 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Logueo</h1>
+        <h2>Empleados</h2>
+
+        <form action="empleado" method="POST">
+            <div>
+                <label for="NombreUser">Usuario:</label>
+                <input type ="text" name="NombreUser" id="NombreUser" value="${param.NomUser}"/>
+            </div>
+            <div>
+                <label for="Pass">Contraseña:</label>
+                <input type ="password" name="Pass" id="Pass"/>
+            </div>
+            <div>
+                <input type ="hidden" name ="accion" value="logIn"/>
+                <input type="submit" name ="botonLogin" value="Login"
+
+            </div>
+        </form>
+        <script>
+            document.getElementById('NombreUser').select();
+        </script>
     </body>
+    <t:mensaje />
 </html>

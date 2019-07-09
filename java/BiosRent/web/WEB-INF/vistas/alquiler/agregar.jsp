@@ -25,8 +25,9 @@
                     <td class="texto-derecha">
                         <fmt:formatNumber type="number" pattern="0.00" value="${vehiculo.precioAlquilerDiario}" />
                     </td>
+                    <td>${(vehiculo.sucursalPertenece.codigo == null)? "N/A" : vehiculo.sucursalPertenece.codigo}</td>
                     <td>
-                        <a href="alquiler?accion=alquilar&matricula=${vehiculo.matricula}"><img src="imagenes/iconos/glyphicons-191-plus-sign.png" alt="Alquilar" title="Alquilar..." ></a>
+                        <a href="alquiler?accion=alquilar&matricula=${vehiculo.matricula}"><img src="imagenes/iconos/glyphicons-191-plus-sign.png" alt="Alquilar" title="Alquilar" ></a>
                     </td>
                 </tr>
             </c:forEach>

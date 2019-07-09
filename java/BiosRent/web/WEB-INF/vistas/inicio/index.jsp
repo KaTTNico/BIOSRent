@@ -11,7 +11,7 @@
 <t:paginaMaestra title="Menú Principal">
     <jsp:body>
         <ul>
-            <li><a href="alquiler">Alquiler</a></li>
+            <li><a href="alquiler?accion=index">Alquiler</a></li>
             <li><a href="cliente">Cliente</a></li>
             <li><a href="empleado">Empleado</a></li>
             <li><a href="vehiculo">Vehiculo</a></li>

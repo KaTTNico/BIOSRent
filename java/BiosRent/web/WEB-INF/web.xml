@@ -40,12 +40,25 @@
         <servlet-name>ControladorVehiculo</servlet-name>
         <url-pattern>/vehiculo</url-pattern>
     </servlet-mapping>
+    <filter>
+        <filter-name>FiltroAutentificacion</filter-name>
+        <filter-class>MVC.filtros.FiltroAutentificacion</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FiltroAutentificacion</filter-name>
+        <servlet-name>ControladorCliente</servlet-name>
+        <servlet-name>ControladorAlquiler</servlet-name>
+        <servlet-name>ControladorVehiculo</servlet-name>
+        <servlet-name>ControladorEmpleado</servlet-name>
+    </filter-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+
     <welcome-file-list>
         <welcome-file>inicio</welcome-file>
     </welcome-file-list>
+
 </web-app>

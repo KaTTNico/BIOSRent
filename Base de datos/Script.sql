@@ -32,10 +32,16 @@ CREATE TABLE Vehiculo (
     Tipo VARCHAR(9),
     Descripcion VARCHAR(100),
     PrecioAlquilerDiario DECIMAL(15 , 2 ) NOT NULL DEFAULT 0,
-    SucursalCodigo INT,
     Activo bit NOT NULL default 1,
-    PRIMARY KEY (Matricula),
-    FOREIGN KEY (SucursalCodigo) REFERENCES Sucursal (Codigo)
+    PRIMARY KEY (Matricula)
+);
+
+CREATE TABLE VehiculoSucursal(
+	MatriculaVehiculo VARCHAR(7),
+    CodigoSucursal INT,
+    FOREIGN KEY (MatriculaVehiculo) REFERENCES Vehiculo (Matricula),
+    FOREIGN KEY (CodigoSucursal) REFERENCES Sucursal (Codigo),
+    PRIMARY KEY (MatriculaVehiculo,CodigoSucursal)
 );
 
 CREATE TABLE VehiculoSucursal (
@@ -107,12 +113,12 @@ Insert into Empleado values('Maria','asdfg1234',6);
 Insert into Empleado values('Federico','kilop55',14);
 
 #Vehiculo test values
-Insert into Vehiculo values('SAE4337','AUTO','Renault Twingo', 50.00,1, 1);
-Insert into Vehiculo values('RAS1452','AUTO','Fiat Argos', 65.00,6, 1);
-Insert into Vehiculo values('SCO9735','CAMIONETA','Citroen Berlingo', 70.00,7, 1);
-Insert into Vehiculo values('SEG1024','OTRO','Jac Camion', 75.00,8, 1);
-Insert into Vehiculo values('SPL1582','CAMIONETA','Toyota Hilux', 150.00,9, 1);
-Insert into Vehiculo values('SWP1451','AUTO','BMW Z4', 200.00,3, 1);
+Insert into Vehiculo values('SAE4337','AUTO','Renault Twingo', 50.00, 1);
+Insert into Vehiculo values('RAS1452','AUTO','Fiat Argos', 65.00, 1);
+Insert into Vehiculo values('SCO9735','CAMIONETA','Citroen Berlingo', 70.00, 1);
+Insert into Vehiculo values('SEG1024','OTRO','Jac Camion', 75.00, 1);
+Insert into Vehiculo values('SPL1582','CAMIONETA','Toyota Hilux', 150.00, 1);
+Insert into Vehiculo values('SWP1451','AUTO','BMW Z4', 200.00, 1);
 
 #Empelado SP
 Delimiter //
@@ -214,6 +220,18 @@ delimiter ;
 Delimiter //
 Create procedure AgregarVehiculo(pMatricula varchar(7), pTipo varchar(9), pDescripcion varchar(100), pPrecioAlquilerDiario DECIMAL(15,2), pSucursalCodigo int, out pMsjError varchar(100))
 cuerpo:Begin
+	DECLARE mensajeError VARCHAR(200);
+    DECLARE transaccionActiva BIT;
+    
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+    BEGIN
+		IF transaccionActiva THEN
+			ROLLBACK;
+		END IF;
+        
+        SET pERROR = mensajeError;
+    END;
+    
 	if(exists(select * from Vehiculo where Matricula = pMatricula and Activo = 1)) then
 		set pMsjError= "Error ya existe el vehiculo";
         Leave cuerpo;
@@ -224,34 +242,86 @@ cuerpo:Begin
         Leave cuerpo;
 	End if;
     
+    set transaccionActiva=1;
+    
+    START TRANSACTION;
+    
+    set mensajeError='No se pudo agregar el vehiculo.';
     #Si estaba en baja logica
     if(exists(select * from Vehiculo where Matricula = pMatricula and Activo = 0)) then
-        Update Vehiculo set Tipo = pTipo, Descripcion = pDescripcion, PrecioAlquilerDiario = pPrecioAlquilerDiario, SucursalCodigo = pSucursalCodigo, Activo = 1 where Matricula = pMatricula;
+        Update Vehiculo set Tipo = pTipo, Descripcion = pDescripcion, PrecioAlquilerDiario = pPrecioAlquilerDiario, Activo = 1 where Matricula = pMatricula;
+        Insert into VehiculoSucursal (MatriculaVehiculo,CodigoSucursal) values(pMatricula,pCodigoSucursal);
         Leave cuerpo;
 	End if;
     
-    Insert into Vehiculo(Matricula, Tipo, Descripcion, PrecioAlquilerDiario, SucursalCodigo) values(pMatricula, pTipo, pDescripcion, pPrecioAlquilerDiario, pSucursalCodigo);
+    Insert into Vehiculo(Matricula, Tipo, Descripcion, PrecioAlquilerDiario) values(pMatricula, pTipo, pDescripcion, pPrecioAlquilerDiario);
+    Insert into VehiculoSucursal (MatriculaVehiculo,CodigoSucursal) values(pMatricula,pCodigoSucursal);
+    
+    COMMIT;
+    
+    set transaccionActiva=0;
 End//
 Delimiter ;
 
 Delimiter //
 Create procedure ModificarVehiculo(pMatricula varchar(7), pTipo varchar(9), pDescripcion varchar(100), pPrecioAlquilerDiario DECIMAL(15,2), pSucursalCodigo int, out pMsjError varchar(100))
 cuerpo:Begin
+	DECLARE mensajeError VARCHAR(200);
+    DECLARE transaccionActiva BIT;
+    
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+    BEGIN
+		IF transaccionActiva THEN
+			ROLLBACK;
+		END IF;
+        
+        SET pERROR = mensajeError;
+    END;
+    
 	if(not exists(select * from Vehiculo where Matricula = pMatricula and Activo = 1)) then
 		set pMsjError= "Error no existe el vehiculo";
         Leave cuerpo;
 	End if;
-    update Vehiculo set Tipo = pTipo, Descripcion = pDescripcion, PrecioAlquilerDiario = pPrecioAlquilerDiario, SucursalCodigo = pSucursalCodigo where Matricula = pMatricula;
+    
+    set transaccionActiva=1;
+    
+    START TRANSACTION;
+    
+    set mensajeError='No se pudo modificar el vehiculo.';
+    update Vehiculo set Tipo = pTipo, Descripcion = pDescripcion, PrecioAlquilerDiario = pPrecioAlquilerDiario where Matricula = pMatricula;
+    update VehiculoSucursal set MatriculaVehiculo = pMatricula, CodigoSucursal = pCodigoSucursal; 
+    
+    COMMIT;
+    
+    set transaccionActiva=0;
 End //
 Delimiter ;
 
 Delimiter //
 Create procedure EliminarVehiculo(pMatricula varchar(7), out pMsjError varchar(100))
 cuerpo:begin
+	DECLARE mensajeError VARCHAR(200);
+    DECLARE transaccionActiva BIT;
+    
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+    BEGIN
+		IF transaccionActiva THEN
+			ROLLBACK;
+		END IF;
+        
+        SET pERROR = mensajeError;
+    END;
+    
 	if(not exists(select * from Vehiculo where Matricula = pMatricula and Activo = 1)) then 
 		set pMsjError= "Error no existe el vehiculo";
         Leave cuerpo;
 	End if;
+    
+    set transaccionActiva=1;
+    
+    START TRANSACTION;
+    
+    set mensajeError='No se pudo eliminar el vehiculo.';
     
     #Si tiene que hacerce baja logica
     if(exists(select * from Alquiler where VehiculoMatricula = pMatricula)) Then
@@ -260,6 +330,10 @@ cuerpo:begin
     End if;
     
 	delete from Vehiculo where Matricula = pMatricula;
+    
+    COMMIT;
+    
+    set transaccionActiva=0;
 end//
 Delimiter ;
 
@@ -293,7 +367,8 @@ total decimal(15,2),
 depositoEnGarantia decimal(15,2),
 clienteCedula int,
 sucursalRetiraCodigo int,
-matricula varchar(7))
+matricula varchar(7),
+out pMsjError varchar(100))
 cuerpo:begin
 	if(not exists(select * from Vehiculo where Matricula = matricula and Activo = 1)) then
 		set pMsjError= "Error, el vehiculo no existe.";
@@ -359,7 +434,8 @@ Create procedure AgregarDevolucion(
 alquilerId int,
 sucursalCodigo int, 
 fechaDevolucion date, 
-multaAtraso decimal(15,2))
+multaAtraso decimal(15,2),
+out pMsjError varchar(100))
 cuerpo:begin
 	if(not exists(select * from Alquiler where Id = alquilerId))then
 		set pMsjError= "Error, este alquiler no existe.";

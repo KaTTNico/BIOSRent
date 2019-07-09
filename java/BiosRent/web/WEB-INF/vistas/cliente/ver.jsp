@@ -12,6 +12,14 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <jsp:useBean id="cliente" type="MVC.modelo.entidades.beans.datatypes.Cliente" scope="request"/>
+        <h3><jsp:getProperty name="cliente" property="nombreCompleto"/></h3>
+        
+        <ul>
+            <li>Cédula:<jsp:getProperty name="cliente" property="CI"/></li>
+            <li>Nombre:<jsp:getProperty name="cliente" property="nombreCompleto"/></li>
+            <li>Teléfono:<jsp:getProperty name="cliente" property="telefono"/></li>
+            
+        </ul>
     </body>
 </html>

@@ -18,7 +18,7 @@ class Utilidades {
     private static final String URL_CONEXION = "jdbc:mysql://localhost:3306/biosRent";
     //Juan
     private static final String NOMBRE_USUARIO_BASE_DATOS = "root";
-    private static final String CONTRASENA_BASE_DATOS = "root";
+    private static final String CONTRASENA_BASE_DATOS = "Password01";
 
     //Nico
     //private static final String NOMBRE_USUARIO_BASE_DATOS = "root";

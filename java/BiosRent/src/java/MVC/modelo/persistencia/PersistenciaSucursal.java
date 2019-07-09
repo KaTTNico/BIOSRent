@@ -47,7 +47,7 @@ class PersistenciaSucursal implements IPersistenciaSucursal {
         try {
 
             //Preparar consulta
-            conexion = Utilidades.getConexion();
+            conexion = Utilidades.getConnection();
             consulta = conexion.prepareCall("{ call BuscarSucursal(?) }");
             consulta.setInt(1, parameterCodigo);
 
@@ -81,7 +81,7 @@ class PersistenciaSucursal implements IPersistenciaSucursal {
         try {
 
             //Preparar consulta
-            conexion = Utilidades.getConexion();
+            conexion = Utilidades.getConnection();
             consulta = conexion.prepareCall("{ call ListarSucursal() }");
 
             //Ejecutar y obtener result set

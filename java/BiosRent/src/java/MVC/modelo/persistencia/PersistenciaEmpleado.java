@@ -53,7 +53,7 @@ class PersistenciaEmpleado implements IPersistenciaEmpleado {
         Empleado unEmp = null;
 
         try {
-            conexion = Utilidades.getConexion();
+            conexion = Utilidades.getConnection();
             ps = conexion.prepareStatement("Select * From Empleado where NombreUser = ?;");
             ps.setString(1, pNomUser);
             rs = ps.executeQuery();

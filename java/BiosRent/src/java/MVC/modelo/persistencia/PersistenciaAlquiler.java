@@ -7,12 +7,11 @@ package MVC.modelo.persistencia;
 
 import MVC.modelo.entidades.beans.datatypes.*;
 import MVC.modelo.entidades.beans.excepciones.*;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Date;
 
 /**
  *
@@ -37,13 +36,14 @@ class PersistenciaAlquiler implements IPersistenciaAlquiler {
     @Override
     public ArrayList<Vehiculo> listarVehiculosDisponibles() throws ExcepcionPersonalizada {
         Connection conexion = null;
-        PreparedStatement consulta = null;
+        CallableStatement consulta = null;
         ResultSet resultadoConsulta = null;
 
         try {
-            conexion = Utilidades.getConexion();
-            consulta = conexion.prepareStatement("SELECT * FROM Empleados WHERE Cedula = ? OR Nombre LIKE ?;");
-            resultadoConsulta = consulta.executeQuery();
+            conexion = Utilidades.getConnection();
+            consulta = conexion.prepareCall("{CALL ListarVehiculosDisponibles()}");
+            consulta.execute();
+            resultadoConsulta = consulta.getResultSet();
             ArrayList<Vehiculo> vehiculos = new ArrayList();
             Vehiculo vehiculo;
 
@@ -57,14 +57,13 @@ class PersistenciaAlquiler implements IPersistenciaAlquiler {
                 tipo = resultadoConsulta.getString("Tipo");
                 descripcion = resultadoConsulta.getString("Descripcion");
                 precioAlquilerDiario = resultadoConsulta.getDouble("PrecioAlquilerDiario");
-                //Sucursal  sucursalPertenece = PersistenciaSucursal.buscar(resultadoConsulta.getInteger("SucursalCodigo");
-                //cuando este hecho el buscar sucursal u obtener sucursal crear el vehiculo completo
-                vehiculo = new Vehiculo();
+                Sucursal sucursalPertenece = PersistenciaSucursal.getInstancia().BuscarSucursal(resultadoConsulta.getInt("SucursalCodigo"));
+                vehiculo = new Vehiculo(matricula, tipo, descripcion, precioAlquilerDiario, sucursalPertenece);
                 vehiculos.add(vehiculo);
             }
             return vehiculos;
         } catch (Exception ex) {
-            throw new ExcepcionPersistencia("No se pudo buscar los vehiculos.", ex);
+            throw new ExcepcionPersistencia("No se pudo obtener los vehiculos.", ex);
         } finally {
             Utilidades.CloseResources(resultadoConsulta, consulta, conexion);
         }

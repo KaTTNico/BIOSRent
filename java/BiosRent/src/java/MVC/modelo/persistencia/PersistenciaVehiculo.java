@@ -46,7 +46,7 @@ class PersistenciaVehiculo implements IPersistenciaVehiculo{
         try {
 
             //Preparar consulta
-            conexion = Utilidades.getConexion();
+            conexion = Utilidades.getConnection();
             consulta = conexion.prepareCall("{ call BuscarVehiculo(?) }");
             consulta.setString(1, parameterMatricula);
 
@@ -81,7 +81,7 @@ class PersistenciaVehiculo implements IPersistenciaVehiculo{
         try {
 
             //Preparar consulta
-            conexion = Utilidades.getConexion();
+            conexion = Utilidades.getConnection();
             consulta = conexion.prepareCall("{ call BuscarVehiculoTodos(?) }");
             consulta.setString(1, parameterMatricula);
 
@@ -118,7 +118,7 @@ class PersistenciaVehiculo implements IPersistenciaVehiculo{
         try {
 
             //Preparar consulta
-            conexion = Utilidades.getConexion();
+            conexion = Utilidades.getConnection();
             consulta = conexion.prepareCall("{ call ListarVehiculo(?) }");
 
             //Ejecutar y obtener result set
@@ -154,7 +154,7 @@ class PersistenciaVehiculo implements IPersistenciaVehiculo{
         try {
 
             //Preparar consulta
-            conexion = Utilidades.getConexion();
+            conexion = Utilidades.getConnection();
             consulta = conexion.prepareCall("{ call AgregarVehiculo(?,?,?,?,?,?) }");
             consulta.setString(++p, parameterVehiculo.getMatricula());
             consulta.setString(++p, parameterVehiculo.getTipo());
@@ -186,7 +186,7 @@ class PersistenciaVehiculo implements IPersistenciaVehiculo{
         try {
 
             //Preparar consulta
-            conexion = Utilidades.getConexion();
+            conexion = Utilidades.getConnection();
             consulta = conexion.prepareCall("{ call ModificarVehiculo(?,?,?,?,?,?) }");
             consulta.setString(++p, parameterVehiculo.getMatricula());
             consulta.setString(++p, parameterVehiculo.getTipo());
@@ -218,7 +218,7 @@ class PersistenciaVehiculo implements IPersistenciaVehiculo{
         try {
 
             //Preparar consulta
-            conexion = Utilidades.getConexion();
+            conexion = Utilidades.getConnection();
             consulta = conexion.prepareCall("{ call EliminarVehiculo(?,?) }");
             consulta.setString(++p, parameterMatricula);
             consulta.registerOutParameter(++p, java.sql.JDBCType.VARCHAR);

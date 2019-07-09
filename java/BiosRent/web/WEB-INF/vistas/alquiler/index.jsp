@@ -11,9 +11,9 @@
 <t:paginaMaestra title="Menu alquiler">
     <jsp:body>
         <ul>
-            <li><a href="agregar">Agregar</a></li>
-            <li><a href="devolver">Devolver</a></li>
-            <li><a href="ver">Ver</a></li>
+            <li><a href="alquiler?accion=agregar">Agregar</a></li>
+            <li><a href="alquiler?accion=devolver">Devolver</a></li>
+            <li><a href="alquiler?accion=ver">Ver</a></li>
         </ul>
     </jsp:body>
 </t:paginaMaestra>

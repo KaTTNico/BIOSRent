@@ -23,4 +23,10 @@ public class FabricaPersistencia {
     public static IPersistenciaAlquiler getPersistenciaAlquiler(){
         return PersistenciaAlquiler.getInstancia();   
     }
+    public static IPersistenciaVehiculo getPersistenciaVehiculo(){
+        return PersistenciaVehiculo.getInstancia();
+    }
+    public static IPersistenciaSucursal getPersistenciaSucursal(){
+        return PersistenciaSucursal.getInstancia();
+    }
 }

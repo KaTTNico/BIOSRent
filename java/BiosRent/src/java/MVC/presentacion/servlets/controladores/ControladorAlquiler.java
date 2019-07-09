@@ -46,13 +46,13 @@ public class ControladorAlquiler extends HttpServlet {
         switch (accion) {
             case "index":
                 index_get(request, response);
-
+                break;
             case "agregar":
                 agregar_get(request, response);
-
+                break;
             case "devolver":
                 devolver_get(request, response);
-
+                break;
             case "ver":
                 ver_get(request, response);
                 break;
@@ -61,10 +61,20 @@ public class ControladorAlquiler extends HttpServlet {
 
     public void index_get(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.getRequestDispatcher("WEB-INF/vistas/alquiler/index.jsp").forward(request, response);
+    }
+
+    public void agregar_get(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         try {
             List<Vehiculo> vehiculos = FabricaLogica.getLogicaAlquiler().listarVehiculosDisponibles();
             request.setAttribute("vehiculos", vehiculos);
-            request.setAttribute("mensaje", "Cantidad de vehiculos: " + vehiculos.size());
+
+            if (!vehiculos.isEmpty()) {
+                request.setAttribute("mensaje", "Cantidad de vehiculos: " + vehiculos.size());
+            } else {
+                request.setAttribute("mensaje", "No hay vehiculos disponibles.");
+            }
         } catch (ExcepcionPersonalizada ex) {
             request.setAttribute("mensaje", ex.getMessage());
         } catch (Exception ex) {
@@ -82,13 +92,6 @@ public class ControladorAlquiler extends HttpServlet {
             }
             request.getSession().removeAttribute("mensaje");
         }
-
-        request.getRequestDispatcher("WEB-INF/vistas/alquiler/index.jsp").forward(request, response);
-
-    }
-
-    public void agregar_get(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
         request.getRequestDispatcher("WEB-INF/vistas/alquiler/agregar.jsp").forward(request, response);
     }
 

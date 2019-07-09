@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 class Utilidades {
 
-    private static final String URL_CONEXION = "jdbc:mysql://localhost:8084/biosRent";
+    private static final String URL_CONEXION = "jdbc:mysql://localhost:3306/biosRent";
     //Juan
     private static final String NOMBRE_USUARIO_BASE_DATOS = "root";
     private static final String CONTRASENA_BASE_DATOS = "root";
@@ -39,7 +39,6 @@ class Utilidades {
 
     protected static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL_CONEXION, NOMBRE_USUARIO_BASE_DATOS, CONTRASENA_BASE_DATOS);
-
     }
 
     protected static void CloseResources(AutoCloseable... resource) {

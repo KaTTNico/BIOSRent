@@ -26,4 +26,6 @@ public interface ILogicaCliente {
     void validar(Cliente unCliente) throws ExcepcionPersonalizada;
     
     List<Cliente> ListarClientes(String pCriterio) throws ExcepcionPersonalizada;
+    
+    List<Cliente> ListaCompleta() throws ExcepcionPersonalizada;
 }

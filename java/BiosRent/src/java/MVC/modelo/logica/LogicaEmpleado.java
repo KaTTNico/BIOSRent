@@ -41,7 +41,7 @@ class LogicaEmpleado implements ILogicaEmpleado {
     public Empleado logueo(String pNomUser, String pPassUser) throws ExcepcionPersonalizada {
         Empleado unEmp = persistencia.buscar(pNomUser);
         if (unEmp != null && !unEmp.getPassUser().equals(pPassUser)) {
-            unEmp =null;
+           unEmp =null;
         }
         return unEmp;
     }

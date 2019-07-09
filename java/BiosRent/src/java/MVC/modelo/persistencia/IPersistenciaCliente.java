@@ -20,4 +20,5 @@ public interface IPersistenciaCliente {
     void modificar(Cliente unCliente) throws ExcepcionPersonalizada;
     void eliminar(int pCI) throws ExcepcionPersonalizada;
     List<Cliente> ListaDeClientes(String pCriterio) throws ExcepcionPersonalizada;
+    List<Cliente> ListaCompleta() throws ExcepcionPersonalizada;
 }

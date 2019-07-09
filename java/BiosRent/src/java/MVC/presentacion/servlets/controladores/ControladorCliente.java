@@ -130,14 +130,7 @@ public class ControladorCliente extends HttpServlet {
             request.getRequestDispatcher("WEB-INF/vistas/cliente/ver.jsp");
             return;
         }
-        String nombreCliente = request.getParameter("NombreCliente");
-        String Tel = request.getParameter("Telefono");
-
-        if (!(Tel.matches("^09[0-9]{7}||2[0-9]{7}$"))) {
-            request.setAttribute("mensaje", "Error, el formato del telefono no es correcto");
-            request.getRequestDispatcher("WEB-INF/vistas/cliente/ver.jsp").forward(request, response);
-            return;
-        }
+       
 
         try {
             Cliente unCliente = FabricaLogica.getLogicaCliente().buscar(ci);
@@ -167,13 +160,13 @@ public class ControladorCliente extends HttpServlet {
     public void agregar_post(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int ci;
         try {
-            ci = Integer.parseInt(request.getParameter("cedula"));
+            ci = Integer.parseInt(request.getParameter("CI"));
         } catch (NumberFormatException ex) {
             request.setAttribute("mensaje", "La cédula no es válida.");
             request.getRequestDispatcher("WEB-INF/vistas/cliente/registroCliente.jsp");
             return;
         }
-        String nombreCliente = request.getParameter("NombreCliente");
+        String nombreCliente = request.getParameter("NombreCompleto");
         String Tel = request.getParameter("Telefono");
 
         if (!(Tel.matches("^09[0-9]{7}||2[0-9]{7}$"))) {
@@ -206,15 +199,7 @@ public class ControladorCliente extends HttpServlet {
             request.getRequestDispatcher("WEB-INF/vistas/cliente/modificar.jsp");
             return;
         }
-        String nombreCliente = request.getParameter("NombreCliente");
-        String Tel = request.getParameter("Telefono");
-
-        if (!(Tel.matches("^09[0-9]{7}||2[0-9]{7}$"))) {
-            request.setAttribute("mensaje", "Error, el formato del telefono no es correcto");
-            request.getRequestDispatcher("WEB-INF/vistas/cliente/modificar.jsp").forward(request, response);
-            return;
-        }
-
+      
         try {
             Cliente unCliente = FabricaLogica.getLogicaCliente().buscar(ci);
             if (unCliente != null) {
@@ -281,15 +266,7 @@ public class ControladorCliente extends HttpServlet {
             request.getRequestDispatcher("WEB-INF/vistas/cliente/eliminar.jsp");
             return;
         }
-        String nombreCliente = request.getParameter("NombreCliente");
-        String Tel = request.getParameter("Telefono");
-
-        if (!(Tel.matches("^09[0-9]{7}||2[0-9]{7}$"))) {
-            request.setAttribute("mensaje", "Error, el formato del telefono no es correcto");
-            request.getRequestDispatcher("WEB-INF/vistas/cliente/eliminar.jsp").forward(request, response);
-            return;
-        }
-
+        
         try {
             Cliente unCliente = FabricaLogica.getLogicaCliente().buscar(ci);
             if (unCliente != null) {

@@ -3,13 +3,35 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/vistas/alquiler/index.jsp</file>
+<<<<<<< HEAD
             <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/vistas/cliente/registroCliente.jsp</file>
             <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/tags/editorCliente.tag</file>
             <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/filtros/FiltroAutentificacion.java</file>
             <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/modelo/persistencia/PersistenciaCliente.java</file>
             <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/presentacion/servlets/controladores/ControladorCliente.java</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/vistas/alquiler/agregar.jsp</file>
+=======
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/modelo/persistencia/Utilidades.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/modelo/logica/LogicaSucursal.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/modelo/persistencia/PersistenciaVehiculo.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/modelo/logica/ILogicaSucursal.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/modelo/logica/LogicaEmpleado.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/modelo/logica/LogicaVehiculo.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/presentacion/servlets/controladores/ControladorVehiculo.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/modelo/persistencia/IPersistenciaSucursal.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/modelo/logica/FabricaLogica.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/modelo/persistencia/PersistenciaEmpleado.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/modelo/logica/ILogicaVehiculo.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/presentacion/servlets/controladores/ControladorCliente.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/modelo/logica/LogicaAlquiler.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/modelo/persistencia/IPersistenciaCliente.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/modelo/persistencia/PersistenciaCliente.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/modelo/persistencia/FabricaPersistencia.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/modelo/persistencia/PersistenciaAlquiler.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/modelo/logica/LogicaCliente.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/modelo/entidades/beans/datatypes/Sucursal.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/modelo/persistencia/IPersistenciaVehiculo.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/web/WEB-INF/vistas/vehiculo/agregar.jsp</file>
+>>>>>>> 02658932165cb1d4b26602380fb259b06a5e1f82
         </group>
     </open-files>
 </project-private>

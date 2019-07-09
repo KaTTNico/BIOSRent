@@ -27,7 +27,7 @@ CREATE TABLE Empleado (
     FOREIGN KEY (CodigoSucursal) REFERENCES Sucursal (Codigo)
 );
 
-CREATE  TABLE Vehiculo (
+CREATE TABLE Vehiculo (
     Matricula VARCHAR(7) NOT NULL,
     Tipo VARCHAR(9),
     Descripcion VARCHAR(100),
@@ -42,6 +42,12 @@ CREATE TABLE VehiculoSucursal(
     FOREIGN KEY (MatriculaVehiculo) REFERENCES Vehiculo (Matricula),
     FOREIGN KEY (CodigoSucursal) REFERENCES Sucursal (Codigo),
     PRIMARY KEY (MatriculaVehiculo,CodigoSucursal)
+);
+
+CREATE TABLE VehiculoSucursal (
+	MatriculaVehiculo VARCHAR(7) FOREIGN KEY REFERENCES Vehiculo(Matricula),
+	CodigoSucursal INT FOREIGN KEY REFERENCES Sucursal(Codigo),
+	PRIMARY KEY (MatriculaVehiculo, CodigoSucursal)
 );
 
 CREATE TABLE Alquiler (

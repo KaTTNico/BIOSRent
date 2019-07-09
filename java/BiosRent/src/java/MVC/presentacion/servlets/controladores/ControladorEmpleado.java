@@ -79,7 +79,7 @@ public class ControladorEmpleado extends HttpServlet {
             request.getRequestDispatcher("WEB-INF/vistas/empleado/login.jsp").forward(request, response);
             
         }else{
-            response.sendRedirect("vehiculo?accion=ver");
+            response.sendRedirect("cliente?accion=index");
         }
     }
 
@@ -91,10 +91,8 @@ public class ControladorEmpleado extends HttpServlet {
             if(unEmp !=null){
                 request.getSession().setAttribute("empleadoLogueado",unEmp);
                 
-                Alquiler unAlquiler = new Alquiler();
-              //  unAlquiler.setEmpleado(unEmp);
-                request.getSession().setAttribute("alquiler", unAlquiler);
-                response.sendRedirect("vehiculo?accion=ver");
+                
+                response.sendRedirect("cliente?accion=index");
                         
             }else{
                 request.setAttribute("mensaje", "Las credenciales ingresadas no son correctas");

@@ -19,7 +19,7 @@
         <label for="cedula">Cédula:</label> 
         <c:choose>
             <c:when test="${deshabilitarClave}">
-                <input type="text" name="cedula" id="cedula"value="${!empty cliente ? cliente.CI :param.CI}" readonly="readonly"/>
+                <input type="text" name="CI" id="cedula"value="${!empty cliente ? cliente.CI :param.CI}" readonly="readonly"/>
 
             </c:when>
             <c:otherwise>
@@ -31,11 +31,11 @@
     </div>
     <div>
         <label for="NombreCompleto">Nombre completo:</label>
-        <input type="text" name ="NombreCompleto" id="NombreCompleto" value="${!empty cliente ? cliente.NombreCompleto : param.NombreCompleto}" />
+        <input type="text" name ="NombreCompleto" id="NombreCompleto" value="${!empty cliente ? cliente.nombreCompleto : param.nombreCompleto}" />
     </div>
     <div>
         <label for="Telefono">Telefono:</label>
-        <input type="text" name="Telefono" id="Telefono" value="${!empty cliente ? cliente.Telefono : param.Telefono}" />
+        <input type="text" name="Telefono" id="Telefono" value="${!empty cliente ? cliente.telefono : param.telefono}" />
     </div>
     <div>
         <input type="submit" name="accion" value="${btntext}"/>

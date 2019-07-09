@@ -44,11 +44,7 @@ CREATE TABLE VehiculoSucursal(
     PRIMARY KEY (MatriculaVehiculo,CodigoSucursal)
 );
 
-CREATE TABLE VehiculoSucursal (
-	MatriculaVehiculo VARCHAR(7) FOREIGN KEY REFERENCES Vehiculo(Matricula),
-	CodigoSucursal INT FOREIGN KEY REFERENCES Sucursal(Codigo),
-	PRIMARY KEY (MatriculaVehiculo, CodigoSucursal)
-);
+
 
 CREATE TABLE Alquiler (
     Id INT AUTO_INCREMENT NOT NULL,
@@ -229,7 +225,7 @@ cuerpo:Begin
 			ROLLBACK;
 		END IF;
         
-        SET pERROR = mensajeError;
+        SET pMsjError = mensajeError;
     END;
     
 	if(exists(select * from Vehiculo where Matricula = pMatricula and Activo = 1)) then
@@ -275,7 +271,7 @@ cuerpo:Begin
 			ROLLBACK;
 		END IF;
         
-        SET pERROR = mensajeError;
+        SET pMsjError = mensajeError;
     END;
     
 	if(not exists(select * from Vehiculo where Matricula = pMatricula and Activo = 1)) then
@@ -309,7 +305,7 @@ cuerpo:begin
 			ROLLBACK;
 		END IF;
         
-        SET pERROR = mensajeError;
+        SET pMsjError = mensajeError;
     END;
     
 	if(not exists(select * from Vehiculo where Matricula = pMatricula and Activo = 1)) then 

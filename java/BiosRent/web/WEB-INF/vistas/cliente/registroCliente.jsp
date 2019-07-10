@@ -11,5 +11,7 @@
     <jsp:body>
         <t:editorCliente btntext="Agregar" foco="CI" />
         <t:mensaje/>
+        
+        <a href="cliente">Volver...</a>
     </jsp:body>
 </t:paginaMaestra>

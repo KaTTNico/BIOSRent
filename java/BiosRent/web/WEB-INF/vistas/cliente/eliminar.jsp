@@ -11,15 +11,15 @@
 <t:paginaMaestra>
     <jsp:body>
         <c:if test ="${!empty cliente}">
-            <p>¿Eliminar al cliente? <strong>${cliente.CI}</strong></p>
+            <p class="letras">¿Eliminar al cliente? <strong>${cliente.CI}</strong></p>
             <form method="post" accept-charset="ISO-8859-1">
                 <p>
                     <input type="hidden" name="ci" value ="${cliente.CI}"/>
-                    <input type="submit" name="accion" value="Eliminar"/>
+                    <input class="boton-eliminar" type="submit" name="accion" value="Eliminar"/>
                 </p>
             </form>
         </c:if>
-        <p><a href="cliente">Volver</a></p>
+        <p><a href="cliente">Volver...</a></p>
         <t:mensaje />
     </jsp:body>
 </t:paginaMaestra>

@@ -16,29 +16,29 @@
 <%-- any content can be specified here e.g.: --%>
 <form method="post" accept-charset="ISO-8859-1">
     <div>
-        <label for="cedula">Cédula:</label> 
+        <label for="cedula">Cédula:</label><br /> 
         <c:choose>
             <c:when test="${deshabilitarClave}">
-                <input type="text" name="CI" id="cedula"value="${!empty cliente ? cliente.CI :param.CI}" readonly="readonly"/>
+                <input class="noaccess" type="text" name="CI" id="cedula"value="${!empty cliente ? cliente.CI :param.CI}" readonly="readonly"/>
 
             </c:when>
             <c:otherwise>
-                <input type="text" name="CI" id="cedula"value="${!empty cliente ? cliente.CI :param.CI}" />
+                <input  class="txt-box-clientes" type="text" name="CI" id="cedula"value="${!empty cliente ? cliente.CI :param.CI}" />
                 
             </c:otherwise>
 
         </c:choose>
     </div>
     <div>
-        <label for="NombreCompleto">Nombre completo:</label>
-        <input type="text" name ="NombreCompleto" id="NombreCompleto" value="${!empty cliente ? cliente.nombreCompleto : param.nombreCompleto}" />
+       <br /> <label for="NombreCompleto">Nombre completo:</label><br />
+        <input class="txt-box-clientes" type="text" name ="NombreCompleto" id="NombreCompleto" value="${!empty cliente ? cliente.nombreCompleto : param.nombreCompleto}" />
     </div>
     <div>
-        <label for="Telefono">Telefono:</label>
-        <input type="text" name="Telefono" id="Telefono" value="${!empty cliente ? cliente.telefono : param.telefono}" />
+       <br /> <label for="Telefono">Telefono:</label><br />
+        <input class="txt-box-clientes" type="text" name="Telefono" id="Telefono" value="${!empty cliente ? cliente.telefono : param.telefono}" />
     </div>
     <div>
-        <input type="submit" name="accion" value="${btntext}"/>
+       <br /> <input class= "boton-editor" type="submit" name="accion" value="${btntext}"/>
     </div>
     
     <script>

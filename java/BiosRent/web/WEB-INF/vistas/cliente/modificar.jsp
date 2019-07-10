@@ -10,11 +10,15 @@
 
 <t:paginaMaestra title="Modificar un cliente">
     <jsp:body>
+        
         <c:if test="${!ocultarFormulario}">
             <t:editorCliente deshabilitarClave="true" foco="Nombre" btntext="Modificar"/>
         </c:if>
+        
+        <t:mensaje />
+        
         <p><a href="cliente">Volver..</a></p>
 
-        <t:mensaje />
+        
     </jsp:body>
 </t:paginaMaestra>

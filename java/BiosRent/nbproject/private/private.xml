@@ -3,21 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/vistas/cliente/modificar.jsp</file>
-<<<<<<< HEAD
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/tags/editorCliente.tag</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/presentacion/servlets/controladores/ControladorCliente.java</file>
-=======
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/tags/paginaMaestra.tag</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/tags/editorCliente.tag</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/css/estilos.css</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/vistas/cliente/index.jsp</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/vistas/cliente/ver.jsp</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/presentacion/servlets/controladores/ControladorCliente.java</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/vistas/empleado/login.jsp</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/vistas/cliente/eliminar.jsp</file>
-            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/tags/mensaje.tag</file>
->>>>>>> d1974486baa8de813002c7e0e56a0d86a7778a32
+            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/nbproject/private/private.xml</file>
+            <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/nbproject/build-impl.xml</file>
         </group>
     </open-files>
 </project-private>

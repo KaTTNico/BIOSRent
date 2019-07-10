@@ -119,7 +119,7 @@ class PersistenciaVehiculo implements IPersistenciaVehiculo{
 
             //Preparar consulta
             conexion = Utilidades.getConnection();
-            consulta = conexion.prepareCall("{ call ListarVehiculo(?) }");
+            consulta = conexion.prepareCall("{ call ListarVehiculo() }");
 
             //Ejecutar y obtener result set
             consulta.execute();

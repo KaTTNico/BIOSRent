@@ -14,7 +14,7 @@
             <li><a href="alquiler?accion=index">Alquiler</a></li>
             <li><a href="cliente">Cliente</a></li>
             <li><a href="empleado">Empleado</a></li>
-            <li><a href="vehiculo">Vehiculo</a></li>
+            <li><a href="vehiculo?accion=index">Vehiculo</a></li>
         </ul>
     </jsp:body>
 </t:paginaMaestra>

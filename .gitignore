@@ -1,3 +1,4 @@
 /java/BiosRent/build/*
 /java/BiosRent/dist/*
 /java/BiosRent/nbproject/*
+.gitignore.rej

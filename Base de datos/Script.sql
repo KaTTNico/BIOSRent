@@ -44,8 +44,6 @@ CREATE TABLE VehiculoSucursal(
     PRIMARY KEY (MatriculaVehiculo,CodigoSucursal)
 );
 
-
-
 CREATE TABLE Alquiler (
     Id INT AUTO_INCREMENT NOT NULL,
     FechaAlquiler DATETIME NOT NULL,

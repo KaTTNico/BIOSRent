@@ -169,7 +169,7 @@ h2{
 }
 
 .boton-eliminar{
-    
+
     transition-duration: 0.4s;
     color: black;
     border: 2px solid #ff4057;
@@ -178,10 +178,47 @@ h2{
     font-size: 18px;
     padding: 5px;
     margin-bottom: 6px;
-    
+
 }
 
 .boton-eliminar:hover{
     background-color: #ff4057;
     color: white;
+}
+
+
+div.loguearse{
+    
+    width: 300px;
+    height: 175px;
+    margin: 150px auto;
+    background-color: #63aabc;
+    border-radius: 2.5px;
+}
+div.btnlogin{
+    text-align: center;
+}
+h1.login{
+    text-align: center;
+    
+    margin-top:150px;
+    font-family: sans-serif;
+        
+    
+}
+h2.login{
+    text-align: center;
+     margin: 0 auto;
+     font-family: sans-serif;
+}
+.txt-login{
+   margin:auto 75px; 
+   
+}
+.labellogueo{
+   margin: auto 75px;
+}
+
+.fondo{
+    background-color: #f9f3ec;
 }

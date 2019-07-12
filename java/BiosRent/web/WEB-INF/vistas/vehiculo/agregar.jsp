@@ -4,18 +4,22 @@
     Author     : Nicolas
 --%>
 
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:paginaMaestra title="Agregar Vehiculo">
     <jsp:body>
-        <fmt:setLocale value="en-US" />
-        <table class="listado">
-            
-        </table>
-        <p><a href="inicio">Volver...</a></p>
+        
+        <form action="vehiculo?action=agregar" method="post">
+        <t:formularioVehiculo/>
+        
+        <input type="submit" value="Agregar" class="submitFormulario">
+        
+        </form>
+        
+        <p><a href="vehiculo?action=index">Volver a vehiculos...</a></p>
+        
+        <p><a href="inicio">Volver a inicio...</a></p>
+
         <t:mensaje />
     </jsp:body>
 </t:paginaMaestra>

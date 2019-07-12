@@ -117,6 +117,7 @@ public class ControladorCliente extends HttpServlet {
             }
              request.getSession().removeAttribute("mensaje");
         }
+        
        request.getRequestDispatcher("WEB-INF/vistas/cliente/index.jsp").forward(request, response);
     }
    

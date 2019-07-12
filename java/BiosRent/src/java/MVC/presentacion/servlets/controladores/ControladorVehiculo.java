@@ -100,12 +100,26 @@ public class ControladorVehiculo extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            request.setAttribute("vehiculos", FabricaLogica.getLogicaVehiculo().ListarVehiculo());
+            request.removeAttribute("vehiculo");
+            request.getSession().setAttribute("vehiculos", FabricaLogica.getLogicaVehiculo().ListarVehiculo());
             request.getRequestDispatcher("WEB-INF/vistas/vehiculo/index.jsp").forward(request, response);
         } catch (Exception ex) {
             request.setAttribute("mensaje", ex.getMessage());
             request.getRequestDispatcher("WEB-INF/vistas/inicio/index.jsp");
             return;
+        }
+        
+        String msjSession = (String) request.getSession().getAttribute("mensaje");
+
+        if (msjSession != null) {
+            String msj = (String)request.getAttribute("mensaje");
+            if(msj == null){
+                request.setAttribute("mesaje", msjSession);
+                
+            }else{
+                request.setAttribute("mensaje", msjSession + "<br /> <br />"+ msj);
+            }
+             request.getSession().removeAttribute("mensaje");
         }
     }
 
@@ -115,7 +129,7 @@ public class ControladorVehiculo extends HttpServlet {
             request.getRequestDispatcher("WEB-INF/vistas/vehiculo/agregar.jsp").forward(request, response);
         } catch (Exception ex) {
             request.setAttribute("mensaje", ex.getMessage());
-            request.getRequestDispatcher("WEB-INF/vistas/vehiculo/index.jsp");
+            request.getRequestDispatcher("vehiculo?accion=index").forward(request, response);
             return;
         }
     }
@@ -123,38 +137,33 @@ public class ControladorVehiculo extends HttpServlet {
     protected void modificar_get(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            request.setAttribute("vehiculoModificar", ((ArrayList<Vehiculo>) request.getAttribute("vehiculos")).get(Integer.parseInt(request.getParameter("vehiculoIndex"))));
+            request.setAttribute("vehiculo", ((ArrayList<Vehiculo>) request.getSession().getAttribute("vehiculos")).get(Integer.parseInt(request.getParameter("vehiculoIndex"))-1));
             request.getRequestDispatcher("WEB-INF/vistas/vehiculo/modificar.jsp").forward(request, response);
         } catch (Exception ex) {
-            request.removeAttribute("vehiculoModificar");
             request.setAttribute("mensaje", ex.getMessage());
-            request.getRequestDispatcher("WEB-INF/vistas/vehiculo/index.jsp");
-            return;
+            request.getRequestDispatcher("vehiculo?accion=index").forward(request, response);
         }
     }
 
     protected void eliminar_get(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            request.setAttribute("vehiculoEliminar", ((ArrayList<Vehiculo>) request.getAttribute("vehiculos")).get(Integer.parseInt(request.getParameter("vehiculoIndex"))));
+            request.setAttribute("vehiculo", ((ArrayList<Vehiculo>) request.getSession().getAttribute("vehiculos")).get(Integer.parseInt(request.getParameter("vehiculoIndex"))-1));
             request.getRequestDispatcher("WEB-INF/vistas/vehiculo/eliminar.jsp").forward(request, response);
         } catch (Exception ex) {
-            request.removeAttribute("vehiculoEliminar");
             request.setAttribute("mensaje", ex.getMessage());
-            request.getRequestDispatcher("WEB-INF/vistas/vehiculo/index.jsp");
-            return;
+            request.getRequestDispatcher("vehiculo?accion=index").forward(request, response);
         }
     }
 
     protected void ver_get(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            request.setAttribute("vehiculoVer", ((ArrayList<Vehiculo>) request.getAttribute("vehiculos")).get(Integer.parseInt(request.getParameter("vehiculoIndex"))));
+            request.setAttribute("vehiculo", ((ArrayList<Vehiculo>) request.getSession().getAttribute("vehiculos")).get(Integer.parseInt(request.getParameter("vehiculoIndex"))-1));
             request.getRequestDispatcher("WEB-INF/vistas/vehiculo/ver.jsp").forward(request, response);
         } catch (Exception ex) {
-            request.removeAttribute("vehiculoVer");
             request.setAttribute("mensaje", ex.getMessage());
-            request.getRequestDispatcher("WEB-INF/vistas/vehiculo/index.jsp");
+            request.getRequestDispatcher("vehiculo?accion=index").forward(request, response);
             return;
         }
     }
@@ -162,12 +171,17 @@ public class ControladorVehiculo extends HttpServlet {
     protected void trasladar_get(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            request.setAttribute("vehiculoTrasladar", ((ArrayList<Vehiculo>) request.getAttribute("vehiculos")).get(Integer.parseInt(request.getParameter("vehiculoIndex"))));
-            response.sendRedirect("WEB-INF/vistas/cliente/trasladar.jsp");
+            Vehiculo _vehiculoTraslado = ((ArrayList<Vehiculo>) request.getSession().getAttribute("vehiculos")).get(Integer.parseInt(request.getParameter("vehiculoIndex"))-1);
+            
+            if(_vehiculoTraslado.getSucursalPertenece() == null)
+                throw new Exception("No se puede trasladar un vehiculo alquilado");
+            
+            request.setAttribute("vehiculo", _vehiculoTraslado);
+            request.setAttribute("sucursales", FabricaLogica.getLogicaSucursal().ListarSucursal());
+            request.getRequestDispatcher("WEB-INF/vistas/vehiculo/trasladar.jsp").forward(request, response);
         } catch (Exception ex) {
-            request.removeAttribute("vehiculoTrasladar");
             request.setAttribute("mensaje", ex.getMessage());
-            request.getRequestDispatcher("WEB-INF/vistas/vehiculo/trasladar.jsp");
+            request.getRequestDispatcher("vehiculo?accion=index").forward(request, response);
             return;
         }
     }
@@ -197,11 +211,11 @@ public class ControladorVehiculo extends HttpServlet {
             
             FabricaLogica.getLogicaVehiculo().AgregarVehiculo(_vehiculo);
             
-            response.sendRedirect("WEB-INF/vistas/vehiculo/agregar.jsp");
+            response.sendRedirect("vehiculo?accion=agregar");
             
         } catch (Exception ex) {
             request.setAttribute("mensaje", ex.getMessage());
-            request.getRequestDispatcher("WEB-INF/vistas/vehiculo/agregar.jsp");
+            request.getRequestDispatcher("vehiculo?accion=agregar").forward(request, response);
             return;
         }
     }
@@ -229,11 +243,10 @@ public class ControladorVehiculo extends HttpServlet {
             
             FabricaLogica.getLogicaVehiculo().ModificarVehiculo(_vehiculo);
             
-            response.sendRedirect("WEB-INF/vistas/vehiculo/modificar.jsp");
+            response.sendRedirect("vehiculo?accion=modificar");
         } catch (Exception ex) {
-            request.removeAttribute("vehiculoModificar");
             request.setAttribute("mensaje", ex.getMessage());
-            request.getRequestDispatcher("WEB-INF/vistas/vehiculo/index.jsp");
+            request.getRequestDispatcher("vehiculo?accion=modificar").forward(request, response);
             return;
         }
     }
@@ -241,13 +254,14 @@ public class ControladorVehiculo extends HttpServlet {
     protected void eliminar_post(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            FabricaLogica.getLogicaVehiculo().EliminarVehiculo(((Vehiculo)request.getAttribute("vehiculo")).getMatricula());
             
-            response.sendRedirect("WEB-INF/vistas/vehiculo/eliminar.jsp");
+            if(request.getParameter("decition").equals("yes"))
+                FabricaLogica.getLogicaVehiculo().EliminarVehiculo(((Vehiculo)request.getAttribute("vehiculo")).getMatricula());
+            
+            response.sendRedirect("vehiculo?accion=index");
         } catch (Exception ex) {
-            request.removeAttribute("vehiculoEliminar");
             request.setAttribute("mensaje", ex.getMessage());
-            request.getRequestDispatcher("WEB-INF/vistas/vehiculo/index.jsp");
+            request.getRequestDispatcher("vehiculo?accion=eliminar").forward(request, response);
             return;
         }
     }
@@ -255,12 +269,13 @@ public class ControladorVehiculo extends HttpServlet {
     protected void trasladar_post(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            request.setAttribute("vehiculoTrasladar", ((ArrayList<Vehiculo>) request.getAttribute("vehiculos")).get(Integer.parseInt(request.getParameter("vehiculoIndex"))));
-            request.getRequestDispatcher("WEB-INF/vistas/cliente/trasladar.jsp").forward(request, response);
+            Vehiculo _vehiculoTraslado = ((Vehiculo)request.getAttribute("vehiculo"));
+            _vehiculoTraslado.setSucursalPertenece(FabricaLogica.getLogicaSucursal().BuscarSucursal((int)(request.getAttribute("sucursalTraslado"))));
+            
+            response.sendRedirect("vehiculo?accion=trasladar");
         } catch (Exception ex) {
-            request.removeAttribute("vehiculoTrasladar");
             request.setAttribute("mensaje", ex.getMessage());
-            request.getRequestDispatcher("WEB-INF/vistas/vehiculo/index.jsp");
+            request.getRequestDispatcher("vehiculo?accion=trasladar").forward(request, response);
             return;
         }
     }

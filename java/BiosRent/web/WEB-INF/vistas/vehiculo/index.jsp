@@ -8,15 +8,15 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<%!int vehiculoIndex = 1;%>
+<%!int vehiculoIndex;%>
 
-<t:paginaMaestra title="Agregar Vehiculo">
+<t:paginaMaestra title="Vehiculos">
     <jsp:body>
         <fmt:setLocale value="en-US" />
 
-        <a href="vehiculo?accion=agregar"><img src="imagenes/iconos/AddVehicle.png" alt="Agregar" title="Agregar" height="100" width="100"></a><br/><br/>
-
-        <table>
+        <a href="vehiculo?accion=agregar"><img src="imagenes/iconos/addVehiculo.png" alt="Agregar" title="Agregar" height="100" width="130"></a><br/>
+        
+        <table class="contenido-tabla">
             <tr>
                 <th>Matricula</th>
                 <th>Tipo</th>
@@ -25,6 +25,8 @@
                 <th>Sucursal</th>
             </tr>
 
+            <c:set var="vehiculoIndex" value="${vehiculoIndex + 1}" scope="page"/>
+            
             <c:forEach items="${vehiculos}" var="vehiculo">
                 <tr>                    
                     <td class="texto-centro">${vehiculo.matricula}</td>
@@ -33,12 +35,12 @@
                     <td class="texto-derecha">
                         <fmt:formatNumber type="number" pattern="0.00" value="${vehiculo.precioAlquilerDiario}" />
                     </td>
-                    <td>${(vehiculo.sucursalPertenece.codigo == null)? "Alquilado" : vehiculo.sucursalPertenece.codigo}</td>
+                    <td>${(vehiculo.sucursalPertenece == null)? "Alquilado" : vehiculo.sucursalPertenece.nombre}</td>
                     <td>
-                        <a href="vehiculo?accion=modificar&indexVehiculo=${vehiculoIndex}"><img src="imagenes/iconos/glyphicons-31-pencil.png" alt="Modificar" title="Modificar"></a>&nbsp;&nbsp;
-                        <a href="vehiculo?accion=ver&indexVehiculo=${vehiculoIndex}"><img src="imagenes/iconos/glyphicons-52-eye-open.png" alt="Ver" title="Ver" ></a>&nbsp;&nbsp;
-                        <a href="vehiculo?accion=eliminar&indexVehiculo=${vehiculoIndex}"><img src="imagenes/iconos/glyphicons-192-minus-sign.png" alt="Eliminar" title="Eliminar" ></a>&nbsp;&nbsp;
-                        <a href="vehiculo?accion=trasladar&indexVehiculo=${vehiculoIndex}"><img src="imagenes/iconos/MoverVehiculo.png" alt="Trasladar" title="Trasladar" height="30" width="30"></a>
+                        <a href="vehiculo?accion=modificar&vehiculoIndex=${vehiculoIndex}"><img src="imagenes/iconos/editVehiculo.png" alt="Modificar" title="Modificar..." height="50" width="50"></a>&nbsp;&nbsp;
+                        <a href="vehiculo?accion=ver&vehiculoIndex=${vehiculoIndex}"><img src="imagenes/iconos/verUser.png" alt="Ver" title="Ver..." height="50" width="50"></a>&nbsp;&nbsp;
+                        <a href="vehiculo?accion=eliminar&vehiculoIndex=${vehiculoIndex}"><img src="imagenes/iconos/removeVehiculo.png" alt="Eliminar" title="Eliminar..." height="50" width="50"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="vehiculo?accion=trasladar&vehiculoIndex=${vehiculoIndex}"><img src="imagenes/iconos/trasladarVehiculo.png" alt="Trasladar" title="Trasladar..." height="50" width="100"></a>
                     </td>
                     <c:set var="vehiculoIndex" value="${vehiculoIndex + 1}" scope="page"/>
                 </tr>
@@ -46,7 +48,7 @@
             </c:forEach>
         </table>
 
-        <p><a href="inicio">Volver...</a></p>
+        <p><a href="inicio">Volver a inicio...</a></p>
         <t:mensaje />
     </jsp:body>
 </t:paginaMaestra>

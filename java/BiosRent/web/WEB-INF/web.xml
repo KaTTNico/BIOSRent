@@ -46,10 +46,10 @@
     </filter>
     <filter-mapping>
         <filter-name>FiltroAutentificacion</filter-name>
+        <servlet-name>ControladorInicio</servlet-name>
         <servlet-name>ControladorCliente</servlet-name>
         <servlet-name>ControladorAlquiler</servlet-name>
         <servlet-name>ControladorVehiculo</servlet-name>
-        
     </filter-mapping>
     <session-config>
         <session-timeout>

@@ -223,7 +223,7 @@ cuerpo:Begin
 			ROLLBACK;
 		END IF;
         
-        SET pERROR = mensajeError;
+        SET pMsjError = mensajeError;
     END;
     
 	if(exists(select * from Vehiculo where Matricula = pMatricula and Activo = 1)) then
@@ -269,7 +269,7 @@ cuerpo:Begin
 			ROLLBACK;
 		END IF;
         
-        SET pERROR = mensajeError;
+        SET pMsjError = mensajeError;
     END;
     
 	if(not exists(select * from Vehiculo where Matricula = pMatricula and Activo = 1)) then

@@ -92,7 +92,7 @@ public class ControladorEmpleado extends HttpServlet {
                 request.getSession().setAttribute("empleadoLogueado",unEmp);
                 
                 
-                response.sendRedirect("cliente?accion=index");
+                response.sendRedirect("inicio?accion=index");
                         
             }else{
                 request.setAttribute("mensaje", "Las credenciales ingresadas no son correctas");

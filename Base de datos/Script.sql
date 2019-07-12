@@ -223,7 +223,7 @@ cuerpo:Begin
 			ROLLBACK;
 		END IF;
         
-        SET pMsjError = mensajeError;
+        SET pERROR = mensajeError;
     END;
     
 	if(exists(select * from Vehiculo where Matricula = pMatricula and Activo = 1)) then
@@ -269,7 +269,7 @@ cuerpo:Begin
 			ROLLBACK;
 		END IF;
         
-        SET pMsjError = mensajeError;
+        SET pERROR = mensajeError;
     END;
     
 	if(not exists(select * from Vehiculo where Matricula = pMatricula and Activo = 1)) then
@@ -303,7 +303,7 @@ cuerpo:begin
 			ROLLBACK;
 		END IF;
         
-        SET pMsjError = mensajeError;
+        SET pERROR = mensajeError;
     END;
     
 	if(not exists(select * from Vehiculo where Matricula = pMatricula and Activo = 1)) then 
@@ -339,11 +339,12 @@ begin
     Vehiculo.Tipo,
     Vehiculo.Descripcion,
     Vehiculo.PrecioAlquilerDiario,
-    Vehiculo.SucursalCodigo,
-    Vehiculo.Activo 
+    Vehiculo.Activo,
+    VehiculoSucursal.CodigoSucursal
     
     from Vehiculo 
     
+    inner join VehiculoSucursal on VehiculoSucursal.MatriculaVehiculo=Vehiculo.Matricula
     left join Alquiler on Alquiler.VehiculoMatricula = Vehiculo.Matricula 
     
     where 

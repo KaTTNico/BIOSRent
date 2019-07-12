@@ -11,8 +11,8 @@
 
 <t:paginaMaestra title="Alquiler">
     <jsp:body>
-        <fmt:setLocale value="en-US" />
-        <table class="listado">
+        <fmt:setLocale value="en-US"/>
+        <table class="listado" >
             <tr>
                 <th>Matricula</th><th>Tipo</th><th>Descripcion</th><th>PrecioAlquilerDiario</th><th>Sucursal</th>
             </tr>

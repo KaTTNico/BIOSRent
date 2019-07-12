@@ -8,16 +8,15 @@
 
 <t:paginaMaestra title="Agregar Vehiculo">
     <jsp:body>
-        
-        <form action="vehiculo?action=agregar" method="post">
-        <t:formularioVehiculo/>
-        
-        <input type="submit" value="Agregar" class="submitFormulario">
-        
+
+
+        <form action="vehiculo?accion=agregar" method="Post" >
+            <t:formularioVehiculo/>
+            <input type="submit" value="Agregar" class="submitFormulario">
         </form>
-        
+
         <p><a href="vehiculo?action=index">Volver a vehiculos...</a></p>
-        
+
         <p><a href="inicio">Volver a inicio...</a></p>
 
         <t:mensaje />

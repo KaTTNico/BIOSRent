@@ -14,7 +14,7 @@
     <jsp:body>
         <fmt:setLocale value="en-US" />
 
-        <a href="vehiculo?accion=agregar"><img src="imagenes/iconos/addVehiculo.png" alt="Agregar" title="Agregar" height="100" width="130"></a><br/>
+        <a href="vehiculo?accion=agregar"><img src="imagenes/iconos/addVehiculo.png" alt="Agregar" title="Agregar" height="70" width="90"></a><br/>
         
         <table class="contenido-tabla">
             <tr>

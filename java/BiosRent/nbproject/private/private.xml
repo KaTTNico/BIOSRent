@@ -3,18 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/presentacion/servlets/controladores/ControladorCliente.java</file>
-            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/web/WEB-INF/vistas/cliente/index.jsp</file>
             <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/presentacion/servlets/controladores/ControladorVehiculo.java</file>
-            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/web/css/estilos.css</file>
-            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/presentacion/servlets/controladores/ControladorAlquiler.java</file>
             <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/web/WEB-INF/tags/formularioVehiculo.tag</file>
-            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/web/WEB-INF/vistas/vehiculo/modificar.jsp</file>
-            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/web/WEB-INF/vistas/vehiculo/index.jsp</file>
-            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/filtros/FiltroAutentificacion.java</file>
-            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/web/WEB-INF/vistas/alquiler/agregar.jsp</file>
-            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/web/WEB-INF/vistas/cliente/modificar.jsp</file>
-            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/web/WEB-INF/vistas/vehiculo/agregar.jsp</file>
         </group>
     </open-files>
 </project-private>

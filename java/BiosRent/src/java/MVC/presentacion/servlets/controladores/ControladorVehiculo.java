@@ -79,19 +79,19 @@ public class ControladorVehiculo extends HttpServlet {
         switch (accion) {
             
             case "agregar":
-                agregar_get(request, response);
+                agregar_post(request, response);
                 break;
 
             case "modificar":
-                modificar_get(request, response);
+                modificar_post(request, response);
                 break;
 
             case "eliminar":
-                eliminar_get(request, response);
+                eliminar_post(request, response);
                 break;
 
             case "trasladar":
-                trasladar_get(request, response);
+                trasladar_post(request, response);
                 break;
         }
     }
@@ -199,14 +199,6 @@ public class ControladorVehiculo extends HttpServlet {
                 _vehiculo.setPrecioAlquilerDiario(Double.parseDouble(request.getParameter("precioAlquilerDiario")));
             } catch (Exception ex) {
                 throw new Exception("Precio alquiler diario debe ser numérico");
-            }
-            
-            try {
-                _vehiculo.setSucursalPertenece(FabricaLogica.getLogicaSucursal().BuscarSucursal(Integer.parseInt(request.getParameter("sucursal"))));
-            } catch (ExcepcionPersonalizada ex){
-                throw ex;
-            } catch (Exception ex) {
-                throw new Exception("Codigo de sucursal debe ser un numero");
             }
             
             FabricaLogica.getLogicaVehiculo().AgregarVehiculo(_vehiculo);

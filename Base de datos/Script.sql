@@ -114,6 +114,13 @@ Insert into Vehiculo values('SEG1024','OTRO','Jac Camion', 75.00, 1);
 Insert into Vehiculo values('SPL1582','CAMIONETA','Toyota Hilux', 150.00, 1);
 Insert into Vehiculo values('SWP1451','AUTO','BMW Z4', 200.00, 1);
 
+#VehiculoSucursal test values
+Insert into VehiculoSucursal values('SAE4337',1);
+Insert into VehiculoSucursal values('RAS1452',6);
+Insert into VehiculoSucursal values('SCO9735',2);
+Insert into VehiculoSucursal values('SEG1024',1);
+Insert into VehiculoSucursal values('SPL1582',4);
+Insert into VehiculoSucursal values('SWP1451',7);
 #Empelado SP
 Delimiter //
 Create procedure BuscarEmpleado(pNomUser varchar(25))

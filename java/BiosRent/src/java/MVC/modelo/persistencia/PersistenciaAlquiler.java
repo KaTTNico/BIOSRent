@@ -57,7 +57,7 @@ class PersistenciaAlquiler implements IPersistenciaAlquiler {
                 tipo = resultadoConsulta.getString("Tipo");
                 descripcion = resultadoConsulta.getString("Descripcion");
                 precioAlquilerDiario = resultadoConsulta.getDouble("PrecioAlquilerDiario");
-                Sucursal sucursalPertenece = PersistenciaSucursal.getInstancia().BuscarSucursal(resultadoConsulta.getInt("SucursalCodigo"));
+                Sucursal sucursalPertenece = PersistenciaSucursal.getInstancia().BuscarSucursal(resultadoConsulta.getInt("CodigoSucursal"));
                 vehiculo = new Vehiculo(matricula, tipo, descripcion, precioAlquilerDiario, sucursalPertenece);
                 vehiculos.add(vehiculo);
             }

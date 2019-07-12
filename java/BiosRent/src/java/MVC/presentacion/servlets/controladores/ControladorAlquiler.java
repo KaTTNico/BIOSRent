@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -67,6 +68,7 @@ public class ControladorAlquiler extends HttpServlet {
     public void agregar_get(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            //obtener vehiculos disponibles
             List<Vehiculo> vehiculos = FabricaLogica.getLogicaAlquiler().listarVehiculosDisponibles();
             request.setAttribute("vehiculos", vehiculos);
 
@@ -75,6 +77,19 @@ public class ControladorAlquiler extends HttpServlet {
             } else {
                 request.setAttribute("mensaje", "No hay vehiculos disponibles.");
             }
+
+            //obtener clientes as JSON
+            List<Cliente> clientes = FabricaLogica.getLogicaCliente().ListaCompleta();
+            String clientesStringified = "{clientes:[";
+            int counter = 0;
+            for (Cliente cliente : clientes) {
+                
+                clientesStringified += "{ci:'" + cliente.getCI() + "',nombreCompleto:'" + cliente.getNombreCompleto() + "'";
+                clientesStringified += "}" + ((clientes.indexOf(cliente) == clientes.size() - 1) ? "" : ",");
+            }
+            clientesStringified += ("]}");
+            request.setAttribute("clientes", clientesStringified);
+
         } catch (ExcepcionPersonalizada ex) {
             request.setAttribute("mensaje", ex.getMessage());
         } catch (Exception ex) {

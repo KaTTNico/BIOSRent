@@ -46,6 +46,8 @@
         </table>
 
         <t:mensaje />
+
+        <p><a href="inicio">Volver...</a></p>
         <script>
             document.getElementById('buscar').focus();
             document.getElementById('buscar').select();

@@ -95,7 +95,7 @@ public class ControladorEmpleado extends HttpServlet {
                 response.sendRedirect("inicio?accion=index");
                         
             }else{
-                request.setAttribute("mensaje", "Las credenciales ingresadas no son correctas");
+                request.setAttribute("mensaje", "Error, las credenciales ingresadas no son correctas.");
                 request.getRequestDispatcher("WEB-INF/vistas/empleado/login.jsp").forward(request, response);
             }
         }catch(ExcepcionPersonalizada ex){

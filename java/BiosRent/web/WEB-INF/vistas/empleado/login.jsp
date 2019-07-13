@@ -13,30 +13,27 @@
         <title>JSP Page</title>
         <link rel="stylesheet" href="css/estilos.css">
     </head>
-    <body>
-        <h1 class="login">Logueo</h1>
-        <h2 class="login">Empleados</h2>
+    <body class="bodyLogin">
 
-        <form  action="empleado" method="POST">
-            <div class="loguearse">
-
-                <label class="labellogueo" for="NombreUser">Usuario:</label><br>
-                <input class="txt-login" type ="text" name="NombreUser" id="NombreUser" value="${param.NomUser}"/><br>
+        <div class="login-page">
+            <form  class="form" action="empleado" method="POST">
+                <div>
 
 
+                    <input class="txtbox-logueo" type ="text" name="NombreUser" id="NombreUser" value="${param.NomUser}" placeholder="usuario"/>
 
-                <br><label class="labellogueo" for="Pass">Contraseña:</label><br>
-                <input class="txt-login" type ="password" name="Pass" id="Pass"/><br>
+                    <input class="txtbox-logueo" type ="password" name="Pass" id="Pass" placeholder="contraseña"/><br>
 
 
-                <br><input type ="hidden" name ="accion" value="logIn"/>
-                <div class="btnlogin"><input class = "boton-buscar" type="submit" name ="botonLogin" value="Login"</div>
-
-            </div>
-        </form>
+                    <input type ="hidden" name ="accion" value="logIn"/>
+                    <input class="btn-logueo" type="submit" name ="botonLogin" value="LOGIN">
+                    <t:mensaje />
+                </div>
+            </form>
+        </div>
         <script>
             document.getElementById('NombreUser').select();
         </script>
     </body>
-    <t:mensaje />
+
 </html>

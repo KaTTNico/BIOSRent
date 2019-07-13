@@ -10,10 +10,9 @@
 
 <t:paginaMaestra title="Menú Principal">
     <jsp:body>
-        <ul>
+        <ul class="menuInicio">
             <li><a href="alquiler?accion=index">Alquiler</a></li>
             <li><a href="cliente">Cliente</a></li>
-            <li><a href="empleado">Empleado</a></li>
             <li><a href="vehiculo">Vehiculo</a></li>
         </ul>
     </jsp:body>

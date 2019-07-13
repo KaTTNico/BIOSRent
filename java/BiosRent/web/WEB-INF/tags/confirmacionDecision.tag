@@ -9,6 +9,7 @@
 <%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="question" %>
 <%@attribute name="servlet" %>
+<%@attribute name="accion" %>
 
 <table class="contenido-tabla">
     <tr align="center">
@@ -17,7 +18,7 @@
     <tr></tr>
     <tr>
         <td align="right">
-            <form action="${servlet}?&decition=yes" method="post">
+            <form action="${servlet}?accion=${accion}&&decition=yes" method="post">
                 <input type="submit" value="Aceptar" class="aceptarDecision"/>
             </form>
         </td>

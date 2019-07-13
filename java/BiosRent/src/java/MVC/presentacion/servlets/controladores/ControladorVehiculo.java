@@ -203,11 +203,11 @@ public class ControladorVehiculo extends HttpServlet {
             
             FabricaLogica.getLogicaVehiculo().AgregarVehiculo(_vehiculo);
             
-            response.sendRedirect("vehiculo?accion=agregar");
+            response.sendRedirect("WEB-INF/vistas/vehiculo/agregar.jsp");
             
         } catch (Exception ex) {
             request.setAttribute("mensaje", ex.getMessage());
-            request.getRequestDispatcher("vehiculo?accion=agregar").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/vistas/vehiculo/agregar.jsp").forward(request, response);
             return;
         }
     }

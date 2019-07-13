@@ -13,12 +13,15 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<jsp:useBean id="vehiculo" class="MVC.modelo.entidades.beans.datatypes.Vehiculo" scope="request">
-    <jsp:setProperty name="vehiculo" property="matricula" value=""/>
-    <jsp:setProperty name="vehiculo" property="precioAlquilerDiario" value="0"/>
-    <jsp:setProperty name="vehiculo" property="descripcion" value=""/>
-    <jsp:setProperty name="vehiculo" property="tipo" value="Auto"/>
-</jsp:useBean>
+<jsp:useBean id="vehiculo" class="MVC.modelo.entidades.beans.datatypes.Vehiculo" scope="request"></jsp:useBean>
+<jsp:setProperty name="vehiculo" property="matricula" value="${empty param.matricula ? '' : param.matricula}"/>
+<jsp:setProperty name="vehiculo" property="precioAlquilerDiario" value="${empty param.precioAlquilerDiario ? '0' : param.precioAlquilerDiario}"/>
+<jsp:setProperty name="vehiculo" property="descripcion" value="${empty param.descripcion ? '' : param.descripcion}"/>
+<jsp:setProperty name="vehiculo" property="tipo" value="${empty param.tipo ? 'Auto' : param.tipo}"/>
+
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
 
 <fmt:setLocale value="en-US" />
 
@@ -36,9 +39,9 @@
     <tr>
         <td><label for="cbTipo" class="labelForm">Tipo</label></td>
         <td><select id="cbTipo" name="tipo" class="controlForm" style="width: 170px;">
-                <option <c:if test="${vehiculo.tipo.equals('Auto')}">selected</c:if>>Auto</option>
-                <option <c:if test="${vehiculo.tipo.equals('Camioneta')}">selected</c:if>>Camioneta</option>
-                <option <c:if test="${vehiculo.tipo.equals('Otros')}">selected</c:if>>Otros</option>
+                <option <c:if test="${vehiculo.tipo.equals('AUTO')}">selected</c:if>>AUTO</option>
+                <option <c:if test="${vehiculo.tipo.equals('CAMIONETA')}">selected</c:if>>CAMIONETA</option>
+                <option <c:if test="${vehiculo.tipo.equals('OTROS')}">selected</c:if>>OTROS</option>
                 </select>
             </td>
         </tr>

@@ -88,7 +88,7 @@ class LogicaVehiculo implements ILogicaVehiculo {
     }
 
     private void ValidarVehiculo(Vehiculo parameterVehiculo) throws Exception {
-        if (!(parameterVehiculo.getTipo().equals("Auto") || parameterVehiculo.equals("Camioneta") || parameterVehiculo.equals("Otros"))) {
+        if (!(parameterVehiculo.getTipo().equals("AUTO") || parameterVehiculo.equals("CAMIONETA") || parameterVehiculo.equals("OTROS"))) {
             throw new Exception("Tipo incorrecto");
         }
         if (!parameterVehiculo.getMatricula().matches("^[a-zA-Z]{3}[0-9]{4}$")) {

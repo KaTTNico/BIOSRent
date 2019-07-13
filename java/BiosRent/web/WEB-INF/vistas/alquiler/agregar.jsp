@@ -4,16 +4,23 @@
     Author     : Nicolas
 --%>
 
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat" %>  
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
+<%
+    SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/DD");
+    Date today = new Date(System.currentTimeMillis());
+%>
 
 <t:paginaMaestra title="Alquiler">
     <jsp:body>
         <fmt:setLocale value="en-US"/>
-        <p>Cliente:</p>
-        <form autocomplete="off" action="/action_page.php">
+
+        <form method='post' accion="agregar" autocomplete="off">
             <div class="autocomplete" style="width:300px;">
                 <style type="text/css" scoped>
                     /*the container must be positioned relative:*/
@@ -22,7 +29,7 @@
                         display: inline-block;
                     }
 
-                    #cliente {
+                    #cliente,#cantidadDias {
                         border: 1px solid transparent;
                         background-color: #f1f1f1;
                         padding: 10px;
@@ -61,31 +68,22 @@
                         color: #ffffff; 
                     }
                 </style>
-                <input id="cliente" type="text" name="cliente" placeholder="Cliente">
+                <label>Vehiculo</label>
+                <br />
+                <input type="text" value="${param.matricula}" class="field left" readonly disabled />
+                <br /><br />
+                <label>Cliente:</label>
+                <input id="cliente" type="text" name="cliente" value="" placeholder="Cliente"/>
+                <br /><br />
+                <label>Cantidad de dias:</label>
+                <input id="cantidadDias" name="cantidadDias" value="" placeholder="Cantidad de dias" type="number" min="0" step="1" />
+
             </div>
+
+            <input type="hidden" id="fechaAlquiler" name="fechaAlquiler" value="${dateformat.format(today)}"/>
+
         </form>
-
-        <table class="listado" >
-            <tr>
-                <th>Matricula</th><th>Tipo</th><th>Descripcion</th><th>PrecioAlquilerDiario</th><th>Sucursal</th>
-            </tr>
-
-            <c:forEach items="${vehiculos}" var="vehiculo">
-                <tr>
-                    <td class="texto-centro">${vehiculo.matricula}</td>
-                    <td>${vehiculo.tipo}</td>
-                    <td>${vehiculo.descripcion}</td>
-                    <td class="texto-derecha">
-                        <fmt:formatNumber type="number" pattern="0.00" value="${vehiculo.precioAlquilerDiario}" />
-                    </td>
-                    <td>${vehiculo.sucursalPertenece.codigo}</td>
-                    <td>
-                        <a href="alquiler?accion=alquilar&matricula=${vehiculo.matricula}"><img src="imagenes/iconos/glyphicons-191-plus-sign.png" alt="Alquilar" title="Alquilar" ></a>
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
-        <p><a href="inicio">Volver...</a></p>
+        <p><a href="index">Volver...</a></p>
         <t:mensaje />
         <script>
             function autocomplete(inp, arr) {
@@ -185,11 +183,8 @@
                 });
             }
 
-            /*JSON clientes*/
-            var clientes = ${clientes};
-
-            /*inicializar autocomplete en el input cliente:*/
-            autocomplete(document.getElementById("cliente"), clientes);
+            /*inicializar autocomplete en el input cliente mandando el JSON clientes:*/
+            autocomplete(document.getElementById("cliente"), ${clientes});
         </script>
     </jsp:body>
 </t:paginaMaestra>

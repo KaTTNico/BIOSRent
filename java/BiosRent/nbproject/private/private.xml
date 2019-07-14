@@ -3,8 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/src/java/MVC/presentacion/servlets/controladores/ControladorCliente.java</file>
             <file>file:/C:/Users/Juan/Documents/BIOSRent/java/BiosRent/web/WEB-INF/vistas/alquiler/agregar.jsp</file>
+=======
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/web/WEB-INF/tags/formularioTrasladoVehiculo.tag</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/modelo/persistencia/PersistenciaVehiculo.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/modelo/logica/LogicaVehiculo.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/src/java/MVC/presentacion/servlets/controladores/ControladorVehiculo.java</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/web/WEB-INF/tags/confirmacionDecision.tag</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/web/WEB-INF/vistas/vehiculo/ver.jsp</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/web/WEB-INF/tags/formularioVehiculo.tag</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/web/WEB-INF/vistas/vehiculo/trasladar.jsp</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/web/WEB-INF/vistas/vehiculo/eliminar.jsp</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/web/WEB-INF/vistas/vehiculo/modificar.jsp</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/web/WEB-INF/vistas/cliente/eliminar.jsp</file>
+            <file>file:/C:/Users/fmora/Desktop/Kufa/Clase/Tercer%20Año/Obligatorio%203er%20año/java/BiosRent/web/WEB-INF/vistas/vehiculo/agregar.jsp</file>
+>>>>>>> e429c39d6b2f5526e8238bfd8ab96efd133bf0fa
         </group>
     </open-files>
 </project-private>

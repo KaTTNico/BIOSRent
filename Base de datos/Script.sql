@@ -242,17 +242,16 @@ cuerpo:Begin
     
     START TRANSACTION;
     
-    set mensajeError='No se pudo agregar el vehiculo.';
+    set mensajeError='No se pudo agregar el vehiculo';
     #Si estaba en baja logica
     if(exists(select * from Vehiculo where Matricula = pMatricula and Activo = 0)) then
         Update Vehiculo set Tipo = pTipo, Descripcion = pDescripcion, PrecioAlquilerDiario = pPrecioAlquilerDiario, Activo = 1 where Matricula = pMatricula;
-        Insert into VehiculoSucursal (MatriculaVehiculo,CodigoSucursal) values(pMatricula,pCodigoSucursal);
+        Insert into VehiculoSucursal (MatriculaVehiculo,CodigoSucursal) values(pMatricula,pSucursalCodigo);
         Leave cuerpo;
 	End if;
     
     Insert into Vehiculo(Matricula, Tipo, Descripcion, PrecioAlquilerDiario) values(pMatricula, pTipo, pDescripcion, pPrecioAlquilerDiario);
-    Insert into VehiculoSucursal (MatriculaVehiculo,CodigoSucursal) values(pMatricula,pCodigoSucursal);
-    
+    Insert into VehiculoSucursal (MatriculaVehiculo,CodigoSucursal) values(pMatricula,pSucursalCodigo);
     COMMIT;
     
     set transaccionActiva=0;
@@ -285,7 +284,12 @@ cuerpo:Begin
     
     set mensajeError='No se pudo modificar el vehiculo.';
     update Vehiculo set Tipo = pTipo, Descripcion = pDescripcion, PrecioAlquilerDiario = pPrecioAlquilerDiario where Matricula = pMatricula;
-    update VehiculoSucursal set MatriculaVehiculo = pMatricula, CodigoSucursal = pCodigoSucursal; 
+    
+    if(pSucursalCodigo <> -1)
+    THEN
+		delete from VehiculoSucursal where MatriculaVehiculo = pMatricula;
+		Insert Into VehiculoSucursal set MatriculaVehiculo = pMatricula, CodigoSucursal = pSucursalCodigo; 
+    END IF;
     
     COMMIT;
     
@@ -324,7 +328,8 @@ cuerpo:begin
 		update Vehiculo set Activo = 0 where Matricula = pMatricula;
         Leave cuerpo;
     End if;
-    
+
+    delete from VehiculoSucursal where MatriculaVehiculo = pMatricula;
 	delete from Vehiculo where Matricula = pMatricula;
     
     COMMIT;
@@ -451,4 +456,5 @@ cuerpo:begin
     insert into Devolucion(SucursalCodigo,FechaDevolucion,MultaAtraso) 
     values(sucursalCodigo,fechaDevolucion,multaAtraso);
 End//
+
 Delimiter ;

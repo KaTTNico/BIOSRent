@@ -71,10 +71,11 @@ class PersistenciaCliente implements IPersistenciaCliente {
         
         try {
             conexion = Utilidades.getConnection();
-            cs = conexion.prepareCall("{CALL AgregarCliente(?,?,?)}");
+            cs = conexion.prepareCall("{CALL AgregarCliente(?,?,?,?)}");
             cs.setInt(1, unCliente.getCI());
             cs.setString(2, unCliente.getNombreCompleto());
             cs.setString(3, unCliente.getTelefono());
+            cs.registerOutParameter(4, java.sql.Types.VARCHAR);
             int filasAfectadas = cs.executeUpdate();
             if (filasAfectadas < 1) {
                 throw new Exception();
@@ -103,10 +104,11 @@ class PersistenciaCliente implements IPersistenciaCliente {
         CallableStatement cs = null;
         try {
             conexion = Utilidades.getConnection();
-            cs = conexion.prepareCall("{CALL ModificarCliente(?,?,?)}");
+            cs = conexion.prepareCall("{CALL ModificarCliente(?,?,?,?)}");
             cs.setInt(1, unCliente.getCI());
             cs.setString(2, unCliente.getNombreCompleto());
             cs.setString(3, unCliente.getTelefono());
+            cs.registerOutParameter(4, java.sql.Types.VARCHAR);
             
             int filas = cs.executeUpdate();
             if (filas < 1) {
@@ -129,8 +131,9 @@ class PersistenciaCliente implements IPersistenciaCliente {
         CallableStatement cs =null;
         try {
             conexion = Utilidades.getConnection();
-            cs = conexion.prepareCall("{CALL EliminarCliente(?)}");
+            cs = conexion.prepareCall("{CALL EliminarCliente(?,?)}");
             cs.setInt(1, pCI);
+            cs.registerOutParameter(2, java.sql.Types.VARCHAR);
             int filas = cs.executeUpdate();
             if(filas <1 ){
                 throw new Exception();

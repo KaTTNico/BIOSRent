@@ -15,10 +15,6 @@
 <%@attribute name="readOnly" %>
 <%@attribute name="matriculaReadOnly" %>
 
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-<meta http-equiv="Pragma" content="no-cache" />
-<meta http-equiv="Expires" content="0" />
-
 <jsp:useBean id="vehiculo" class="MVC.modelo.entidades.beans.datatypes.Vehiculo" scope="session"></jsp:useBean>
 <jsp:setProperty name="vehiculo" property="matricula" value="${empty param.matricula ? vehiculo.matricula : param.matricula}"/>
 <jsp:setProperty name="vehiculo" property="precioAlquilerDiario" value="${empty param.precioAlquilerDiario ? vehiculo.precioAlquilerDiario : param.precioAlquilerDiario}"/>

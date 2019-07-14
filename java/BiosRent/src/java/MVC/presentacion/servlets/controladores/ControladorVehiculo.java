@@ -118,14 +118,14 @@ public class ControladorVehiculo extends HttpServlet {
         String msjSession = (String) request.getSession().getAttribute("mensaje");
 
         if (msjSession != null) {
-            String msj = (String) request.getAttribute("mensaje");
-            if (msj == null) {
+            String msj = (String)request.getAttribute("mensaje");
+            if(msj == null){
                 request.setAttribute("mesaje", msjSession);
-
-            } else {
-                request.setAttribute("mensaje", msjSession + "<br /> <br />" + msj);
+                
+            }else{
+                request.setAttribute("mensaje", msjSession + "<br /> <br />"+ msj);
             }
-            request.getSession().removeAttribute("mensaje");
+             request.getSession().removeAttribute("mensaje");
         }
     }
 
@@ -205,8 +205,6 @@ public class ControladorVehiculo extends HttpServlet {
             _vehiculo.setMatricula(request.getParameter("matricula"));
             _vehiculo.setDescripcion(request.getParameter("descripcion"));
             _vehiculo.setTipo(request.getParameter("tipo"));
-
-            Enumeration<String> coso = request.getParameterNames();
             
             try {
                 _vehiculo.setPrecioAlquilerDiario(Double.parseDouble(request.getParameter("precioAlquilerDiario")));
@@ -222,23 +220,21 @@ public class ControladorVehiculo extends HttpServlet {
                 throw new Exception("Codigo sucursal debe ser numérico");
             }
 
-            /*BufferedImage imagen = ImageIO.read(request.getPart("imgVehiculo").getInputStream());
+            BufferedImage imagen = ImageIO.read(request.getPart("imgVehiculo").getInputStream());
 
             if (imagen != null) {
                 ServletContext contextoAplicacion = getServletContext();
 
-                String rutaImagenes = contextoAplicacion.getRealPath("/Imagenes/");
+                String rutaImagenes = contextoAplicacion.getRealPath("/imagenes/vehiculos");
                 File archivo = new File(rutaImagenes + _vehiculo.getMatricula() + ".png");
 
-                
+                FabricaLogica.getLogicaVehiculo().AgregarVehiculo(_vehiculo);
 
                 archivo.createNewFile();
                 ImageIO.write(imagen, "png", archivo);
             } else {
                 throw new Exception("Ingrese la imagen del vehiculo");
-            }*/
-            
-            FabricaLogica.getLogicaVehiculo().AgregarVehiculo(_vehiculo);
+            }
 
             request.getSession().setAttribute("mensaje", "Agregado con éxito");
             response.sendRedirect("vehiculo");
@@ -262,24 +258,22 @@ public class ControladorVehiculo extends HttpServlet {
                 throw new Exception("Precio alquiler diario debe ser numérico");
             }
 
-            /*BufferedImage imagen = ImageIO.read(request.getPart("imgVehiculo").getInputStream());
+            BufferedImage imagen = ImageIO.read(request.getPart("imgVehiculo").getInputStream());
 
             if (imagen != null) {
                 ServletContext contextoAplicacion = getServletContext();
 
-                String rutaImagenes = contextoAplicacion.getRealPath("/Imagenes/");
+                String rutaImagenes = contextoAplicacion.getRealPath("/imagenes/vehiculos");
                 File archivo = new File(rutaImagenes + _vehiculo.getMatricula() + ".png");
 
-                
+                FabricaLogica.getLogicaVehiculo().ModificarVehiculo(_vehiculo);
 
                 archivo.createNewFile();
                 ImageIO.write(imagen, "png", archivo);
             } else {
                 throw new Exception("Ingrese la imagen del vehiculo");
-            }*/
+            }
             
-            FabricaLogica.getLogicaVehiculo().ModificarVehiculo(_vehiculo);
-
             request.getSession().setAttribute("mensaje", "Modificación exitosa");
             response.sendRedirect("vehiculo");
 

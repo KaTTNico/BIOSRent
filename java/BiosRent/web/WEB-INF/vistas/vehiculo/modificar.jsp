@@ -12,7 +12,7 @@
 <t:paginaMaestra title="Modificar Vehiculo">
     <jsp:body>
 
-        <form action="vehiculo?accion=modificar" method="post">
+        <form action="vehiculo?accion=modificar" method="post" enctype="multipart/form-data">
             <t:formularioVehiculo matriculaReadOnly="true" readOnly="false"/>
         
         <input type="submit" value="Modificar" class="submitFormulario"/>

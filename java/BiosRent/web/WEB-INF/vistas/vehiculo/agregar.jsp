@@ -7,11 +7,12 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <t:paginaMaestra title="Agregar Vehiculo">
     <jsp:body>
 
-        <form action="vehiculo?accion=agregar" method="Post">
+        <form action="vehiculo?accion=agregar" method="Post" enctype="multipart/form-data">
             
             <t:formularioVehiculo matriculaReadOnly="false" readOnly="false"/>
             <t:formularioTrasladoVehiculo/>

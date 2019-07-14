@@ -73,7 +73,7 @@ class LogicaAlquiler implements ILogicaAlquiler {
     }
 
     @Override
-    public ArrayList<Vehiculo> listarVehiculosDisponibles() throws ExcepcionPersonalizada {
-        return persistencia.listarVehiculosDisponibles();
+    public ArrayList<Vehiculo> listarVehiculosDisponibles(String usuario) throws ExcepcionPersonalizada {
+        return persistencia.listarVehiculosDisponibles(usuario);
     }
 }

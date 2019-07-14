@@ -19,6 +19,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.PrintStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -63,8 +70,10 @@ public class ControladorAlquiler extends HttpServlet {
     public void index_get(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            String usuario = request.getParameter("NombreUser");
+
             //obtener vehiculos disponibles
-            List<Vehiculo> vehiculos = FabricaLogica.getLogicaAlquiler().listarVehiculosDisponibles();
+            List<Vehiculo> vehiculos = FabricaLogica.getLogicaAlquiler().listarVehiculosDisponibles(usuario);
             request.setAttribute("vehiculos", vehiculos);
 
             if (!vehiculos.isEmpty()) {
@@ -148,10 +157,14 @@ public class ControladorAlquiler extends HttpServlet {
         //ALQUILER
         Date fechaAlquiler;
         int cantidadDias = 0;
-        Double costoSeguro = 0d;
-        Double total = 0d;
-        Double depositoGarantia = 0d;
+        double costoSeguro = 0d;
+        double total = 0d;
+        double depositoGarantia = obtenerTarifa("garantia");
         int sucursal = 0;
+
+        if (Boolean.parseBoolean(request.getParameter("contratoSeguro"))) {
+            costoSeguro = obtenerTarifa("seguro");
+        }
 
         try {
             SimpleDateFormat parser = new SimpleDateFormat("yyyy/MM/DD");
@@ -251,5 +264,34 @@ public class ControladorAlquiler extends HttpServlet {
 
             request.getRequestDispatcher("WEB-INF/vistas/alquiler/agregar.jsp").forward(request, response);
         }
+    }
+
+    //Operaciones 
+    public double obtenerTarifa(String valorBuscado) {
+
+        File archivo = new File("src/java/tarifas.txt");
+        double valor = 0d;
+
+        if (archivo.exists() && !archivo.isDirectory()) {
+            try (FileReader fr = new FileReader(archivo); BufferedReader br = new BufferedReader(fr)) {
+
+                String linea;
+                Pattern patron = Pattern.compile("(?<=" + valorBuscado + " )\\d+");
+
+                while ((linea = br.readLine()) != null) {
+                    Matcher m = patron.matcher(linea);
+                    try {
+                        valor = Double.parseDouble(m.group(1));
+                        return valor;
+                    } catch (NumberFormatException ex) {
+                        valor = 0d;
+                    }
+                }
+
+            } catch (Exception e) {
+                System.out.println("Error al leer el archivo.");
+            }
+        }
+        return valor;
     }
 }

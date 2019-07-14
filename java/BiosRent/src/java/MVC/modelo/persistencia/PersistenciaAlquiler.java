@@ -34,14 +34,15 @@ class PersistenciaAlquiler implements IPersistenciaAlquiler {
     }
 
     @Override
-    public ArrayList<Vehiculo> listarVehiculosDisponibles() throws ExcepcionPersonalizada {
+    public ArrayList<Vehiculo> listarVehiculosDisponibles(String usuario) throws ExcepcionPersonalizada {
         Connection conexion = null;
         CallableStatement consulta = null;
         ResultSet resultadoConsulta = null;
 
         try {
             conexion = Utilidades.getConnection();
-            consulta = conexion.prepareCall("{CALL ListarVehiculosDisponibles()}");
+            consulta = conexion.prepareCall("{CALL ListarVehiculosDisponibles(?)}");
+            consulta.setString(1, usuario);
             consulta.execute();
             resultadoConsulta = consulta.getResultSet();
             ArrayList<Vehiculo> vehiculos = new ArrayList();

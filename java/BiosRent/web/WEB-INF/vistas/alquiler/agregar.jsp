@@ -81,7 +81,7 @@
             </div>
 
             <input type="hidden" id="fechaAlquiler" name="fechaAlquiler" value="${dateformat.format(today)}"/>
-
+            <input type="submit" value="agregar"/>
         </form>
         <p><a href="index">Volver...</a></p>
         <t:mensaje />

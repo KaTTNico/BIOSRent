@@ -16,5 +16,5 @@ import java.util.List;
  */
 public interface IPersistenciaAlquiler {
 
-    ArrayList<Vehiculo> listarVehiculosDisponibles() throws ExcepcionPersonalizada;
+    ArrayList<Vehiculo> listarVehiculosDisponibles(String usuario) throws ExcepcionPersonalizada;
 }

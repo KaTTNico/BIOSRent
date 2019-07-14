@@ -339,7 +339,7 @@ end//
 Delimiter ;
 
 Delimiter //
-create procedure ListarVehiculosDisponibles()
+create procedure ListarVehiculosDisponibles(usuario VARCHAR(25))
 begin 
 	Select 
     Vehiculo.Matricula,
@@ -352,10 +352,12 @@ begin
     from Vehiculo 
     
     inner join VehiculoSucursal on VehiculoSucursal.MatriculaVehiculo=Vehiculo.Matricula
+    inner join Empleado on Empleado.NombreUser=usuario
     left join Alquiler on Alquiler.VehiculoMatricula = Vehiculo.Matricula 
     
     where 
     Vehiculo.Activo = 1 and 
+    VehiculoSucursal.CodigoSucursal=Empleado.CodigoSucursal and
     Alquiler.Id IS NULL OR (now() > DATE_ADD(Alquiler.FechaAlquiler, interval Alquiler.CantidadDias day));
 End//
 delimiter ;

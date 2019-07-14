@@ -5,14 +5,16 @@
  */
 package MVC.presentacion.servlets.controladores;
 
-import MVC.modelo.entidades.beans.datatypes.Sucursal;
 import MVC.modelo.entidades.beans.datatypes.Vehiculo;
 import MVC.modelo.entidades.beans.excepciones.ExcepcionPersonalizada;
 import MVC.modelo.logica.FabricaLogica;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -83,7 +85,7 @@ public class ControladorVehiculo extends HttpServlet {
             case "agregar":
                 agregar_post(request, response);
                 break;
-                
+
             case "modificar":
                 modificar_post(request, response);
                 break;
@@ -104,7 +106,7 @@ public class ControladorVehiculo extends HttpServlet {
         try {
             request.removeAttribute("vehiculo");
             request.getSession().removeAttribute("vehiculo");
-            
+
             request.getSession().setAttribute("vehiculos", FabricaLogica.getLogicaVehiculo().ListarVehiculo());
             request.getRequestDispatcher("WEB-INF/vistas/vehiculo/index.jsp").forward(request, response);
         } catch (Exception ex) {
@@ -131,7 +133,7 @@ public class ControladorVehiculo extends HttpServlet {
             throws ServletException, IOException {
         try {
             request.getSession().setAttribute("sucursales", FabricaLogica.getLogicaSucursal().ListarSucursal());
-            
+
             request.getRequestDispatcher("WEB-INF/vistas/vehiculo/agregar.jsp").forward(request, response);
         } catch (Exception ex) {
             request.setAttribute("mensaje", ex.getMessage());
@@ -144,7 +146,7 @@ public class ControladorVehiculo extends HttpServlet {
         try {
             request.getSession().setAttribute("vehiculo", ((ArrayList<Vehiculo>) request.getSession().getAttribute("vehiculos")).get(Integer.parseInt(request.getParameter("vehiculoIndex")) - 1));
             request.getSession().setAttribute("sucursales", FabricaLogica.getLogicaSucursal().ListarSucursal());
-            
+
             request.getRequestDispatcher("WEB-INF/vistas/vehiculo/modificar.jsp").forward(request, response);
         } catch (Exception ex) {
             request.setAttribute("mensaje", ex.getMessage());
@@ -156,7 +158,7 @@ public class ControladorVehiculo extends HttpServlet {
             throws ServletException, IOException {
         try {
             request.getSession().setAttribute("vehiculo", ((ArrayList<Vehiculo>) request.getSession().getAttribute("vehiculos")).get(Integer.parseInt(request.getParameter("vehiculoIndex")) - 1));
-            
+
             request.getRequestDispatcher("WEB-INF/vistas/vehiculo/eliminar.jsp").forward(request, response);
         } catch (Exception ex) {
             request.setAttribute("mensaje", ex.getMessage());
@@ -168,7 +170,7 @@ public class ControladorVehiculo extends HttpServlet {
             throws ServletException, IOException {
         try {
             request.getSession().setAttribute("vehiculo", ((ArrayList<Vehiculo>) request.getSession().getAttribute("vehiculos")).get(Integer.parseInt(request.getParameter("vehiculoIndex")) - 1));
-            
+
             request.getRequestDispatcher("WEB-INF/vistas/vehiculo/ver.jsp").forward(request, response);
         } catch (Exception ex) {
             request.setAttribute("mensaje", ex.getMessage());
@@ -187,7 +189,7 @@ public class ControladorVehiculo extends HttpServlet {
 
             request.getSession().setAttribute("vehiculo", _vehiculoTraslado);
             request.getSession().setAttribute("sucursales", FabricaLogica.getLogicaSucursal().ListarSucursal());
-            
+
             request.getRequestDispatcher("WEB-INF/vistas/vehiculo/trasladar.jsp").forward(request, response);
         } catch (Exception ex) {
             request.setAttribute("mensaje", ex.getMessage());
@@ -204,6 +206,8 @@ public class ControladorVehiculo extends HttpServlet {
             _vehiculo.setDescripcion(request.getParameter("descripcion"));
             _vehiculo.setTipo(request.getParameter("tipo"));
 
+            Enumeration<String> coso = request.getParameterNames();
+            
             try {
                 _vehiculo.setPrecioAlquilerDiario(Double.parseDouble(request.getParameter("precioAlquilerDiario")));
             } catch (Exception ex) {
@@ -218,6 +222,22 @@ public class ControladorVehiculo extends HttpServlet {
                 throw new Exception("Codigo sucursal debe ser numérico");
             }
 
+            /*BufferedImage imagen = ImageIO.read(request.getPart("imgVehiculo").getInputStream());
+
+            if (imagen != null) {
+                ServletContext contextoAplicacion = getServletContext();
+
+                String rutaImagenes = contextoAplicacion.getRealPath("/Imagenes/");
+                File archivo = new File(rutaImagenes + _vehiculo.getMatricula() + ".png");
+
+                
+
+                archivo.createNewFile();
+                ImageIO.write(imagen, "png", archivo);
+            } else {
+                throw new Exception("Ingrese la imagen del vehiculo");
+            }*/
+            
             FabricaLogica.getLogicaVehiculo().AgregarVehiculo(_vehiculo);
 
             request.getSession().setAttribute("mensaje", "Agregado con éxito");
@@ -242,11 +262,27 @@ public class ControladorVehiculo extends HttpServlet {
                 throw new Exception("Precio alquiler diario debe ser numérico");
             }
 
+            /*BufferedImage imagen = ImageIO.read(request.getPart("imgVehiculo").getInputStream());
+
+            if (imagen != null) {
+                ServletContext contextoAplicacion = getServletContext();
+
+                String rutaImagenes = contextoAplicacion.getRealPath("/Imagenes/");
+                File archivo = new File(rutaImagenes + _vehiculo.getMatricula() + ".png");
+
+                
+
+                archivo.createNewFile();
+                ImageIO.write(imagen, "png", archivo);
+            } else {
+                throw new Exception("Ingrese la imagen del vehiculo");
+            }*/
+            
             FabricaLogica.getLogicaVehiculo().ModificarVehiculo(_vehiculo);
 
             request.getSession().setAttribute("mensaje", "Modificación exitosa");
             response.sendRedirect("vehiculo");
-            
+
         } catch (Exception ex) {
             request.setAttribute("mensaje", ex.getMessage());
             request.getRequestDispatcher("WEB-INF/vistas/vehiculo/modificar.jsp").forward(request, response);
@@ -261,9 +297,9 @@ public class ControladorVehiculo extends HttpServlet {
                 FabricaLogica.getLogicaVehiculo().EliminarVehiculo(((Vehiculo) request.getSession().getAttribute("vehiculo")).getMatricula());
                 request.getSession().setAttribute("mensaje", "Eliminación exitosa");
             }
-            
+
             response.sendRedirect("vehiculo");
-            
+
         } catch (Exception ex) {
             request.setAttribute("mensaje", ex.getMessage());
             request.getRequestDispatcher("WEB-INF/vistas/vehiculo/eliminar.jsp").forward(request, response);
@@ -276,10 +312,10 @@ public class ControladorVehiculo extends HttpServlet {
             Vehiculo _vehiculoTraslado = ((Vehiculo) request.getSession().getAttribute("vehiculo"));
             _vehiculoTraslado.setSucursalPertenece(FabricaLogica.getLogicaSucursal().BuscarSucursal(Integer.parseInt(request.getParameter("sucursalTraslado"))));
             FabricaLogica.getLogicaVehiculo().ModificarVehiculo(_vehiculoTraslado);
-            
+
             request.getSession().setAttribute("mensaje", "Traslado exitoso");
             response.sendRedirect("vehiculo");
-            
+
         } catch (Exception ex) {
             request.setAttribute("mensaje", ex.getMessage());
             request.getRequestDispatcher("WEB-INF/vistas/vehiculo/trasladar.jsp").forward(request, response);

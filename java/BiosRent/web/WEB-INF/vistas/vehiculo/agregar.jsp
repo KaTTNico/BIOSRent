@@ -11,9 +11,9 @@
 <t:paginaMaestra title="Agregar Vehiculo">
     <jsp:body>
 
-        <form action="vehiculo?accion=agregar" method="Post" >
+        <form action="vehiculo?accion=agregar" method="Post">
             
-            <t:formularioVehiculo/>
+            <t:formularioVehiculo matriculaReadOnly="false" readOnly="false"/>
             <t:formularioTrasladoVehiculo/>
 
             <input type="submit" value="Agregar" class="submitFormulario">

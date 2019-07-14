@@ -212,10 +212,6 @@ begin
 	Select * from Vehiculo where Activo = 1;
 End//
 delimiter ;
-use biosRent;
-set @pMsjError = "";
-call AgregarVehiculo("QWE3213", "AUTO", "asdasd", 321, 4, @pMsjError);
-call EliminarVehiculo("QWE3213", @pMsjError);
 
 Delimiter //
 Create procedure AgregarVehiculo(pMatricula varchar(7), pTipo varchar(9), pDescripcion varchar(100), pPrecioAlquilerDiario DECIMAL(15,2), pSucursalCodigo int, out pMsjError varchar(100))
@@ -300,7 +296,7 @@ cuerpo:Begin
     set transaccionActiva=0;
 End //
 Delimiter ;
-delete from Vehiculo where Matricula = "QWE3213";
+
 Delimiter //
 Create procedure EliminarVehiculo(pMatricula varchar(7), out pMsjError varchar(100))
 cuerpo:begin
@@ -332,7 +328,7 @@ cuerpo:begin
 		update Vehiculo set Activo = 0 where Matricula = pMatricula;
         Leave cuerpo;
     End if;
-    
+
     delete from VehiculoSucursal where MatriculaVehiculo = pMatricula;
 	delete from Vehiculo where Matricula = pMatricula;
     

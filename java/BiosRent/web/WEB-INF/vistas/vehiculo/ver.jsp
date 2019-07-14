@@ -9,7 +9,7 @@
 <t:paginaMaestra title="Ver Vehiculo">
     <jsp:body>
        
-        <t:formularioVehiculo/>
+        <t:formularioVehiculo readOnly="true" matriculaReadOnly="false"/>
 
         <p><a href="vehiculo?action=index">Volver a vehiculos...</a></p>
         

@@ -18,13 +18,13 @@
     <tr></tr>
     <tr>
         <td align="right">
-            <form action="${servlet}?accion=${accion}&&decition=yes" method="post">
+            <form action="${servlet}?accion=${accion}&decition=yes" method="post">
                 <input type="submit" value="Aceptar" class="aceptarDecision"/>
             </form>
         </td>
         <td>&nbsp;&nbsp;</td>
         <td>
-            <form action="${servlet}?&decition=no" method="post">
+            <form action="${servlet}?accion=${accion}&decition=no" method="post">
                 <input type="submit" value="Cancelar" class="cancelarDecision"/>
             </form>
         </td>

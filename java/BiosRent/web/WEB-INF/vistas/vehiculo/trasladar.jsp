@@ -11,29 +11,9 @@
 <t:paginaMaestra title="Trasladar Vehiculo">
     <jsp:body>
 
-        <form action="vehiculo?action=trasladar" method="post">
-            <table class="contenido-tabla">
-                <tr>
-                    <td>Vehiculo:</td>
-                    <td>${vehiculo.matricula}</td>
-                </tr>
-                <tr>
-                    <td>Sucursal actual: </td>
-                    <td>${vehiculo.sucursalPertenece.nombre}</td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="sucursalSelect">Sucursal a trasladar:</label>
-                    </td>
-                    <td>
-                        <select id="sucursalSelect" name="sucursalTraslado">
-                            <c:forEach var="sucursal" items="${sucursales}">
-                                <option value="${sucursal.codigo}">${sucursal.nombre}</option>
-                            </c:forEach>
-                        </select>
-                    </td>
-                </tr>
-            </table>
+        <form action="vehiculo?accion=trasladar" method="post">
+            <t:formularioTrasladoVehiculo/>
+            
             <input type="submit" value="Trasladar" class="submitFormulario"/>
         </form>
 

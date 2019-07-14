@@ -13,11 +13,11 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<jsp:useBean id="vehiculo" class="MVC.modelo.entidades.beans.datatypes.Vehiculo" scope="request"></jsp:useBean>
-<jsp:setProperty name="vehiculo" property="matricula" value="${empty param.matricula ? '' : param.matricula}"/>
-<jsp:setProperty name="vehiculo" property="precioAlquilerDiario" value="${empty param.precioAlquilerDiario ? '0' : param.precioAlquilerDiario}"/>
-<jsp:setProperty name="vehiculo" property="descripcion" value="${empty param.descripcion ? '' : param.descripcion}"/>
-<jsp:setProperty name="vehiculo" property="tipo" value="${empty param.tipo ? 'Auto' : param.tipo}"/>
+<jsp:useBean id="vehiculo" class="MVC.modelo.entidades.beans.datatypes.Vehiculo" scope="session"></jsp:useBean>
+<jsp:setProperty name="vehiculo" property="matricula" value="${empty param.matricula ? vehiculo.matricula : param.matricula}"/>
+<jsp:setProperty name="vehiculo" property="precioAlquilerDiario" value="${empty param.precioAlquilerDiario ? vehiculo.precioAlquilerDiario : param.precioAlquilerDiario}"/>
+<jsp:setProperty name="vehiculo" property="descripcion" value="${empty param.descripcion ? vehiculo.descripcion : param.descripcion}"/>
+<jsp:setProperty name="vehiculo" property="tipo" value="${empty param.tipo ? vehiculo.tipo : param.tipo}"/>
 
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />

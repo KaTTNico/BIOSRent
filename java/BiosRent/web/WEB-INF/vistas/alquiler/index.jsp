@@ -13,8 +13,7 @@
 <t:paginaMaestra title="Menu alquiler">
     <jsp:body>
         <ul>
-            <li><a href="alquiler?accion=devolver">Devolver</a></li>
-            <li><a href="alquiler?accion=ver">Ver</a></li>
+            <li><a href="alquiler?accion=ver&sucursal=${empleadoLogueado.sucursalEmp.codigo}">Devolver</a></li>
         </ul>
         <p>Vehiculos disponibles:</p>
         <table>

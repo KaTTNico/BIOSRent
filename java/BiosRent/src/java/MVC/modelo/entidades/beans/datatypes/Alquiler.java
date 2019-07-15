@@ -12,6 +12,7 @@ import java.util.Date;
  * @author Nicolas
  */
 public class Alquiler {
+
     private int id;
     private Date fechaAlquiler;
     private int cantidadDias;
@@ -105,6 +106,7 @@ public class Alquiler {
         this.sucursal = sucursal;
         this.vehiculo = vehiculo;
     }
-    
-    
+
+    public Alquiler() {
+    }
 }

@@ -130,6 +130,34 @@ public class ControladorAlquiler extends HttpServlet {
     public void devolver_get(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            int cedula = 0;
+
+            try {
+                cedula = Integer.parseInt(request.getParameter("cliente"));
+            } catch (Exception e) {
+                request.setAttribute("mensaje", "¡ERROR! La cedula no es válida.");
+
+                request.getRequestDispatcher("WEB-INF/vistas/alquiler/devolver.jsp").forward(request, response);
+
+                return;
+            }
+
+            Alquiler alquiler = FabricaLogica.getLogicaAlquiler().obtenerAlquilerPendiente(cedula);
+            
+            //double multa = FabricaLogica.getLogicaAlquiler().obtenerMulta(cedula);
+            request.setAttribute("alquiler", alquiler);
+        } catch (ExcepcionPersonalizada ex) {
+            request.setAttribute("mensaje", ex.getMessage());
+        } catch (Exception ex) {
+            request.setAttribute("mensaje", "No se pudo obtener el alquiler.");
+        }
+
+        request.getRequestDispatcher("WEB-INF/vistas/alquiler/devolver.jsp").forward(request, response);
+    }
+
+    public void ver_get(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
             //obtener clientes as JSON
             List<Cliente> clientes = FabricaLogica.getLogicaCliente().ListaCompleta();
             String JSONClientes = "{clientes:[";
@@ -148,11 +176,7 @@ public class ControladorAlquiler extends HttpServlet {
         } catch (Exception ex) {
             request.setAttribute("mensaje", "No se pudo listar los vehiculos.");
         }
-        request.getRequestDispatcher("WEB-INF/vistas/alquiler/devolver.jsp").forward(request, response);
-    }
 
-    public void ver_get(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
         request.getRequestDispatcher("WEB-INF/vistas/alquiler/ver.jsp").forward(request, response);
     }
 

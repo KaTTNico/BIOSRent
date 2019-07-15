@@ -17,5 +17,10 @@ import java.util.List;
 public interface IPersistenciaAlquiler {
 
     ArrayList<Vehiculo> listarVehiculosDisponibles(String usuario) throws ExcepcionPersonalizada;
-    void alta(Alquiler alquiler)throws ExcepcionPersonalizada;
+
+    void alta(Alquiler alquiler) throws ExcepcionPersonalizada;
+
+    Alquiler obtenerAlquilerPendiente(int cedula) throws ExcepcionPersonalizada;
+
+    double obtenerMulta(int cedula) throws ExcepcionPersonalizada;
 }

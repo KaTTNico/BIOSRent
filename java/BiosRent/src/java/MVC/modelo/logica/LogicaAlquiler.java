@@ -81,4 +81,14 @@ class LogicaAlquiler implements ILogicaAlquiler {
     public ArrayList<Vehiculo> listarVehiculosDisponibles(String usuario) throws ExcepcionPersonalizada {
         return persistencia.listarVehiculosDisponibles(usuario);
     }
+
+    @Override
+    public Alquiler obtenerAlquilerPendiente(int cedula) throws ExcepcionPersonalizada {
+        return persistencia.obtenerAlquilerPendiente(cedula);
+    }
+
+    @Override
+    public double obtenerMulta(int cedula) throws ExcepcionPersonalizada {
+        return persistencia.obtenerMulta(cedula);
+    }
 }

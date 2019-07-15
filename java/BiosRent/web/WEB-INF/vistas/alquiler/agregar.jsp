@@ -80,7 +80,7 @@
             <br /><br />
             <input type="submit" value="agregar"/>
         </form>
-        <p><a href="index">Volver...</a></p>
+        <p><a href="alquiler">Volver...</a></p>
         <t:mensaje />
         <script>
             function autocomplete(inp, arr) {

@@ -453,10 +453,13 @@ begin
     Alquiler.DepositoEnGarantia,
     Alquiler.ClienteCedula,
     Alquiler.SucursalRetiraCodigo,
-    Alquiler.VehiculoMatricula 
+    Alquiler.VehiculoMatricula
+    
     from Alquiler 
+    
     left join Devolucion on Alquiler.Id = Devolucion.AlquilerId 
     where Alquiler.ClienteCedula = clienteCedula and Devolucion.AlquilerId is null
+    
     order by Alquiler.FechaAlquiler desc limit 1;
 End//
 Delimiter ;
@@ -488,3 +491,21 @@ cuerpo:begin
     values(sucursalCodigo,fechaDevolucion,multaAtraso);
 End//
 Delimiter ;
+
+Delimiter //
+Create procedure obtenerMulta(cedula int)
+begin
+    select (Vehiculo.PrecioAlquilerDiario / 0.9) * DATEDIFF(DATE_ADD(Alquiler.FechaAlquiler, INTERVAL Alquiler.CantidadDias DAY),NOW()) as Multa
+    
+    from Vehiculo 
+    
+    left join Alquiler on Alquiler.VehiculoMatricula=Vehiculo.Matricula 
+    left join Devolucion on Alquiler.Id = Devolucion.AlquilerId 
+    
+    where Alquiler.ClienteCedula = cedula and Devolucion.AlquilerId is null
+    
+    order by Alquiler.FechaAlquiler desc limit 1;
+End//
+Delimiter ;
+/*,
+    (select (Vehiculo.PrecioAlquilerDiario /0.9) * DATEDIFF(FechaAlquiler,NOW()) as Multa)as Multa*/

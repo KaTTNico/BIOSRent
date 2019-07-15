@@ -7,9 +7,9 @@
             <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/src/java/MVC/presentacion/servlets/controladores/ControladorAlquiler.java</file>
             <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/web/WEB-INF/vistas/alquiler/index.jsp</file>
             <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/src/java/MVC/modelo/persistencia/PersistenciaAlquiler.java</file>
-            <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/web/WEB-INF/vistas/alquiler/agregar.jsp</file>
+            <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/src/java/MVC/modelo/logica/ILogicaVehiculo.java</file>
             <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/web/WEB-INF/vistas/alquiler/devolver.jsp</file>
-            <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/src/java/MVC/modelo/logica/ILogicaAlquiler.java</file>
+            <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/web/WEB-INF/vistas/alquiler/ver.jsp</file>
             <file>file:/C:/Users/Nicolas/Documents/BIOS/Tercero/Obligatorios/BIOSRent/java/BiosRent/src/java/MVC/modelo/logica/LogicaAlquiler.java</file>
         </group>
     </open-files>

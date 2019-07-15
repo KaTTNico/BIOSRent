@@ -33,7 +33,7 @@
                     </td>
                     <td>${vehiculo.sucursalPertenece.codigo}</td>
                     <td>
-                        <a href="alquiler?accion=agregar&matricula=${vehiculo.matricula}"><img src="imagenes/iconos/glyphicons-191-plus-sign.png" alt="Alquilar" title="Alquilar" ></a>
+                        <a href="alquiler?accion=agregar&matricula=${vehiculo.matricula}&sucursal=${vehiculo.sucursalPertenece.codigo}"><img src="imagenes/iconos/glyphicons-191-plus-sign.png" alt="Alquilar" title="Alquilar" ></a>
                     </td>
                 </tr>
             </c:forEach>

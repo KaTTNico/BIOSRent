@@ -11,11 +11,6 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<%
-    SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/DD");
-    Date today = new Date(System.currentTimeMillis());
-%>
-
 <t:paginaMaestra title="Alquiler">
     <jsp:body>
         <fmt:setLocale value="en-US"/>
@@ -68,19 +63,21 @@
                         color: #ffffff; 
                     }
                 </style>
+                <input type="hidden" name="sucursal" value="${param.sucursal}"/>
                 <label>Vehiculo</label>
                 <br />
-                <input type="text" value="${param.matricula}" class="field left" readonly disabled />
-                <br /><br />
-                <label>Cliente:</label>
-                <input id="cliente" type="text" name="cliente" value="" placeholder="Cliente"/>
+                <input type="text" value="${param.matricula}" name="matricula" readonly disabled />
                 <br /><br />
                 <label>Cantidad de dias:</label>
                 <input id="cantidadDias" name="cantidadDias" value="" placeholder="Cantidad de dias" type="number" min="0" step="1" />
-
+                <br /><br />
+                <label>Contrata seguro:</label>
+                <input type="checkbox" name="contratoSeguro" />
+                <br /><br />
+                <label>Cliente:</label>
+                <input id="cliente" type="text" name="cliente" value="" placeholder="Cliente"/>
             </div>
-
-            <input type="hidden" id="fechaAlquiler" name="fechaAlquiler" value="${dateformat.format(today)}"/>
+            <br /><br />
             <input type="submit" value="agregar"/>
         </form>
         <p><a href="index">Volver...</a></p>

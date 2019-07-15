@@ -26,6 +26,7 @@ import java.io.FileReader;
 import java.io.PrintStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.servlet.ServletContext;
 
 /**
  *
@@ -155,62 +156,21 @@ public class ControladorAlquiler extends HttpServlet {
     public void agregar_post(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //ALQUILER
-        Date fechaAlquiler;
+        Date fechaAlquiler = new Date();
         int cantidadDias = 0;
         double costoSeguro = 0d;
         double total = 0d;
         double depositoGarantia = obtenerTarifa("garantia");
         int sucursal = 0;
 
-        if (Boolean.parseBoolean(request.getParameter("contratoSeguro"))) {
+        if (request.getParameter("contratoSeguro") == "on") {
             costoSeguro = obtenerTarifa("seguro");
-        }
-
-        try {
-            SimpleDateFormat parser = new SimpleDateFormat("yyyy/MM/DD");
-            fechaAlquiler = parser.parse(request.getParameter("fechaAlquiler"));
-        } catch (ParseException ex) {
-            request.setAttribute("mensaje", "¡ERROR! La fecha no es válida.");
-
-            request.getRequestDispatcher("WEB-INF/vistas/alquiler/agregar.jsp").forward(request, response);
-
-            return;
         }
 
         try {
             cantidadDias = Integer.parseInt(request.getParameter("cantidadDias"));
         } catch (NumberFormatException ex) {
             request.setAttribute("mensaje", "¡ERROR! La cantidad de dias no es válida.");
-
-            request.getRequestDispatcher("WEB-INF/vistas/alquiler/agregar.jsp").forward(request, response);
-
-            return;
-        }
-
-        try {
-            costoSeguro = Double.parseDouble(request.getParameter("costoSeguro"));
-        } catch (NumberFormatException ex) {
-            request.setAttribute("mensaje", "¡ERROR! El costo del seguro no es válido.");
-
-            request.getRequestDispatcher("WEB-INF/vistas/alquiler/agregar.jsp").forward(request, response);
-
-            return;
-        }
-
-        try {
-            total = Double.parseDouble(request.getParameter("total"));
-        } catch (NumberFormatException ex) {
-            request.setAttribute("mensaje", "¡ERROR! El total no es válido.");
-
-            request.getRequestDispatcher("WEB-INF/vistas/alquiler/agregar.jsp").forward(request, response);
-
-            return;
-        }
-
-        try {
-            depositoGarantia = Double.parseDouble(request.getParameter("depositoGarantia"));
-        } catch (NumberFormatException ex) {
-            request.setAttribute("mensaje", "¡ERROR! El deposito en garantia no es válido.");
 
             request.getRequestDispatcher("WEB-INF/vistas/alquiler/agregar.jsp").forward(request, response);
 
@@ -232,7 +192,7 @@ public class ControladorAlquiler extends HttpServlet {
             int cedula = 0;
 
             try {
-                cantidadDias = Integer.parseInt(request.getParameter("cedula"));
+                cedula = Integer.parseInt(request.getParameter("cliente"));
             } catch (NumberFormatException ex) {
                 request.setAttribute("mensaje", "¡ERROR! La cedula no es válida.");
 
@@ -268,8 +228,8 @@ public class ControladorAlquiler extends HttpServlet {
 
     //Operaciones 
     public double obtenerTarifa(String valorBuscado) {
-
-        File archivo = new File("src/java/tarifas.txt");
+        ServletContext contextAplication = getServletContext();
+        File archivo = new File(contextAplication.getRealPath("/tarifas.txt"));
         double valor = 0d;
 
         if (archivo.exists() && !archivo.isDirectory()) {
@@ -281,15 +241,16 @@ public class ControladorAlquiler extends HttpServlet {
                 while ((linea = br.readLine()) != null) {
                     Matcher m = patron.matcher(linea);
                     try {
-                        valor = Double.parseDouble(m.group(1));
-                        return valor;
+                        if (m.find()) {
+                            valor = Double.parseDouble(m.group(0));
+                            return valor;
+                        }
                     } catch (NumberFormatException ex) {
                         valor = 0d;
                     }
                 }
-
             } catch (Exception e) {
-                System.out.println("Error al leer el archivo.");
+                System.out.println("Error al leer la tarifa de " + valorBuscado + ".");
             }
         }
         return valor;

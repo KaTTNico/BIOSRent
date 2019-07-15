@@ -129,6 +129,25 @@ public class ControladorAlquiler extends HttpServlet {
 
     public void devolver_get(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try {
+            //obtener clientes as JSON
+            List<Cliente> clientes = FabricaLogica.getLogicaCliente().ListaCompleta();
+            String JSONClientes = "{clientes:[";
+            int counter = 0;
+
+            for (Cliente cliente : clientes) {
+                JSONClientes += "{ci:'" + cliente.getCI() + "',nombreCompleto:'" + cliente.getNombreCompleto() + "'";
+                JSONClientes += "}" + ((clientes.indexOf(cliente) == clientes.size() - 1) ? "" : ",");
+            }
+
+            JSONClientes += ("]}");
+            request.setAttribute("clientes", JSONClientes);
+
+        } catch (ExcepcionPersonalizada ex) {
+            request.setAttribute("mensaje", ex.getMessage());
+        } catch (Exception ex) {
+            request.setAttribute("mensaje", "No se pudo listar los vehiculos.");
+        }
         request.getRequestDispatcher("WEB-INF/vistas/alquiler/devolver.jsp").forward(request, response);
     }
 
@@ -155,15 +174,15 @@ public class ControladorAlquiler extends HttpServlet {
 
     public void agregar_post(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //ALQUILER
         Date fechaAlquiler = new Date();
         int cantidadDias = 0;
         double costoSeguro = 0d;
-        double total = 0d;
         double depositoGarantia = obtenerTarifa("garantia");
-        int sucursal = 0;
+        double total = 0d;
 
-        if (request.getParameter("contratoSeguro") == "on") {
+        int sucursalCodigo = 0;
+
+        if (Boolean.parseBoolean(request.getParameter("contratoSeguro"))) {
             costoSeguro = obtenerTarifa("seguro");
         }
 
@@ -178,7 +197,7 @@ public class ControladorAlquiler extends HttpServlet {
         }
 
         try {
-            sucursal = Integer.parseInt(request.getParameter("sucursal"));
+            sucursalCodigo = Integer.parseInt(request.getParameter("sucursal"));
         } catch (NumberFormatException ex) {
             request.setAttribute("mensaje", "¡ERROR! La sucursal no es válida.");
 
@@ -200,17 +219,34 @@ public class ControladorAlquiler extends HttpServlet {
 
                 return;
             }
-
             Cliente cliente = FabricaLogica.getLogicaCliente().buscar(cedula);
+            if (cliente == null) {
+                request.setAttribute("mensaje", "¡ERROR! El cliente no existe.");
+                request.getRequestDispatcher("WEB-INF/vistas/alquiler/agregar.jsp").forward(request, response);
+                return;
+            }
 
             //VEHICULO
-//            Vehiculo vehiculo = FabricaLogica.getLogicaVehiculo().buscar(request.getParameter("matricula"));
-//            if (vehiculo == null) {
-//                request.setAttribute("mensaje", "¡ERROR! El vehiculo no existe.");
-//                request.getRequestDispatcher("WEB-INF/vistas/alquiler/agregar.jsp").forward(request, response);
-//                return;
-//            }
-            Alquiler alquiler = new Alquiler();
+            Vehiculo vehiculo = FabricaLogica.getLogicaVehiculo().BuscarVehiculo(request.getParameter("matricula"));
+            if (vehiculo == null) {
+                request.setAttribute("mensaje", "¡ERROR! El vehiculo no existe.");
+                request.getRequestDispatcher("WEB-INF/vistas/alquiler/agregar.jsp").forward(request, response);
+                return;
+            }
+
+            //SUCURSAL
+            Sucursal sucursal = FabricaLogica.getLogicaSucursal().BuscarSucursal(sucursalCodigo);
+            if (sucursal == null) {
+                request.setAttribute("mensaje", "¡ERROR! La sucursal no existe.");
+                request.getRequestDispatcher("WEB-INF/vistas/alquiler/agregar.jsp").forward(request, response);
+                return;
+            }
+
+            //CALCULAR TOTAL
+            total = vehiculo.getPrecioAlquilerDiario() * cantidadDias + costoSeguro;
+
+            //ALQUILER
+            Alquiler alquiler = new Alquiler(0, fechaAlquiler, cantidadDias, costoSeguro, total, depositoGarantia, cliente, sucursal, vehiculo);
             FabricaLogica.getLogicaAlquiler().alta(alquiler);
             request.getSession().setAttribute("mensaje", "¡Alquiler agregado con éxito!");
 

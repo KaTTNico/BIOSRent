@@ -64,7 +64,12 @@ class LogicaAlquiler implements ILogicaAlquiler {
 
     @Override
     public void alta(Alquiler alquiler) throws ExcepcionPersonalizada {
-
+        try {
+            validar(alquiler);
+            persistencia.alta(alquiler);
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     @Override

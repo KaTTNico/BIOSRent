@@ -72,7 +72,7 @@
                 <input id="cantidadDias" name="cantidadDias" value="" placeholder="Cantidad de dias" type="number" min="0" step="1" />
                 <br /><br />
                 <label>Contrata seguro:</label>
-                <input type="checkbox" name="contratoSeguro" />
+                <input type="checkbox" name="contratoSeguro" value="true"/>
                 <br /><br />
                 <label>Cliente:</label>
                 <input id="cliente" type="text" name="cliente" value="" placeholder="Cliente"/>

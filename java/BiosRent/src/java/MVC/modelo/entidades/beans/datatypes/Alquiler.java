@@ -93,4 +93,18 @@ public class Alquiler {
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
+
+    public Alquiler(int id, Date fechaAlquiler, int cantidadDias, Double costoSeguro, Double costoTotal, Double depositoEnGarantia, Cliente clientel, Sucursal sucursal, Vehiculo vehiculo) {
+        this.id = id;
+        this.fechaAlquiler = fechaAlquiler;
+        this.cantidadDias = cantidadDias;
+        this.costoSeguro = costoSeguro;
+        this.costoTotal = costoTotal;
+        this.depositoEnGarantia = depositoEnGarantia;
+        this.clientel = clientel;
+        this.sucursal = sucursal;
+        this.vehiculo = vehiculo;
+    }
+    
+    
 }

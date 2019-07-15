@@ -38,10 +38,9 @@ CREATE TABLE Vehiculo (
 
 CREATE TABLE VehiculoSucursal(
 	MatriculaVehiculo VARCHAR(7),
-    CodigoSucursal INT,
+    CodigoSucursal INT null,
     FOREIGN KEY (MatriculaVehiculo) REFERENCES Vehiculo (Matricula),
-    FOREIGN KEY (CodigoSucursal) REFERENCES Sucursal (Codigo),
-    PRIMARY KEY (MatriculaVehiculo,CodigoSucursal)
+    PRIMARY KEY (MatriculaVehiculo)
 );
 
 CREATE TABLE Alquiler (
@@ -100,7 +99,7 @@ Insert into Cliente values(35625848,'Nestor Mendez',214526523);
 Insert into Cliente values(48575418,'Mariana Rey',285695124);
 
 #Empleado test values
-Insert into Empleado values('CarUser','qwerty123',15);
+Insert into Empleado values('CarUser','qwerty123',1);
 Insert into Empleado values('UsuRob','ytrewq321',13);
 Insert into Empleado values('RomeoUser','ghjklñ486',2);
 Insert into Empleado values('Maria','asdfg1234',6);
@@ -247,16 +246,17 @@ cuerpo:Begin
     
     START TRANSACTION;
     
-    set mensajeError='No se pudo agregar el vehiculo';
+    set mensajeError='No se pudo agregar el vehiculo.';
     #Si estaba en baja logica
     if(exists(select * from Vehiculo where Matricula = pMatricula and Activo = 0)) then
         Update Vehiculo set Tipo = pTipo, Descripcion = pDescripcion, PrecioAlquilerDiario = pPrecioAlquilerDiario, Activo = 1 where Matricula = pMatricula;
-        Insert into VehiculoSucursal (MatriculaVehiculo,CodigoSucursal) values(pMatricula,pSucursalCodigo);
+        Insert into VehiculoSucursal (MatriculaVehiculo,CodigoSucursal) values(pMatricula,pCodigoSucursal);
         Leave cuerpo;
 	End if;
     
     Insert into Vehiculo(Matricula, Tipo, Descripcion, PrecioAlquilerDiario) values(pMatricula, pTipo, pDescripcion, pPrecioAlquilerDiario);
-    Insert into VehiculoSucursal (MatriculaVehiculo,CodigoSucursal) values(pMatricula,pSucursalCodigo);
+    Insert into VehiculoSucursal (MatriculaVehiculo,CodigoSucursal) values(pMatricula,pCodigoSucursal);
+    
     COMMIT;
     
     set transaccionActiva=0;
@@ -289,12 +289,7 @@ cuerpo:Begin
     
     set mensajeError='No se pudo modificar el vehiculo.';
     update Vehiculo set Tipo = pTipo, Descripcion = pDescripcion, PrecioAlquilerDiario = pPrecioAlquilerDiario where Matricula = pMatricula;
-    
-    if(pSucursalCodigo <> -1)
-    THEN
-		delete from VehiculoSucursal where MatriculaVehiculo = pMatricula;
-		Insert Into VehiculoSucursal set MatriculaVehiculo = pMatricula, CodigoSucursal = pSucursalCodigo; 
-    END IF;
+    update VehiculoSucursal set MatriculaVehiculo = pMatricula, CodigoSucursal = pCodigoSucursal; 
     
     COMMIT;
     
@@ -333,8 +328,7 @@ cuerpo:begin
 		update Vehiculo set Activo = 0 where Matricula = pMatricula;
         Leave cuerpo;
     End if;
-
-    delete from VehiculoSucursal where MatriculaVehiculo = pMatricula;
+    
 	delete from Vehiculo where Matricula = pMatricula;
     
     COMMIT;
@@ -379,6 +373,22 @@ sucursalRetiraCodigo int,
 matricula varchar(7),
 out pMsjError varchar(100))
 cuerpo:begin
+	DECLARE garantia DECIMAL(15,2);
+	DECLARE mensajeError VARCHAR(200);
+    DECLARE transaccionActiva BIT;
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+    BEGIN
+		IF transaccionActiva THEN
+			ROLLBACK;
+		END IF;
+        
+        SET pMsjError = mensajeError;
+    END;
+    
+	set garantia = CASE WHEN (select count(Alquiler.ClienteCedula) FROM Alquiler WHERE Alquiler.ClienteCedula=ClienteCedula) >2 THEN 0 ELSE depositoEnGarantia END;
+   
+	/*CHEQUEOS DE EXISTENCIA*/
 	if(not exists(select * from Vehiculo where Matricula = matricula and Activo = 1)) then
 		set pMsjError= "Error, el vehiculo no existe.";
         Leave cuerpo;
@@ -394,6 +404,7 @@ cuerpo:begin
         Leave cuerpo;
 	end if;
 	
+    /*CHEQUEOS DE NEGOCIO*/
     if(exists (Select 
     Cliente.* from Cliente join Alquiler on Alquiler.ClienteCedula = Cliente.CI 
     where 
@@ -404,17 +415,29 @@ cuerpo:begin
     end if;
     
     if(not exists (Select 
-    Vehiculo.* from Vehiculo left join Alquiler on Alquiler.VehiculoMatricula = Vehiculo.Matricula 
+    Vehiculo.* from Vehiculo inner join VehiculoSucursal on VehiculoSucursal.MatriculaVehiculo = Vehiculo.Matricula 
     where 
     Vehiculo.Activo = 1 and 
     Vehiculo.Matricula = matricula and
-    Alquiler.Id IS NULL OR (fechaAlquiler > DATE_ADD(Alquiler.FechaAlquiler, interval Alquiler.CantidadDias day))))then
+    VehiculoSucursal.CodigoSucursal = sucursalRetiraCodigo))then
 		set pMsjError= "Error, el vehiculo no esta disponible.";
 		Leave cuerpo;
     end if;
     
-    insert into Alquiler(FechaAlquiler,CantidadDias,CostoSeguro,Total,DepositoEnGarantia,ClienteCedula,SucursalRetiraCodigo,SucursalRetiraCodigo) 
-    values(fechaAlquiler,cantidadDias,costoSeguro,total,depositoEnGarantia,clienteCedula,sucursalRetiraCodigo,matricula);
+    set transaccionActiva=1;
+    
+    START TRANSACTION;
+    
+    set mensajeError= "Error, no se pudo alquilar el vehiculo.";
+    
+    insert into Alquiler(FechaAlquiler,CantidadDias,CostoSeguro,Total,DepositoEnGarantia,ClienteCedula,SucursalRetiraCodigo,VehiculoMatricula) 
+    values(fechaAlquiler,cantidadDias,costoSeguro,total,garantia,clienteCedula,sucursalRetiraCodigo,matricula);
+    
+	update VehiculoSucursal set VehiculoSucursal.CodigoSucursal = NULL where VehiculoSucursal.MatriculaVehiculo=matricula;
+    
+    COMMIT;
+    
+    set transaccionActiva=0;
 End//
 Delimiter ;
 
@@ -464,5 +487,4 @@ cuerpo:begin
     insert into Devolucion(SucursalCodigo,FechaDevolucion,MultaAtraso) 
     values(sucursalCodigo,fechaDevolucion,multaAtraso);
 End//
-
 Delimiter ;

@@ -11,6 +11,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -31,6 +32,38 @@ class PersistenciaAlquiler implements IPersistenciaAlquiler {
 
     private PersistenciaAlquiler() {
 
+    }
+
+    @Override
+    public void alta(Alquiler alquiler) throws ExcepcionPersonalizada {
+        Connection conexion = null;
+        CallableStatement consulta = null;
+        try {
+            conexion = Utilidades.getConnection();
+            consulta = conexion.prepareCall("{CALL AgregarAlquiler(?,?,?,?,?,?,?,?,?)}");
+
+            java.sql.Date javadate = new java.sql.Date(alquiler.getFechaAlquiler().getTime());
+            consulta.setDate(1, javadate);
+            consulta.setInt(2, alquiler.getCantidadDias());
+            consulta.setDouble(3, alquiler.getCostoSeguro());
+            consulta.setDouble(4, alquiler.getCostoTotal());
+            consulta.setDouble(5, alquiler.getDepositoEnGarantia());
+            consulta.setInt(6, alquiler.getClientel().getCI());
+            consulta.setInt(7, alquiler.getSucursal().getCodigo());
+            consulta.setString(8, alquiler.getVehiculo().getMatricula());
+            consulta.registerOutParameter(9, java.sql.Types.VARCHAR);
+
+            consulta.executeUpdate();
+            String error = consulta.getString(9);
+            if (error != null) {
+                throw new ExcepcionPersistencia(error);
+            }
+
+        } catch (Exception e) {
+            throw new ExcepcionPersistencia("No se pudo alquilar el vehiculo.", e);
+        } finally {
+            Utilidades.CloseResources(consulta, conexion);
+        }
     }
 
     @Override

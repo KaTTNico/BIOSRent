@@ -11,8 +11,11 @@ import MVC.modelo.logica.FabricaLogica;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -107,11 +110,11 @@ public class ControladorVehiculo extends HttpServlet {
             request.removeAttribute("vehiculo");
             request.getSession().removeAttribute("vehiculo");
 
-            request.getSession().setAttribute("vehiculos", FabricaLogica.getLogicaVehiculo().ListarVehiculo());
+            request.getSession().setAttribute("vehiculos", FabricaLogica.getLogicaVehiculo().ListarVehiculo().stream().filter(v -> v.getMatricula().contains(request.getParameter("buscar") == null ? "" : request.getParameter("buscar"))).collect(Collectors.toList()));
             request.getRequestDispatcher("WEB-INF/vistas/vehiculo/index.jsp").forward(request, response);
         } catch (Exception ex) {
             request.setAttribute("mensaje", ex.getMessage());
-            request.getRequestDispatcher("WEB-INF/vistas/inicio/index.jsp");
+            request.getRequestDispatcher("WEB-INF/vistas/inicio/index.jsp").forward(request, response);
             return;
         }
 
@@ -207,7 +210,7 @@ public class ControladorVehiculo extends HttpServlet {
             _vehiculo.setTipo(request.getParameter("tipo"));
             
             try {
-                _vehiculo.setPrecioAlquilerDiario(Double.parseDouble(request.getParameter("precioAlquilerDiario")));
+                _vehiculo.setPrecioAlquilerDiario(Double.parseDouble(request.getParameter("precioAlquilerDiario2")));
             } catch (Exception ex) {
                 throw new Exception("Precio alquiler diario debe ser numérico");
             }
@@ -225,15 +228,15 @@ public class ControladorVehiculo extends HttpServlet {
             if (imagen != null) {
                 ServletContext contextoAplicacion = getServletContext();
 
-                String rutaImagenes = contextoAplicacion.getRealPath("/imagenes/vehiculos");
+                String rutaImagenes = contextoAplicacion.getRealPath("/imagenes/vehiculos/");
                 File archivo = new File(rutaImagenes + _vehiculo.getMatricula() + ".png");
 
                 FabricaLogica.getLogicaVehiculo().AgregarVehiculo(_vehiculo);
-
+                
                 archivo.createNewFile();
                 ImageIO.write(imagen, "png", archivo);
             } else {
-                throw new Exception("Ingrese la imagen del vehiculo");
+                FabricaLogica.getLogicaVehiculo().AgregarVehiculo(_vehiculo);
             }
 
             request.getSession().setAttribute("mensaje", "Agregado con éxito");
@@ -253,7 +256,7 @@ public class ControladorVehiculo extends HttpServlet {
             _vehiculo.setTipo(request.getParameter("tipo"));
 
             try {
-                _vehiculo.setPrecioAlquilerDiario(Double.parseDouble(request.getParameter("precioAlquilerDiario")));
+                _vehiculo.setPrecioAlquilerDiario(Double.parseDouble(request.getParameter("precioAlquilerDiario2")));
             } catch (Exception ex) {
                 throw new Exception("Precio alquiler diario debe ser numérico");
             }
@@ -263,7 +266,7 @@ public class ControladorVehiculo extends HttpServlet {
             if (imagen != null) {
                 ServletContext contextoAplicacion = getServletContext();
 
-                String rutaImagenes = contextoAplicacion.getRealPath("/imagenes/vehiculos");
+                String rutaImagenes = contextoAplicacion.getRealPath("/imagenes/vehiculos/");
                 File archivo = new File(rutaImagenes + _vehiculo.getMatricula() + ".png");
 
                 FabricaLogica.getLogicaVehiculo().ModificarVehiculo(_vehiculo);
@@ -271,7 +274,7 @@ public class ControladorVehiculo extends HttpServlet {
                 archivo.createNewFile();
                 ImageIO.write(imagen, "png", archivo);
             } else {
-                throw new Exception("Ingrese la imagen del vehiculo");
+                FabricaLogica.getLogicaVehiculo().ModificarVehiculo(_vehiculo);
             }
             
             request.getSession().setAttribute("mensaje", "Modificación exitosa");
@@ -288,7 +291,16 @@ public class ControladorVehiculo extends HttpServlet {
         try {
 
             if ("yes".equals(request.getParameter("decition"))) {
-                FabricaLogica.getLogicaVehiculo().EliminarVehiculo(((Vehiculo) request.getSession().getAttribute("vehiculo")).getMatricula());
+                String _matricula = ((Vehiculo) request.getSession().getAttribute("vehiculo")).getMatricula();
+                
+                FabricaLogica.getLogicaVehiculo().EliminarVehiculo(_matricula);
+                
+                File _foto = new File((getServletContext().getRealPath("/imagenes/vehiculos/" + _matricula + ".png")));
+                
+                if(_foto.exists()){
+                    _foto.delete();
+                }
+                
                 request.getSession().setAttribute("mensaje", "Eliminación exitosa");
             }
 

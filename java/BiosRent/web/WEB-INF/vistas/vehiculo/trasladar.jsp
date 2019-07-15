@@ -14,7 +14,7 @@
         <form action="vehiculo?accion=trasladar" method="post">
             <t:formularioTrasladoVehiculo/>
             
-            <input type="submit" value="Trasladar" class="submitFormulario"/>
+            <input type="submit" value="Trasladar" class="boton-editor"/>
         </form>
 
         <p><a href="vehiculo?action=index">Volver a vehiculos...</a></p>

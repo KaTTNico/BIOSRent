@@ -14,8 +14,14 @@
     <jsp:body>
         <fmt:setLocale value="en-US" />
 
-        <a href="vehiculo?accion=agregar"><img src="imagenes/iconos/addVehiculo.png" alt="Agregar" title="Agregar" height="70" width="90"></a><br/>
+        <t:mensaje />
         
+        <form>
+            <p><input class="txt-box-clientes"  type="text" name="buscar" value="${param.buscar}" id="buscar"/><input class ="boton-buscar" type="submit" value="Buscar"  /></p>
+        </form>
+
+        <a href="vehiculo?accion=agregar"><img src="imagenes/iconos/addVehiculo.png" alt="Agregar" title="Agregar" height="70" width="90"></a><br/>
+
         <table class="contenido-tabla">
             <tr>
                 <th>Matricula</th>
@@ -26,7 +32,7 @@
             </tr>
 
             <c:set var="vehiculoIndex" value="${vehiculoIndex + 1}" scope="page"/>
-            
+
             <c:forEach items="${vehiculos}" var="vehiculo">
                 <tr>                    
                     <td class="texto-centro">${vehiculo.matricula}</td>
@@ -48,7 +54,11 @@
             </c:forEach>
         </table>
 
+        <script>
+            document.getElementById('buscar').focus();
+            document.getElementById('buscar').select();
+        </script>
+
         <p><a href="inicio">Volver a inicio...</a></p>
-        <t:mensaje />
     </jsp:body>
 </t:paginaMaestra>

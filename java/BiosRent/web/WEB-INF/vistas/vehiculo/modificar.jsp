@@ -13,15 +13,16 @@
     <jsp:body>
 
         <form action="vehiculo?accion=modificar" method="post" enctype="multipart/form-data">
+            <t:mensaje />
             <t:formularioVehiculo matriculaReadOnly="true" readOnly="false"/>
-        
-        <input type="submit" value="Modificar" class="submitFormulario"/>
+
+            <input type="submit" value="Modificar" class="boton-editor"/>
         </form>
-        
+
         <p><a href="vehiculo?action=index">Volver a vehiculos...</a></p>
-        
+
         <p><a href="inicio">Volver a inicio...</a></p>
-        
-        <t:mensaje />
+
+
     </jsp:body>
 </t:paginaMaestra>

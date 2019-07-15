@@ -19,6 +19,6 @@ public class ExcepcionPersonalizada extends Exception implements Serializable {
         super(mensaje);
     }
     public ExcepcionPersonalizada(String mensaje, Exception excepcionInterna){
-        super(mensaje,excepcionInterna);
+        super(mensaje + ": " + excepcionInterna.getMessage());
     }
 }

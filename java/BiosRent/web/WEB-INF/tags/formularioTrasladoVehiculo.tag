@@ -10,7 +10,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <table class="contenido-tabla">
-    <c:if test="${empty vehiculo}"> 
+    <c:if test="${!empty vehiculo.matricula}"> 
         <tr>
             <td>Vehiculo:</td>
             <td>${vehiculo.matricula}</td>
@@ -25,9 +25,9 @@
             <label for="sucursalSelect">Sucursal a trasladar:</label>
         </td>
         <td>
-            <select id="sucursalSelect" name="sucursalTraslado">
+            <select id="sucursalSelect" name="sucursalTraslado" class="txt-box-clientes">
                 <c:forEach var="sucursal" items="${sucursales}">
-                    <option value="${sucursal.codigo}" <c:if test="${sucursal.codigo.equals('$[vehiculo.sucursalPertenece.codigo]')}">selected</c:if>>${sucursal.nombre}</option>
+                    <option value="${sucursal.codigo}" <c:if test="${empty param.sucursalTraslado ? $[vehiculo.sucursalPertenece.codigo.equals(sucursal.codigo)] : $[Integer.parseInt(param.sucursalTraslado).equals(sucursal.codigo)]}">selected</c:if>>${sucursal.nombre}</option>
                 </c:forEach>
             </select>
         </td>

@@ -34,7 +34,7 @@
 
         <tr>
             <td><label for="txtDescripcion" class="labelForm">Descripción</label></td>
-            <td><textarea id="txtDescripcion" name="descripcion" class="txt-bsox-clientes" <c:if test="${readOnly}">disabled="disabled"</c:if> style="width: 170px;">"${empty param.descripcion ? vehiculo.descripcion : param.descripcion}"</textarea></td>
+            <td><textarea id="txtDescripcion" name="descripcion" class="txt-bsox-clientes" <c:if test="${readOnly}">disabled="disabled"</c:if> style="width: 170px;">${empty param.descripcion ? vehiculo.descripcion : param.descripcion}</textarea></td>
         </tr>
 
         <tr>

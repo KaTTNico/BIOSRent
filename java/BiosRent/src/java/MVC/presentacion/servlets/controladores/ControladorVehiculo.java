@@ -210,7 +210,7 @@ public class ControladorVehiculo extends HttpServlet {
             _vehiculo.setTipo(request.getParameter("tipo"));
             
             try {
-                _vehiculo.setPrecioAlquilerDiario(Double.parseDouble(request.getParameter("precioAlquilerDiario2")));
+                _vehiculo.setPrecioAlquilerDiario(Double.parseDouble(request.getParameter("precioAlquilerDiario")));
             } catch (Exception ex) {
                 throw new Exception("Precio alquiler diario debe ser numérico");
             }
@@ -256,7 +256,7 @@ public class ControladorVehiculo extends HttpServlet {
             _vehiculo.setTipo(request.getParameter("tipo"));
 
             try {
-                _vehiculo.setPrecioAlquilerDiario(Double.parseDouble(request.getParameter("precioAlquilerDiario2")));
+                _vehiculo.setPrecioAlquilerDiario(Double.parseDouble(request.getParameter("precioAlquilerDiario")));
             } catch (Exception ex) {
                 throw new Exception("Precio alquiler diario debe ser numérico");
             }

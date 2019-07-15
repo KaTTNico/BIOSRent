@@ -21,7 +21,6 @@
 
 <jsp:useBean id="vehiculo" class="MVC.modelo.entidades.beans.datatypes.Vehiculo" scope="session"></jsp:useBean>
 <jsp:setProperty name="vehiculo" property="matricula" value="${empty param.matricula ? vehiculo.matricula : param.matricula}"/>
-<jsp:setProperty name="vehiculo" property="precioAlquilerDiario" value="${empty param.precioAlquilerDiario2 ? vehiculo.precioAlquilerDiario : param.precioAlquilerDiario2}"/>
 <jsp:setProperty name="vehiculo" property="descripcion" value="${empty param.descripcion ? vehiculo.descripcion : param.descripcion}"/>
 <jsp:setProperty name="vehiculo" property="tipo" value="${empty param.tipo ? vehiculo.tipo : param.tipo}"/>
 
@@ -43,18 +42,18 @@
             <td><select id="cbTipo" name="tipo" class="txt-box-clientes" <c:if test="${readOnly}">disabled="disabled"</c:if> style="width: 170px;">
                 <option <c:if test="${vehiculo.tipo.equals('AUTO')}">selected</c:if>>AUTO</option>
                 <option <c:if test="${vehiculo.tipo.equals('CAMIONETA')}">selected</c:if>>CAMIONETA</option>
-                <option <c:if test="${vehiculo.tipo.equals('OTROS')}">selected</c:if>>OTROS</option>
+                <option <c:if test="${vehiculo.tipo.equals('OTRO')}">selected</c:if>>OTROS</option>
                 </select>
             </td>
         </tr>
 
         <tr>
             <td><label for="nudPrecio" class="labelForm">Precio Alquiler Diario</label></td>
-            <td><input id="nudPrecio" name="precioAlquilerDiario2" type="text" <c:if test="${readOnly}">disabled="disabled"</c:if> value="${vehiculo.precioAlquilerDiario}" class="txt-box-clientes" width="170"/></td>
+          <td><input id="nudPrecio" name="precioAlquilerDiario2" type="text" <c:if test="${readOnly}">disabled="disabled"</c:if> value="${vehiculo.precioAlquilerDiario}"    class="txt-box-clientes" width="170"/></td>
         </tr>
         <tr>
             <td><label for="imgVehiculo" class="labelForm">Foto:</label></td>
-            <td><input id="imgVehiculo" name="imgVehiculo" type="file" class="txt-bsox-clientes" <c:if test="${readOnly}">disabled="disabled"</c:if>/></td>
+            <td><input id="imgVehiculo" name="imgVehiculo" type="file" class="txt-box-clientes" <c:if test="${readOnly}">disabled="disabled"</c:if>/></td>
         </tr>
         <tr>
             <td colspan="2">

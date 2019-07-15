@@ -97,7 +97,7 @@ public class ControladorCliente extends HttpServlet {
         try {
             List<Cliente> listClientes = FabricaLogica.getLogicaCliente().ListarClientes(request.getParameter("buscar"));
             request.setAttribute("clientes", listClientes);
-            request.setAttribute("mensaje", "Cantidad de clientes:" + listClientes.size());
+            request.setAttribute("mensaje", "Cantidad de clientes: " + listClientes.size());
 
         } catch (ExcepcionPersonalizada ex) {
             request.setAttribute("mensaje", ex.getMessage());
@@ -163,8 +163,8 @@ public class ControladorCliente extends HttpServlet {
         try {
             ci = Integer.parseInt(request.getParameter("CI"));
         } catch (NumberFormatException ex) {
-            request.setAttribute("mensaje", "La cédula no es válida.");
-            request.getRequestDispatcher("WEB-INF/vistas/cliente/registroCliente.jsp");
+            request.setAttribute("mensaje", "Error, La cédula no es válida.");
+            request.getRequestDispatcher("WEB-INF/vistas/cliente/registroCliente.jsp").forward(request, response);
             return;
         }
         String nombreCliente = request.getParameter("NombreCompleto");

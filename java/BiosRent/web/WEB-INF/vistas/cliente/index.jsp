@@ -16,7 +16,7 @@
             <p><input class="txt-box-clientes"  type="text" name="buscar" value="${param.buscar}" id="buscar"/><input class ="boton-buscar" type="submit" value="Buscar"  /></p>
         </form>
         <p><a href="cliente?accion=agregar"><img src="imagenes/iconos/addUser.png" alt="Agregar" title ="Agregar.."></a></p>
-
+                <t:mensaje />
         <table class="contenido-tabla">
             <thead>
                 <tr>
@@ -45,7 +45,7 @@
             </c:forEach>
         </table>
 
-        <t:mensaje />
+
 
         <p><a href="inicio">Volver...</a></p>
         <script>

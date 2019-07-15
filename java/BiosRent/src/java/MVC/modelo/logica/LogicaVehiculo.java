@@ -92,7 +92,7 @@ class LogicaVehiculo implements ILogicaVehiculo {
             throw new Exception("Tipo incorrecto");
         }
         if (!parameterVehiculo.getMatricula().matches("^[a-zA-Z]{3}[0-9]{4}$")) {
-            throw new Exception("Matricula incorrecta");
+            throw new Exception("El formato de la matricula es incorrecto");
         }
         if (parameterVehiculo.getPrecioAlquilerDiario() <= 0) {
             throw new Exception("Precio incorrecto");

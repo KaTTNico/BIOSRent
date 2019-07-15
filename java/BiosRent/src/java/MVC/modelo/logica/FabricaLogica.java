@@ -20,6 +20,13 @@ public class FabricaLogica {
 
     public static ILogicaAlquiler getLogicaAlquiler(){
         return LogicaAlquiler.getInstancia();
-
+    }
+    
+    public static ILogicaVehiculo getLogicaVehiculo(){
+        return LogicaVehiculo.getInstancia();
+    }
+    
+    public static ILogicaSucursal getLogicaSucursal(){
+        return LogicaSucursal.getInstancia();
     }
 }

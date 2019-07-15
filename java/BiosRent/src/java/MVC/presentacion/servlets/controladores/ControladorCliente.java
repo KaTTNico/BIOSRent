@@ -117,6 +117,7 @@ public class ControladorCliente extends HttpServlet {
             }
              request.getSession().removeAttribute("mensaje");
         }
+        
        request.getRequestDispatcher("WEB-INF/vistas/cliente/index.jsp").forward(request, response);
     }
    
@@ -179,7 +180,7 @@ public class ControladorCliente extends HttpServlet {
         try {
             FabricaLogica.getLogicaCliente().agregar(unCliente);
             request.getSession().setAttribute("mensaje", "Cliente agregado con éxito");
-            response.sendRedirect("ControladorCliente");
+            response.sendRedirect("cliente");
         } catch (ExcepcionPersonalizada ex) {
             request.setAttribute("mensaje", "Error " + ex.getMessage());
             request.getRequestDispatcher("WEB-INF/vistas/cliente/registroCliente.jsp").forward(request, response);
@@ -207,7 +208,7 @@ public class ControladorCliente extends HttpServlet {
                 request.setAttribute("mensaje", "Cliente encontrado");
             } else {
                 request.setAttribute("mensaje", "Error, no se encontro un cliente con la cédula ingresada");
-                request.setAttribute("ocultarform", true);
+                request.setAttribute("ocultarformulario", true);
             }
 
         } catch (ExcepcionPersonalizada ex) {
@@ -230,7 +231,7 @@ public class ControladorCliente extends HttpServlet {
             request.getRequestDispatcher("WEB-INF/vistas/cliente/modificar.jsp");
             return;
         }
-        String nombreCliente = request.getParameter("NombreCliente");
+        String nombreCliente = request.getParameter("NombreCompleto");
         String Tel = request.getParameter("Telefono");
 
         if (!(Tel.matches("^09[0-9]{7}||2[0-9]{7}$"))) {
@@ -243,7 +244,7 @@ public class ControladorCliente extends HttpServlet {
         try {
             FabricaLogica.getLogicaCliente().modificar(unCliente);
             request.getSession().setAttribute("mensaje", "Cliente modificado con éxito");
-            response.sendRedirect("ControladorCliente");
+            response.sendRedirect("cliente");
 
         } catch (ExcepcionPersonalizada ex) {
             request.setAttribute("mensaje", "Error " + ex.getMessage());
@@ -299,7 +300,7 @@ public class ControladorCliente extends HttpServlet {
         try {
             FabricaLogica.getLogicaCliente().eliminar(ci);
             request.getSession().setAttribute("mensaje", "Eliminación realizada con éxito");
-            response.sendRedirect("ControladorCliente");
+            response.sendRedirect("cliente");
         } catch (ExcepcionPersonalizada ex) {
             request.setAttribute("mensaje", "Error " + ex.getMessage());
             request.getRequestDispatcher("WEB-INF/vistas/cliente/eliminar.jsp").forward(request, response);

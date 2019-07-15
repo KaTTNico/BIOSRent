@@ -4,14 +4,61 @@
     Author     : Nicolas
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%!int vehiculoIndex;%>
+
+<t:paginaMaestra title="Vehiculos">
+    <jsp:body>
+        <fmt:setLocale value="en-US" />
+
+        <t:mensaje />
+        
+        <form>
+            <p><input class="txt-box-clientes"  type="text" name="buscar" value="${param.buscar}" id="buscar"/><input class ="boton-buscar" type="submit" value="Buscar"  /></p>
+        </form>
+
+        <a href="vehiculo?accion=agregar"><img src="imagenes/iconos/addVehiculo.png" alt="Agregar" title="Agregar" height="70" width="90"></a><br/>
+
+        <table class="contenido-tabla">
+            <tr>
+                <th>Matricula</th>
+                <th>Tipo</th>
+                <th>Descripcion</th>
+                <th>PrecioAlquilerDiario</th>
+                <th>Sucursal</th>
+            </tr>
+
+            <c:set var="vehiculoIndex" value="${vehiculoIndex + 1}" scope="page"/>
+
+            <c:forEach items="${vehiculos}" var="vehiculo">
+                <tr>                    
+                    <td class="texto-centro">${vehiculo.matricula}</td>
+                    <td>${vehiculo.tipo}</td>
+                    <td>${vehiculo.descripcion}</td>
+                    <td class="texto-derecha">
+                        <fmt:formatNumber type="number" pattern="0.00" value="${vehiculo.precioAlquilerDiario}" />
+                    </td>
+                    <td>${(vehiculo.sucursalPertenece == null)? "Alquilado" : vehiculo.sucursalPertenece.nombre}</td>
+                    <td>
+                        <a href="vehiculo?accion=modificar&vehiculoIndex=${vehiculoIndex}"><img src="imagenes/iconos/editVehiculo.png" alt="Modificar" title="Modificar..." height="50" width="50"></a>&nbsp;&nbsp;
+                        <a href="vehiculo?accion=ver&vehiculoIndex=${vehiculoIndex}"><img src="imagenes/iconos/verUser.png" alt="Ver" title="Ver..." height="50" width="50"></a>&nbsp;&nbsp;
+                        <a href="vehiculo?accion=eliminar&vehiculoIndex=${vehiculoIndex}"><img src="imagenes/iconos/removeVehiculo.png" alt="Eliminar" title="Eliminar..." height="50" width="50"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="vehiculo?accion=trasladar&vehiculoIndex=${vehiculoIndex}"><img src="imagenes/iconos/trasladarVehiculo.png" alt="Trasladar" title="Trasladar..." height="50" width="100"></a>
+                    </td>
+                    <c:set var="vehiculoIndex" value="${vehiculoIndex + 1}" scope="page"/>
+                </tr>
+
+            </c:forEach>
+        </table>
+
+        <script>
+            document.getElementById('buscar').focus();
+            document.getElementById('buscar').select();
+        </script>
+
+        <p><a href="inicio">Volver a inicio...</a></p>
+    </jsp:body>
+</t:paginaMaestra>

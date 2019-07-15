@@ -11,6 +11,7 @@ import MVC.modelo.entidades.beans.excepciones.ExcepcionPersistencia;
 import MVC.modelo.entidades.beans.excepciones.ExcepcionPersonalizada;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLType;
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ class PersistenciaVehiculo implements IPersistenciaVehiculo{
                 _vehiucloEncontrado.setMatricula(parameterMatricula);
                 _vehiucloEncontrado.setDescripcion(resultadoConsulta.getString("Descripcion"));
                 _vehiucloEncontrado.setPrecioAlquilerDiario(resultadoConsulta.getDouble("PrecioAlquilerDiario"));
-                _vehiucloEncontrado.setSucursalPertenece(PersistenciaSucursal.getInstancia().BuscarSucursal(resultadoConsulta.getInt("SucursalCodigo")));
+                _vehiucloEncontrado.setSucursalPertenece(BuscarSucursalVehiculo(_vehiucloEncontrado.getMatricula()));
                 _vehiucloEncontrado.setTipo(resultadoConsulta.getString("Tipo"));
             }
 
@@ -94,7 +95,7 @@ class PersistenciaVehiculo implements IPersistenciaVehiculo{
                 _vehiucloEncontrado.setMatricula(parameterMatricula);
                 _vehiucloEncontrado.setDescripcion(resultadoConsulta.getString("Descripcion"));
                 _vehiucloEncontrado.setPrecioAlquilerDiario(resultadoConsulta.getDouble("PrecioAlquilerDiario"));
-                _vehiucloEncontrado.setSucursalPertenece(PersistenciaSucursal.getInstancia().BuscarSucursal(resultadoConsulta.getInt("SucursalCodigo")));
+                _vehiucloEncontrado.setSucursalPertenece(BuscarSucursalVehiculo(_vehiucloEncontrado.getMatricula()));
                 _vehiucloEncontrado.setTipo(resultadoConsulta.getString("Tipo"));
             }
 
@@ -119,7 +120,7 @@ class PersistenciaVehiculo implements IPersistenciaVehiculo{
 
             //Preparar consulta
             conexion = Utilidades.getConnection();
-            consulta = conexion.prepareCall("{ call ListarVehiculo(?) }");
+            consulta = conexion.prepareCall("{ call ListarVehiculo() }");
 
             //Ejecutar y obtener result set
             consulta.execute();
@@ -130,7 +131,7 @@ class PersistenciaVehiculo implements IPersistenciaVehiculo{
                 _vehiucloEncontrado.setMatricula(resultadoConsulta.getString("Matricula"));
                 _vehiucloEncontrado.setDescripcion(resultadoConsulta.getString("Descripcion"));
                 _vehiucloEncontrado.setPrecioAlquilerDiario(resultadoConsulta.getDouble("PrecioAlquilerDiario"));
-                _vehiucloEncontrado.setSucursalPertenece(PersistenciaSucursal.getInstancia().BuscarSucursal(resultadoConsulta.getInt("SucursalCodigo")));
+                _vehiucloEncontrado.setSucursalPertenece(BuscarSucursalVehiculo(_vehiucloEncontrado.getMatricula()));
                 _vehiucloEncontrado.setTipo(resultadoConsulta.getString("Tipo"));
                 _vehiculosEncontrados.add(_vehiucloEncontrado);
             }
@@ -142,6 +143,36 @@ class PersistenciaVehiculo implements IPersistenciaVehiculo{
         }
         
         return _vehiculosEncontrados;
+    }
+    
+    protected Sucursal BuscarSucursalVehiculo(String parameterMatricula) throws ExcepcionPersonalizada{
+        Connection conexion = null;
+        PreparedStatement consulta = null;
+        ResultSet resultadoConsulta = null;
+        Sucursal _sucursalEncontrado = null;
+
+        try {
+
+            //Preparar consulta
+            conexion = Utilidades.getConnection();
+            consulta = conexion.prepareStatement("Select * from VehiculoSucursal where MatriculaVehiculo=?");
+            consulta.setString(1, parameterMatricula);
+
+            //Ejecutar y obtener result set
+            consulta.execute();
+            resultadoConsulta = consulta.getResultSet();
+
+            if (resultadoConsulta.next()) {
+                _sucursalEncontrado = PersistenciaSucursal.getInstancia().BuscarSucursal(resultadoConsulta.getInt("CodigoSucursal"));
+            }
+
+        } catch (Exception ex) {
+            throw new ExcepcionPersistencia("No se pudo obtener sucursal de vehiculo.", ex);
+        } finally {
+            Utilidades.CloseResources(resultadoConsulta, consulta, conexion);
+        }
+        
+        return _sucursalEncontrado;
     }
 
     @Override
@@ -158,7 +189,7 @@ class PersistenciaVehiculo implements IPersistenciaVehiculo{
             consulta = conexion.prepareCall("{ call AgregarVehiculo(?,?,?,?,?,?) }");
             consulta.setString(++p, parameterVehiculo.getMatricula());
             consulta.setString(++p, parameterVehiculo.getTipo());
-            consulta.setString(++p, parameterVehiculo.getTipo());
+            consulta.setString(++p, parameterVehiculo.getDescripcion());
             consulta.setDouble(++p, parameterVehiculo.getPrecioAlquilerDiario());
             consulta.setInt(++p, parameterVehiculo.getSucursalPertenece().getCodigo());
             consulta.registerOutParameter(++p, java.sql.JDBCType.VARCHAR);
@@ -190,9 +221,9 @@ class PersistenciaVehiculo implements IPersistenciaVehiculo{
             consulta = conexion.prepareCall("{ call ModificarVehiculo(?,?,?,?,?,?) }");
             consulta.setString(++p, parameterVehiculo.getMatricula());
             consulta.setString(++p, parameterVehiculo.getTipo());
-            consulta.setString(++p, parameterVehiculo.getTipo());
+            consulta.setString(++p, parameterVehiculo.getDescripcion());
             consulta.setDouble(++p, parameterVehiculo.getPrecioAlquilerDiario());
-            consulta.setInt(++p, parameterVehiculo.getSucursalPertenece().getCodigo());
+            consulta.setInt(++p, (parameterVehiculo.getSucursalPertenece() == null ? -1 : parameterVehiculo.getSucursalPertenece().getCodigo()));
             consulta.registerOutParameter(++p, java.sql.JDBCType.VARCHAR);
             
             //Ejecutar y obtener result set

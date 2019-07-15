@@ -7,33 +7,33 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
-<html>
+<html class="fondo">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" href="css/estilos.css">
     </head>
-    <body>
-        <h1>Logueo</h1>
-        <h2>Empleados</h2>
+    <body class="bodyLogin">
 
-        <form action="empleado" method="POST">
-            <div>
-                <label for="NombreUser">Usuario:</label>
-                <input type ="text" name="NombreUser" id="NombreUser" value="${param.NomUser}"/>
-            </div>
-            <div>
-                <label for="Pass">Contraseña:</label>
-                <input type ="password" name="Pass" id="Pass"/>
-            </div>
-            <div>
-                <input type ="hidden" name ="accion" value="logIn"/>
-                <input type="submit" name ="botonLogin" value="Login"
+        <div class="login-page">
+            <form  class="form" action="empleado" method="POST">
+                <div>
 
-            </div>
-        </form>
+
+                    <input class="txtbox-logueo" type ="text" name="NombreUser" id="NombreUser" value="${param.NomUser}" placeholder="usuario"/>
+
+                    <input class="txtbox-logueo" type ="password" name="Pass" id="Pass" placeholder="contraseña"/><br>
+
+
+                    <input type ="hidden" name ="accion" value="logIn"/>
+                    <input class="btn-logueo" type="submit" name ="botonLogin" value="LOGIN">
+                    <t:mensaje />
+                </div>
+            </form>
+        </div>
         <script>
             document.getElementById('NombreUser').select();
         </script>
     </body>
-    <t:mensaje />
+
 </html>

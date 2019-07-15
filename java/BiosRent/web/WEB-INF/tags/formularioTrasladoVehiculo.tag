@@ -27,7 +27,7 @@
         <td>
             <select id="sucursalSelect" name="sucursalTraslado" class="txt-box-clientes">
                 <c:forEach var="sucursal" items="${sucursales}">
-                    <option value="${sucursal.codigo}" <c:if test="${empty param.sucursalTraslado ? $[vehiculo.sucursalPertenece.codigo.equals(sucursal.codigo)] : $[Integer.parseInt(param.sucursalTraslado).equals(sucursal.codigo)]}">selected</c:if>>${sucursal.nombre}</option>
+                    <option value="${sucursal.codigo}" <c:if test="${empty param.sucursalTraslado ? vehiculo.sucursalPertenece.codigo.equals(sucursal.codigo) : param.sucursalTraslado.equals(sucursal.codigo.toString())}">selected</c:if>>${sucursal.nombre}</option>
                 </c:forEach>
             </select>
         </td>

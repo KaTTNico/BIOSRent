@@ -5,7 +5,7 @@
  */
 package MVC.modelo.persistencia;
 
-import MVC.modelo.entidades.beans.datatypes.Vehiculo;
+import MVC.modelo.entidades.beans.datatypes.*;
 import MVC.modelo.entidades.beans.excepciones.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,5 +16,11 @@ import java.util.List;
  */
 public interface IPersistenciaAlquiler {
 
-    ArrayList<Vehiculo> listarVehiculosDisponibles() throws ExcepcionPersonalizada;
+    ArrayList<Vehiculo> listarVehiculosDisponibles(String usuario) throws ExcepcionPersonalizada;
+
+    void alta(Alquiler alquiler) throws ExcepcionPersonalizada;
+
+    Alquiler obtenerAlquilerPendiente(int cedula) throws ExcepcionPersonalizada;
+
+    double obtenerMulta(int id) throws ExcepcionPersonalizada;
 }

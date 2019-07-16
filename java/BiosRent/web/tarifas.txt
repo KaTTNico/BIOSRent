@@ -1,0 +1,2 @@
+seguro 2000
+garantia 1500

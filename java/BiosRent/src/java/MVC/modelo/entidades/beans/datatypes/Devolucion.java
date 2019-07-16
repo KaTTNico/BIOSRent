@@ -12,6 +12,7 @@ import java.util.Date;
  * @author Nicolas
  */
 public class Devolucion {
+
     private Alquiler alquiler;
     private Sucursal sucursal;
     private Date fechaDevolucion;
@@ -46,6 +47,16 @@ public class Devolucion {
     }
 
     public void setMulta(Double multa) {
+        this.multa = multa;
+    }
+
+    public Devolucion() {
+    }
+
+    public Devolucion(Alquiler alquiler, Sucursal sucursal, Date fechaDevolucion, Double multa) {
+        this.alquiler = alquiler;
+        this.sucursal = sucursal;
+        this.fechaDevolucion = fechaDevolucion;
         this.multa = multa;
     }
 }

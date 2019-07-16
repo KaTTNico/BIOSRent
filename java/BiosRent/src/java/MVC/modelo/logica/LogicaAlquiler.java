@@ -64,7 +64,12 @@ class LogicaAlquiler implements ILogicaAlquiler {
 
     @Override
     public void alta(Alquiler alquiler) throws ExcepcionPersonalizada {
-
+        try {
+            validar(alquiler);
+            persistencia.alta(alquiler);
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     @Override
@@ -73,7 +78,17 @@ class LogicaAlquiler implements ILogicaAlquiler {
     }
 
     @Override
-    public ArrayList<Vehiculo> listarVehiculosDisponibles() throws ExcepcionPersonalizada {
-        return persistencia.listarVehiculosDisponibles();
+    public ArrayList<Vehiculo> listarVehiculosDisponibles(String usuario) throws ExcepcionPersonalizada {
+        return persistencia.listarVehiculosDisponibles(usuario);
+    }
+
+    @Override
+    public Alquiler obtenerAlquilerPendiente(int cedula) throws ExcepcionPersonalizada {
+        return persistencia.obtenerAlquilerPendiente(cedula);
+    }
+
+    @Override
+    public double obtenerMulta(int id) throws ExcepcionPersonalizada {
+        return persistencia.obtenerMulta(id);
     }
 }

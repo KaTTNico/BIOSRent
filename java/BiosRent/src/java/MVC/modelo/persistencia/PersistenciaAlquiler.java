@@ -154,7 +154,7 @@ class PersistenciaAlquiler implements IPersistenciaAlquiler {
     }
 
     @Override
-    public double obtenerMulta(int cedula) throws ExcepcionPersonalizada {
+    public double obtenerMulta(int id) throws ExcepcionPersonalizada {
         Connection conexion = null;
         CallableStatement consulta = null;
         ResultSet resultadoConsulta = null;
@@ -164,7 +164,7 @@ class PersistenciaAlquiler implements IPersistenciaAlquiler {
         try {
             conexion = Utilidades.getConnection();
             consulta = conexion.prepareCall("{CALL obtenerMulta(?)}");
-            consulta.setInt(1, cedula);
+            consulta.setInt(1, id);
             consulta.execute();
             resultadoConsulta = consulta.getResultSet();
 

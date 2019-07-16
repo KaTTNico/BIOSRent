@@ -23,6 +23,8 @@ public interface ILogicaAlquiler {
     void ver(int id) throws ExcepcionPersonalizada;
 
     ArrayList<Vehiculo> listarVehiculosDisponibles(String usuario) throws ExcepcionPersonalizada;
-    
+
     Alquiler obtenerAlquilerPendiente(int cedula) throws ExcepcionPersonalizada;
+
+    double obtenerMulta(int id) throws ExcepcionPersonalizada;
 }

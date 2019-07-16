@@ -15,7 +15,7 @@
     <jsp:body>
         <fmt:setLocale value="en-US"/>
 
-        <form method="get" accion="devolver" autocomplete="off">
+        <form method="get"  autocomplete="off">
             <div class="autocomplete" style="width:300px;">
                 <style type="text/css" scoped>
                     /*the container must be positioned relative:*/
@@ -68,7 +68,7 @@
                 <input id="cliente" type="text" name="cliente" value="" placeholder="Cliente"/>
             </div>
             <br /><br />
-            <input type="submit" value="devolver"/>
+            <input type="submit" value="devolver" name="accion"/>
         </form>
         <p><a href="index">Volver...</a></p>
         <t:mensaje />

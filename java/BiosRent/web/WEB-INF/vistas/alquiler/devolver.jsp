@@ -17,7 +17,9 @@
 
         <form method='post' accion="devolver" autocomplete="off">
             <div class="autocomplete" style="width:300px;">
-                <input type="hidden" name="sucursal" value="${empleadoLogueado.sucursalEmp.codigo}"/>
+                <input type="hidden" name="sucursal" value="${empleadoLogueado.sucursalEmp.codigo}"/> 
+                <input type="hidden" name="multa" value="${param.multa}"/>
+
 
                 <input type="text" value="${alquiler.id}" name="id" readonly disabled />
                 <p></p>
@@ -36,7 +38,7 @@
                 <input type="text" value="${alquiler.sucursal.codigo}" name="sucursal" readonly disabled />
             </div>
             <br /><br />
-            <input type="submit" value="agregar"/>
+            <input type="submit" value="Devolver"/>
         </form>
         <p><a href="index">Volver...</a></p>
         <t:mensaje />

@@ -88,7 +88,7 @@ class LogicaAlquiler implements ILogicaAlquiler {
     }
 
     @Override
-    public double obtenerMulta(int cedula) throws ExcepcionPersonalizada {
-        return persistencia.obtenerMulta(cedula);
+    public double obtenerMulta(int id) throws ExcepcionPersonalizada {
+        return persistencia.obtenerMulta(id);
     }
 }

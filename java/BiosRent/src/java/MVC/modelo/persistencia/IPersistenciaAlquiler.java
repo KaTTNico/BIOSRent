@@ -22,5 +22,5 @@ public interface IPersistenciaAlquiler {
 
     Alquiler obtenerAlquilerPendiente(int cedula) throws ExcepcionPersonalizada;
 
-    double obtenerMulta(int cedula) throws ExcepcionPersonalizada;
+    double obtenerMulta(int id) throws ExcepcionPersonalizada;
 }

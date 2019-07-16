@@ -21,12 +21,12 @@ class Utilidades {
     //private static final String CONTRASENA_BASE_DATOS = "password";
 
     //Nico
-    private static final String NOMBRE_USUARIO_BASE_DATOS = "root";
-    private static final String CONTRASENA_BASE_DATOS = "root";
-
-    //Kufa
     //private static final String NOMBRE_USUARIO_BASE_DATOS = "root";
-    //private static final String CONTRASENA_BASE_DATOS = "password";
+    //private static final String CONTRASENA_BASE_DATOS = "root";
+    //Kufa
+    private static final String NOMBRE_USUARIO_BASE_DATOS = "root";
+    private static final String CONTRASENA_BASE_DATOS = "Password01";
+
     static {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();

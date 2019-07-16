@@ -71,10 +71,10 @@ public class ControladorAlquiler extends HttpServlet {
     public void index_get(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            String usuario = request.getParameter("NombreUser");
+            Empleado unemp = (Empleado) request.getSession().getAttribute("empleadoLogueado");
 
             //obtener vehiculos disponibles
-            List<Vehiculo> vehiculos = FabricaLogica.getLogicaAlquiler().listarVehiculosDisponibles(usuario);
+            List<Vehiculo> vehiculos = FabricaLogica.getLogicaAlquiler().listarVehiculosDisponibles(unemp.getNombreUser());
             request.setAttribute("vehiculos", vehiculos);
 
             if (!vehiculos.isEmpty()) {
@@ -143,8 +143,15 @@ public class ControladorAlquiler extends HttpServlet {
             }
 
             Alquiler alquiler = FabricaLogica.getLogicaAlquiler().obtenerAlquilerPendiente(cedula);
-            
-            //double multa = FabricaLogica.getLogicaAlquiler().obtenerMulta(cedula);
+            double multa = FabricaLogica.getLogicaAlquiler().obtenerMulta(alquiler.getId());
+            request.setAttribute("multa", multa);
+
+            if (multa > 0) {
+                request.setAttribute("mensaje", "La devolucion contiene una multa de $" + multa);
+            } else {
+                request.setAttribute("mensaje", "La devolucion no cuenta con multa.");
+            }
+
             request.setAttribute("alquiler", alquiler);
         } catch (ExcepcionPersonalizada ex) {
             request.setAttribute("mensaje", ex.getMessage());
@@ -191,7 +198,7 @@ public class ControladorAlquiler extends HttpServlet {
                 agregar_post(request, response);
                 break;
             case "devolver":
-                //devolver_post(request, response);
+                devolver_post(request, response);
                 break;
         }
     }
@@ -284,6 +291,45 @@ public class ControladorAlquiler extends HttpServlet {
 
             request.getRequestDispatcher("WEB-INF/vistas/alquiler/agregar.jsp").forward(request, response);
         }
+    }
+
+    public void devolver_post(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Date fechaAlquiler = new Date();
+        int idAlquiler = 0;
+        double multa = 0d;
+        int sucursalCodigo = 0;
+
+        try {
+            idAlquiler = Integer.parseInt(request.getParameter("id"));
+        } catch (NumberFormatException ex) {
+            request.setAttribute("mensaje", "¡ERROR! El id no es valido.");
+
+            request.getRequestDispatcher("WEB-INF/vistas/alquiler/devolver.jsp").forward(request, response);
+
+            return;
+        }
+        try {
+            sucursalCodigo = Integer.parseInt(request.getParameter("sucursal"));
+        } catch (NumberFormatException ex) {
+            request.setAttribute("mensaje", "¡ERROR! El codigo de sucursal no es valido.");
+
+            request.getRequestDispatcher("WEB-INF/vistas/alquiler/devolver.jsp").forward(request, response);
+
+            return;
+        }
+        try {
+            multa = Double.parseDouble(request.getParameter("multa"));
+        } catch (NumberFormatException ex) {
+            request.setAttribute("mensaje", "¡ERROR! La multa no es valida.");
+
+            request.getRequestDispatcher("WEB-INF/vistas/alquiler/devolver.jsp").forward(request, response);
+
+            return;
+        }
+        return;
+        //se acabo el tiempo profe :(
+        // .--. ..- - --- . .-.. --.- ..- . .-.. --- .-.. . .- .-.-.
     }
 
     //Operaciones 

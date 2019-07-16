@@ -36,5 +36,6 @@
                 </tr>
             </c:forEach>
         </table>
+        <t:mensaje/>
     </jsp:body>
 </t:paginaMaestra>

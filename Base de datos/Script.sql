@@ -457,8 +457,8 @@ begin
     
     from Alquiler 
     
-    left join Devolucion on Alquiler.Id = Devolucion.AlquilerId 
-    where Alquiler.ClienteCedula = clienteCedula and Devolucion.AlquilerId is null
+    left join Devoluciones on Alquiler.Id = Devoluciones.AlquilerId 
+    where Alquiler.ClienteCedula = clienteCedula and Devoluciones.AlquilerId is null
     
     order by Alquiler.FechaAlquiler desc limit 1;
 End//
@@ -477,7 +477,7 @@ cuerpo:begin
         Leave cuerpo;		
     end if;
     
-	if(exists(select * from Devolucion where AlquilerId=alquilerId))then
+	if(exists(select * from Devoluciones where AlquilerId=alquilerId))then
 		set pMsjError= "Error, este alquiler ya tiene una devolucion asociada.";
         Leave cuerpo;
     end if;
@@ -487,25 +487,27 @@ cuerpo:begin
         Leave cuerpo;
 	end if;
     
-    insert into Devolucion(SucursalCodigo,FechaDevolucion,MultaAtraso) 
+    insert into Devoluciones(SucursalCodigo,FechaDevolucion,MultaAtraso) 
     values(sucursalCodigo,fechaDevolucion,multaAtraso);
 End//
 Delimiter ;
 
 Delimiter //
-Create procedure obtenerMulta(cedula int)
+Create procedure obtenerMulta(id int)
 begin
-    select (Vehiculo.PrecioAlquilerDiario / 0.9) * DATEDIFF(DATE_ADD(Alquiler.FechaAlquiler, INTERVAL Alquiler.CantidadDias DAY),NOW()) as Multa
-    
-    from Vehiculo 
-    
-    left join Alquiler on Alquiler.VehiculoMatricula=Vehiculo.Matricula 
-    left join Devolucion on Alquiler.Id = Devolucion.AlquilerId 
-    
-    where Alquiler.ClienteCedula = cedula and Devolucion.AlquilerId is null
-    
-    order by Alquiler.FechaAlquiler desc limit 1;
+	if(DATE_ADD((select Alquiler.FechaAlquiler from Alquiler where Alquiler.Id=id), INTERVAL (select Alquiler.CantidadDias from Alquiler where Alquiler.Id=id) DAY)<NOW())then
+		select (Vehiculo.PrecioAlquilerDiario * 1.1) * DATEDIFF(DATE_ADD(Alquiler.FechaAlquiler, INTERVAL Alquiler.CantidadDias DAY),NOW()) as Multa
+		
+		from Vehiculo 
+		
+		left join Alquiler on Alquiler.VehiculoMatricula=Vehiculo.Matricula 
+		left join Devoluciones on Alquiler.Id = Devoluciones.AlquilerId 
+		
+		where Alquiler.Id = id and Devoluciones.AlquilerId is null
+		
+		order by Alquiler.FechaAlquiler desc limit 1;
+    else
+		select 0 as Multa;
+    end if;
 End//
 Delimiter ;
-/*,
-    (select (Vehiculo.PrecioAlquilerDiario /0.9) * DATEDIFF(FechaAlquiler,NOW()) as Multa)as Multa*/

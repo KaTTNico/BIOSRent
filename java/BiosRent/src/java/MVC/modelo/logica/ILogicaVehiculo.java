@@ -24,6 +24,4 @@ public interface ILogicaVehiculo {
     void ModificarVehiculo(Vehiculo parameterVehiculo) throws ExcepcionPersonalizada;
 
     void EliminarVehiculo(String parameterMatricula) throws ExcepcionPersonalizada;
-
-    double obtenerMulta(int cedula) throws ExcepcionPersonalizada;
 }
